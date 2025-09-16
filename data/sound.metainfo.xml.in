@@ -12,21 +12,21 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/elementary/switchboard-plug-sound/8.0.0/data/screenshot-output.png</image>
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-output.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/elementary/switchboard-plug-sound/8.0.0/data/screenshot-input.png</image>
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-input.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/elementary/switchboard-plug-sound/8.0.0/data/screenshot-applications.png</image>
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-applications.png</image>
     </screenshot>
   </screenshots>
 
-  <url type="bugtracker">https://github.com/elementary/switchboard-plug-sound/issues</url>
+  <url type="bugtracker">https://github.com/elementary/settings-sound/issues</url>
   <url type="donation">https://elementary.io/get-involved#funding</url>
-  <url type="help">https://github.com/elementary/switchboard-plug-sound/discussions</url>
+  <url type="help">https://github.com/elementary/settings-sound/discussions</url>
   <url type="homepage">https://elementary.io/</url>
-  <url type="translate">https://l10n.elementary.io/engage/switchboard/</url>
+  <url type="translate">https://l10n.elementary.io/engage/settings/</url>
 
   <developer id="org.elementaryos">
     <name>elementary, Inc.</name>
@@ -44,7 +44,7 @@
         </ul>
       </description>
       <issues>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/278">ScreenReader switch does not synchronise with setting</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/278">ScreenReader switch does not synchronise with setting</issue>
       </issues>
     </release>
 
@@ -61,11 +61,11 @@
         </ul>
       </description>
       <issues>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/207">Audio output device not switched correctly when plugged in</issue>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/222">It is very annoying to change sound output</issue>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/259">After plugging wired headphones, can't switch back to speakers</issue>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/260">Toggling mute switch does nothing</issue>
-        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/264">Unplugging device doesn't remove from list</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/207">Audio output device not switched correctly when plugged in</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/222">It is very annoying to change sound output</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/259">After plugging wired headphones, can't switch back to speakers</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/260">Toggling mute switch does nothing</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/264">Unplugging device doesn't remove from list</issue>
       </issues>
     </release>
 
