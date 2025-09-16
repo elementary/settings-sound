@@ -1,5 +1,5 @@
 # Sound Settings
-[![Translation status](https://l10n.elementary.io/widgets/switchboard/-/switchboard-plug-sound/svg-badge.svg)](https://l10n.elementary.io/engage/switchboard/?utm_source=widget)
+[![Translation status](https://l10n.elementaryos.org/widget/settings/sound/svg-badge.svg)](https://l10n.elementaryos.org/engage/settings/)
 
 ![screenshot](data/screenshot-output.png?raw=true)
 
