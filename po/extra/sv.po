@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-25 20:24+0000\n"
-"PO-Revision-Date: 2025-10-22 05:26+0000\n"
+"PO-Revision-Date: 2025-10-22 09:59+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound-plug-extra/sv/>\n"
@@ -34,7 +34,7 @@ msgstr "Förbättringar:"
 
 #: data/sound.metainfo.xml.in:42
 msgid "Fix crash when connecting bluetooth audio players"
-msgstr ""
+msgstr "Fixa krasch vid anslutning av Bluetooth-ljudspelare"
 
 #: data/sound.metainfo.xml.in:43 data/sound.metainfo.xml.in:57
 #: data/sound.metainfo.xml.in:76 data/sound.metainfo.xml.in:89
@@ -48,23 +48,23 @@ msgstr "Nya funktioner:"
 
 #: data/sound.metainfo.xml.in:52
 msgid "Control the volume of individual apps"
-msgstr ""
+msgstr "Kontrollera volymen för enskilda appar"
 
 #: data/sound.metainfo.xml.in:56
 msgid "Include missing output items in search results"
-msgstr ""
+msgstr "Inkludera saknade utdataobjekt i sökresultaten"
 
 #: data/sound.metainfo.xml.in:73
 msgid "Improve responsiveness for large and small displays"
-msgstr ""
+msgstr "Förbättrad responsivitet för stora och små skärmar"
 
 #: data/sound.metainfo.xml.in:74
 msgid "Better volume level indicator for microphones"
-msgstr ""
+msgstr "Bättre volymnivåindikator för mikrofoner"
 
 #: data/sound.metainfo.xml.in:75
 msgid "Show screen reader shortcut"
-msgstr ""
+msgstr "Visa genväg för skärmläsare"
 
 #: data/sound.metainfo.xml.in:86 data/sound.metainfo.xml.in:99
 #: data/sound.metainfo.xml.in:115
@@ -74,14 +74,16 @@ msgstr "Mindre uppdateringar:"
 #: data/sound.metainfo.xml.in:88
 msgid "Use device form factor when available to assign more accurate icons"
 msgstr ""
+"Använd enhetens formfaktor när det finns tillgängligt för att tilldela mer "
+"exakta ikoner"
 
 #: data/sound.metainfo.xml.in:101
 msgid "Provide a fallback device icon in case none is available"
-msgstr ""
+msgstr "Tillhandahålla en reservikon för enheten om ingen sådan är tillgänglig"
 
 #: data/sound.metainfo.xml.in:102
 msgid "More helpful placeholder text when no input devices are found"
-msgstr ""
+msgstr "Mer användbar platshållartext när inga inmatningsenheter hittas"
 
 #: data/sound.metainfo.xml.in:110
 msgid "New features:"
@@ -89,11 +91,11 @@ msgstr "Nya funktioner:"
 
 #: data/sound.metainfo.xml.in:112
 msgid "Show device icons"
-msgstr ""
+msgstr "Visa enhetssymboler"
 
 #: data/sound.metainfo.xml.in:113
 msgid "Switch to enable the screen reader"
-msgstr ""
+msgstr "Växla för att aktivera skärmläsaren"
 
 #~ msgid "Sound"
 #~ msgstr "Ljud"
