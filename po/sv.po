@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-25 20:24+0000\n"
-"PO-Revision-Date: 2025-10-22 09:59+0000\n"
+"PO-Revision-Date: 2025-10-23 12:55+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound/sv/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
-msgstr "Inga applikationer avger ljud för närvarande"
+msgstr "Inga program avger ljud för närvarande"
 
 #: src/ApplicationsPanel.vala:13
 msgid "Applications emitting sounds will automatically appear here"
