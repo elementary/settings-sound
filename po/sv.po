@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-25 20:24+0000\n"
-"PO-Revision-Date: 2025-10-22 05:26+0000\n"
+"PO-Revision-Date: 2025-10-22 09:59+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound/sv/>\n"
@@ -22,19 +22,19 @@ msgstr ""
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
-msgstr ""
+msgstr "Inga applikationer avger ljud för närvarande"
 
 #: src/ApplicationsPanel.vala:13
 msgid "Applications emitting sounds will automatically appear here"
-msgstr ""
+msgstr "Program som avger ljud kommer automatiskt att visas här"
 
 #: src/ApplicationsPanel.vala:32
 msgid "Reset all apps to default"
-msgstr ""
+msgstr "Återställ alla appar till standardinställningarna"
 
 #: src/AppRow.vala:99
 msgid "Unmute"
-msgstr ""
+msgstr "Aktivera ljud"
 
 #: src/AppRow.vala:101
 msgid "Mute"
@@ -85,13 +85,11 @@ msgstr "Balans"
 
 #: src/Plug.vala:100 src/OutputPanel.vala:112
 msgid "Screen Reader"
-msgstr ""
+msgstr "Skärmläsare"
 
 #: src/Plug.vala:101
-#, fuzzy
-#| msgid "Test Speakers…"
 msgid "Test Speakers"
-msgstr "Testa högtalare…"
+msgstr "Test av högtalare"
 
 #: src/Plug.vala:106
 msgid "Enable"
@@ -100,23 +98,23 @@ msgstr "Aktivera"
 #: src/OutputPanel.vala:29
 #, c-format
 msgid "Provide audio descriptions for items on the screen. %s"
-msgstr ""
+msgstr "Tillhandahåll ljudbeskrivningar för objekt på skärmen. %s"
 
 #: src/OutputPanel.vala:30
 msgid ", "
 msgstr ", "
 
 #: src/OutputPanel.vala:39
-#, fuzzy
-#| msgid "No Output Device"
 msgid "No Connected Output Devices Detected"
-msgstr "Ingen utgångsenhet"
+msgstr "Inga anslutna utmatningsenheter upptäckta"
 
 #: src/OutputPanel.vala:41
 msgid ""
 "Check that all cables are securely attached and audio output devices are "
 "powered on."
 msgstr ""
+"Kontrollera att alla kablar sitter ordentligt fast och att ljudutgångarna är "
+"påslagna."
 
 #. / TRANSLATORS: describes sound balance
 #: src/OutputPanel.vala:83
@@ -142,14 +140,16 @@ msgid ""
 "attempting to backspace in an empty input or switch windows when only one is "
 "open."
 msgstr ""
+"Meddela när systemet inte kan göra något som svar på inmatning, som att "
+"försöka backa i en tom inmatning eller byta fönster när bara ett är öppet."
 
 #: src/OutputPanel.vala:93
 msgid "Play sound"
-msgstr ""
+msgstr "Spela upp ljud"
 
 #: src/OutputPanel.vala:97
 msgid "Flash screen"
-msgstr ""
+msgstr "Flash-skärm"
 
 #: src/OutputPanel.vala:106
 msgid "Test Speakers…"
@@ -157,18 +157,19 @@ msgstr "Testa högtalare…"
 
 #: src/InputPanel.vala:21
 msgid "No Connected Audio Devices Detected"
-msgstr ""
+msgstr "Inga anslutna ljudenheter upptäckta"
 
 #: src/InputPanel.vala:23
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
 "powered on."
 msgstr ""
+"Kontrollera att alla kablar sitter ordentligt fast och att "
+"ljudinmatningsenheterna är påslagna."
 
 #: src/InputPanel.vala:46
-#, fuzzy
 msgid "Input Volume"
-msgstr "Ingångsvolym:"
+msgstr "Ingångsvolym"
 
 #: src/InputPanel.vala:54
 msgid "Unamplified"
