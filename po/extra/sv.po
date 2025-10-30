@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-29 17:32+0000\n"
-"PO-Revision-Date: 2025-10-22 09:59+0000\n"
+"PO-Revision-Date: 2025-10-31 07:55+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound-plug-extra/sv/>\n"
@@ -53,7 +53,7 @@ msgstr "Kontrollera volymen för enskilda appar"
 
 #: data/sound.metainfo.xml.in:68
 msgid "Include missing output items in search results"
-msgstr "Inkludera saknade utdataobjekt i sökresultaten"
+msgstr "Inkludera saknade utgångsobjekt i sökresultaten"
 
 #: data/sound.metainfo.xml.in:85
 msgid "Improve responsiveness for large and small displays"
@@ -80,11 +80,11 @@ msgstr ""
 
 #: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
-msgstr "Tillhandahålla en reservikon för enheten om ingen sådan är tillgänglig"
+msgstr "Tillhandahåll en reservikon för enheten om ingen sådan är tillgänglig"
 
 #: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
-msgstr "Mer användbar platshållartext när inga inmatningsenheter hittas"
+msgstr "Mer användbar platshållartext när inga ingångsenheter hittas"
 
 #: data/sound.metainfo.xml.in:122
 msgid "New features:"
