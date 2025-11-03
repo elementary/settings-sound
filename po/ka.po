@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-29 17:32+0000\n"
-"PO-Revision-Date: 2024-08-07 18:16+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
-"Language-Team: Georgian <https://l10n.elementary.io/projects/switchboard/"
-"switchboard-plug-sound/ka/>\n"
+"PO-Revision-Date: 2025-11-04 04:55+0000\n"
+"Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://l10n.elementaryos.org/projects/settings/"
+"sound/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
 #: src/ApplicationsPanel.vala:12
@@ -42,7 +42,7 @@ msgstr ""
 
 #: src/Plug.vala:24
 msgid "Sound"
-msgstr ""
+msgstr "ხმა"
 
 #: src/Plug.vala:25
 msgid "Change sound and microphone volume"
@@ -52,12 +52,12 @@ msgstr ""
 #: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
 #: src/Plug.vala:101 src/Device.vala:101
 msgid "Output"
-msgstr ""
+msgstr "გამოტანა"
 
 #: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
 #: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
 msgid "Input"
-msgstr ""
+msgstr "შეყვანა"
 
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
@@ -65,7 +65,7 @@ msgstr "აპლიკაციები"
 
 #: src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
-msgstr ""
+msgstr "მოწყობილობა"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -73,16 +73,15 @@ msgstr ""
 
 #: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
-msgstr ""
+msgstr "პორტი"
 
 #: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
-msgstr ""
+msgstr "ხმის დონე"
 
 #: src/Plug.vala:99
-#, fuzzy
 msgid "Balance"
-msgstr "გაუქმება"
+msgstr "ბალანსი"
 
 #: src/Plug.vala:100 src/OutputPanel.vala:112
 msgid "Screen Reader"
@@ -96,7 +95,7 @@ msgstr "დინამიკი"
 
 #: src/Plug.vala:106
 msgid "Enable"
-msgstr ""
+msgstr "ჩართვა"
 
 #: src/OutputPanel.vala:29
 #, c-format
@@ -170,11 +169,11 @@ msgstr ""
 
 #: src/InputPanel.vala:54
 msgid "Unamplified"
-msgstr ""
+msgstr "გაუძლიერებელი"
 
 #: src/InputPanel.vala:55
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: src/InputDeviceMonitor.vala:79
 msgid "Peak detect"
@@ -182,7 +181,7 @@ msgstr ""
 
 #: src/Device.vala:75
 msgid "Built-in"
-msgstr ""
+msgstr "ჩაშენებული"
 
 #: src/Device.vala:77
 msgid "Speaker"
@@ -190,47 +189,47 @@ msgstr "დინამიკი"
 
 #: src/Device.vala:79
 msgid "Handset"
-msgstr ""
+msgstr "ყურმილი"
 
 #: src/Device.vala:81
 msgid "TV"
-msgstr ""
+msgstr "ტელევიზორი"
 
 #: src/Device.vala:83
 msgid "Webcam"
-msgstr ""
+msgstr "ვებკამერა"
 
 #: src/Device.vala:85
 msgid "Microphone"
-msgstr ""
+msgstr "მიკროფონი"
 
 #: src/Device.vala:87
 msgid "Headset"
-msgstr ""
+msgstr "მიკროფონიანი ყურსასმენი"
 
 #: src/Device.vala:89
 msgid "Headphone"
-msgstr ""
+msgstr "ყურსასმენი"
 
 #: src/Device.vala:91
 msgid "Hands-Free"
-msgstr ""
+msgstr "ხმამაღლამოლაპარაკე კავშირის რეჟიმი"
 
 #: src/Device.vala:93
 msgid "Car"
-msgstr ""
+msgstr "მანქანა"
 
 #: src/Device.vala:95
 msgid "HiFi"
-msgstr ""
+msgstr "HiFi"
 
 #: src/Device.vala:97
 msgid "Computer"
-msgstr ""
+msgstr "კომპიუტერი"
 
 #: src/Device.vala:99
 msgid "Portable"
-msgstr ""
+msgstr "პორტატიული"
 
 #~ msgid "About"
 #~ msgstr "შესახებ"
