@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-25 20:24+0000\n"
+"POT-Creation-Date: 2025-10-29 17:32+0000\n"
 "PO-Revision-Date: 2025-08-30 22:55+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://l10n.elementaryos.org/projects/settings/"
@@ -27,75 +27,76 @@ msgstr "サウンド設定"
 msgid "Change sound and microphone volume"
 msgstr "サウンドとマイクのボリュームを変更します"
 
-#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:54
-#: data/sound.metainfo.xml.in:71
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
+#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
 msgid "Improvements:"
 msgstr "改善点:"
 
-#: data/sound.metainfo.xml.in:42
-msgid "Fix crash when connecting bluetooth audio players"
-msgstr "Bluetooth オーディオプレーヤー接続時にクラッシュする不具合を修正"
-
-#: data/sound.metainfo.xml.in:43 data/sound.metainfo.xml.in:57
-#: data/sound.metainfo.xml.in:76 data/sound.metainfo.xml.in:89
-#: data/sound.metainfo.xml.in:103 data/sound.metainfo.xml.in:117
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:129
 msgid "Updated translations"
 msgstr "翻訳の更新"
 
-#: data/sound.metainfo.xml.in:50
+#: data/sound.metainfo.xml.in:51
+msgid "Fix crash when connecting bluetooth audio players"
+msgstr "Bluetooth オーディオプレーヤー接続時にクラッシュする不具合を修正"
+
+#: data/sound.metainfo.xml.in:62
 msgid "New Features:"
 msgstr "新機能:"
 
-#: data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:64
 msgid "Control the volume of individual apps"
 msgstr "アプリごとの音量調整"
 
-#: data/sound.metainfo.xml.in:56
+#: data/sound.metainfo.xml.in:68
 msgid "Include missing output items in search results"
 msgstr "出力タブの一部項目が検索結果に表示されていなかったのを修正"
 
-#: data/sound.metainfo.xml.in:73
+#: data/sound.metainfo.xml.in:85
 msgid "Improve responsiveness for large and small displays"
 msgstr "大型・小型のディスプレイを考慮したレスポンシブデザインに改善"
 
-#: data/sound.metainfo.xml.in:74
+#: data/sound.metainfo.xml.in:86
 msgid "Better volume level indicator for microphones"
 msgstr "マイクの音量レベルインジケーターの見た目を改善"
 
-#: data/sound.metainfo.xml.in:75
+#: data/sound.metainfo.xml.in:87
 msgid "Show screen reader shortcut"
 msgstr "スクリーンリーダーのショートカットキーを表示するように修正"
 
-#: data/sound.metainfo.xml.in:86 data/sound.metainfo.xml.in:99
-#: data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
+#: data/sound.metainfo.xml.in:127
 msgid "Minor updates:"
 msgstr "マイナーアップデート:"
 
-#: data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:100
 msgid "Use device form factor when available to assign more accurate icons"
 msgstr ""
 "可能であればよりデバイスの種類にあった形状のアイコンを表示するように修正"
 
-#: data/sound.metainfo.xml.in:101
+#: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
 msgstr ""
 "デバイスアイコンが利用できない場合に、代わりのアイコンを表示するように修正"
 
-#: data/sound.metainfo.xml.in:102
+#: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
 msgstr ""
 "入力デバイスが見つからない場合に表示するプレースホルダーに、より有益な情報を"
 "表示するように修正"
 
-#: data/sound.metainfo.xml.in:110
+#: data/sound.metainfo.xml.in:122
 msgid "New features:"
 msgstr "新機能:"
 
-#: data/sound.metainfo.xml.in:112
+#: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
 msgstr "デバイスのアイコンを表示するように変更"
 
-#: data/sound.metainfo.xml.in:113
+#: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
 msgstr "スクリーンリーダーを有効化できるスイッチを追加"
 
