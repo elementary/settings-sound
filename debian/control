@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 10.5.1),
                libgtk-4-dev,
                libpulse-dev,
                libswitchboard-3-dev,
-               meson,
+               meson (>= 0.58.0),
                valac (>= 0.22)
 Standards-Version: 4.1.1
 Homepage: https://github.com/elementary/switchboard-plug-sound
