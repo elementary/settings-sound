@@ -13,7 +13,7 @@ You'll need the following dependencies:
 * libgtk-4-dev
 * libpulse-dev
 * libswitchboard-3-dev
-* meson
+* meson (>= 0.58.0)
 * valac
 
 Run `meson` to configure the build environment and then `ninja` to build

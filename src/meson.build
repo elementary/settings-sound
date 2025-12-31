@@ -14,7 +14,7 @@ plug_files = files(
 )
 
 switchboard_dep = dependency('switchboard-3')
-switchboard_plugsdir = switchboard_dep.get_pkgconfig_variable('plugsdir', define_variable: ['libdir', libdir])
+switchboard_plugsdir = switchboard_dep.get_variable('plugsdir', pkgconfig_define: ['libdir', libdir])
 
 shared_module(
     meson.project_name(),
@@ -32,7 +32,7 @@ shared_module(
         dependency('libpulse'),
         dependency('libpulse-mainloop-glib'),
         dependency('libcanberra'),
-        meson.get_compiler('vala').find_library('libpulse-ext', dirs: join_paths(meson.source_root(), 'vapi')),
+        meson.get_compiler('vala').find_library('libpulse-ext', dirs: join_paths(meson.project_source_root(), 'vapi')),
         switchboard_dep
     ],
     install: true,
