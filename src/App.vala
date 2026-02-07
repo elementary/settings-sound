@@ -28,7 +28,22 @@ public class Sound.App : Object {
 
     public App.from_sink_input_info (PulseAudio.SinkInputInfo sink_input) {
         index = sink_input.index;
-        name = sink_input.proplist.gets (PulseAudio.Proplist.PROP_APPLICATION_NAME);
+
+        if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_APPLICATION_NAME) == 1) {
+            name = sink_input.proplist.gets (PulseAudio.Proplist.PROP_APPLICATION_NAME);
+        } else {
+            if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_DEVICE_API) == 1 &&
+                sink_input.proplist.gets (PulseAudio.Proplist.PROP_DEVICE_API) == "bluez5"
+            ) {
+                name = _("Bluetooth Device");
+            } else {
+                if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_DEVICE_PRODUCT_ID) == 1) {
+                    name = _("Device");
+                } else {
+                    name = _("Unknown");
+                }
+            }
+        }
 
         string app_id;
         if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_APPLICATION_ID) == 1) {
@@ -52,7 +67,11 @@ public class Sound.App : Object {
             if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_APPLICATION_ICON_NAME) == 1) {
                 icon = new ThemedIcon (sink_input.proplist.gets (PulseAudio.Proplist.PROP_APPLICATION_ICON_NAME));
             } else {
-                icon = new ThemedIcon ("application-default-icon");
+                if (sink_input.proplist.contains (PulseAudio.Proplist.PROP_DEVICE_ICON_NAME) == 1) {
+                    icon = new ThemedIcon (sink_input.proplist.gets (PulseAudio.Proplist.PROP_DEVICE_ICON_NAME));
+                } else {
+                    icon = new ThemedIcon ("application-default-icon");
+                }
             }
         }
     }
