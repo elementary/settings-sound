@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2024-08-07 18:16+0000\n"
+"PO-Revision-Date: 2026-02-16 23:55+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
-"Language-Team: French (Canada) <https://l10n.elementary.io/projects/"
-"switchboard/switchboard-plug-sound/fr_CA/>\n"
+"Language-Team: French (Canada) <https://l10n.elementaryos.org/projects/"
+"settings/sound/fr_CA/>\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
 #: src/App.vala:38
@@ -30,7 +30,7 @@ msgstr ""
 
 #: src/App.vala:43
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
