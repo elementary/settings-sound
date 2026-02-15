@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-05-01 17:17+0000\n"
 "Last-Translator: Marcin Serwin <marcin.serwin0@protonmail.com>\n"
 "Language-Team: Polish <https://l10n.elementary.io/projects/switchboard/"
@@ -20,6 +20,20 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.5\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "Brak urządzenia wyjściowego"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "Urządzenie"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Nieznane"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -63,10 +77,6 @@ msgstr "Wejście"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "Aplikacje"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "Urządzenie"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -249,9 +259,6 @@ msgstr "Przenośny"
 #~ msgid "Balance:"
 #~ msgstr "Balans:"
 
-#~ msgid "No Output Device"
-#~ msgstr "Brak urządzenia wyjściowego"
-
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
 #~ "listening to anything."
@@ -304,9 +311,6 @@ msgstr "Przenośny"
 
 #~ msgid "Updates"
 #~ msgstr "Aktualizacje"
-
-#~ msgid "Unknown"
-#~ msgstr "Nieznane"
 
 #~ msgid "Dual-Core"
 #~ msgstr "Dwa rdzenie"

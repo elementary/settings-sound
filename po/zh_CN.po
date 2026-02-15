@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2025-08-08 14:55+0000\n"
 "Last-Translator: JieXu <xujie0739@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
@@ -19,6 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "无输出设备"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "设备"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "未知"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -62,10 +76,6 @@ msgstr "输入设备"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "应用程序"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "设备"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -243,9 +253,6 @@ msgstr "便携"
 #~ msgid "Balance:"
 #~ msgstr "音量均衡："
 
-#~ msgid "No Output Device"
-#~ msgstr "无输出设备"
-
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
 #~ "listening to anything."
@@ -294,9 +301,6 @@ msgstr "便携"
 
 #~ msgid "Updates"
 #~ msgstr "检查更新"
-
-#~ msgid "Unknown"
-#~ msgstr "未知"
 
 #~ msgid "Dual-Core"
 #~ msgstr "双核"

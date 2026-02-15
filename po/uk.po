@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-04-30 06:13+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://l10n.elementary.io/projects/switchboard/"
@@ -20,6 +20,20 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.5\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "Немає пристрою виведення"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "Пристрій"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Невідомо"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -63,10 +77,6 @@ msgstr "Вхід"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "Застосунки"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "Пристрій"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -248,9 +258,6 @@ msgstr "Переносний"
 #~ msgid "Balance:"
 #~ msgstr "Баланс:"
 
-#~ msgid "No Output Device"
-#~ msgstr "Немає пристрою виведення"
-
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
 #~ "listening to anything."
@@ -291,9 +298,6 @@ msgstr "Переносний"
 
 #~ msgid "Updates"
 #~ msgstr "Оновленння"
-
-#~ msgid "Unknown"
-#~ msgstr "Невідомо"
 
 #~ msgid "Dual-Core"
 #~ msgstr "Дво-ядерний"

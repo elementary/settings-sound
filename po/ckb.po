@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-08-07 18:16+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Kurdish (Central) <https://l10n.elementary.io/projects/"
@@ -12,6 +12,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.6.2\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "هیچ ئامێرێک نییە دەنگی لێوە دەربدرێت"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "ئامێر"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr ""
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -55,10 +69,6 @@ msgstr "وەرگرتنی دەنگ"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "بەرنامەکان"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "ئامێر"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 #, fuzzy
@@ -261,9 +271,6 @@ msgstr "هەڵگیراو"
 
 #~ msgid "Balance:"
 #~ msgstr "باڵانس:"
-
-#~ msgid "No Output Device"
-#~ msgstr "هیچ ئامێرێک نییە دەنگی لێوە دەربدرێت"
 
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "

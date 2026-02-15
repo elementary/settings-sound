@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-08-07 18:16+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://l10n.elementary.io/projects/switchboard/"
@@ -19,6 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 5.6.2\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "Žiadne výstupné zariadenie"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "Zariadenie"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Neznáme"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -62,10 +76,6 @@ msgstr "Vstup"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "Aplikácie"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "Zariadenie"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -266,9 +276,6 @@ msgstr "Prenosné"
 #~ msgid "Balance:"
 #~ msgstr "Vyváženie:"
 
-#~ msgid "No Output Device"
-#~ msgstr "Žiadne výstupné zariadenie"
-
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
 #~ "listening to anything."
@@ -308,9 +315,6 @@ msgstr "Prenosné"
 
 #~ msgid "Restore Default Settings"
 #~ msgstr "Obnoviť predvolené nastavenia"
-
-#~ msgid "Unknown"
-#~ msgstr "Neznáme"
 
 #~ msgid "Dual-Core"
 #~ msgstr "dvojjadrový"

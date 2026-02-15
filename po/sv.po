@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2025-10-31 07:55+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
@@ -19,6 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+msgid "Bluetooth Device"
+msgstr ""
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "Enhet"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Okänd"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -62,10 +74,6 @@ msgstr "Ingång"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "Program"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "Enhet"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -298,9 +306,6 @@ msgstr "Bärbar"
 
 #~ msgid "Updates"
 #~ msgstr "Uppdateringar"
-
-#~ msgid "Unknown"
-#~ msgstr "Okänd"
 
 #~ msgid "Dual-Core"
 #~ msgstr "Tvåkärnig"

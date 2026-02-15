@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-05-26 07:13+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://l10n.elementary.io/projects/switchboard/"
@@ -19,6 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.5\n"
 "X-Launchpad-Export-Date: 2016-10-16 06:42+0000\n"
+
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "出力デバイスがありません"
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "デバイス"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "不明"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -62,10 +76,6 @@ msgstr "入力"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "アプリケーション"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "デバイス"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
@@ -248,9 +258,6 @@ msgstr "ポータブル"
 #~ msgid "Balance:"
 #~ msgstr "バランス:"
 
-#~ msgid "No Output Device"
-#~ msgstr "出力デバイスがありません"
-
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
 #~ "listening to anything."
@@ -303,9 +310,6 @@ msgstr "ポータブル"
 
 #~ msgid "Updates"
 #~ msgstr "アップデート"
-
-#~ msgid "Unknown"
-#~ msgstr "不明"
 
 #~ msgid "Dual-Core"
 #~ msgstr "デュアルコア"

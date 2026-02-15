@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-29 17:32+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
 "PO-Revision-Date: 2024-08-07 18:16+0000\n"
 "Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Arabic <https://l10n.elementary.io/projects/switchboard/"
@@ -20,6 +20,18 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Weblate 5.6.2\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
+
+#: src/App.vala:38
+msgid "Bluetooth Device"
+msgstr ""
+
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
+msgid "Device"
+msgstr "الجهاز"
+
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "غير معروفة"
 
 #: src/ApplicationsPanel.vala:12
 msgid "No applications currently emitting sounds"
@@ -63,10 +75,6 @@ msgstr "مدخل"
 #: src/Plug.vala:45 src/Plug.vala:107
 msgid "Applications"
 msgstr "التطبيقات"
-
-#: src/Plug.vala:95 src/Plug.vala:103
-msgid "Device"
-msgstr "الجهاز"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 #, fuzzy
@@ -264,9 +272,6 @@ msgstr ""
 
 #~ msgid "About"
 #~ msgstr "عن البرنامج"
-
-#~ msgid "Unknown"
-#~ msgstr "غير معروفة"
 
 #~ msgid "Processor:"
 #~ msgstr "المعالج:"
