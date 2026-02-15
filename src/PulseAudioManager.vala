@@ -610,14 +610,6 @@ public class Sound.PulseAudioManager : GLib.Object {
             return;
         }
 
-        // Can't construct an app object
-        if (
-            sink_input.proplist.contains (PulseAudio.Proplist.PROP_APPLICATION_ID) == 0 ||
-            sink_input.proplist.contains (PulseAudio.Proplist.PROP_APPLICATION_NAME) == 0
-        ) {
-            return;
-        }
-
         App? app = null;
         for (uint i = 0; i < apps.get_n_items (); i++) {
             var _app = (App) apps.get_item (i);
