@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2025-10-31 07:55+0000\n"
+"PO-Revision-Date: 2026-02-24 11:55+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound/sv/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/App.vala:38
 msgid "Bluetooth Device"
-msgstr ""
+msgstr "Bluetooth-enhet"
 
 #: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
