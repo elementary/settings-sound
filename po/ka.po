@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2025-11-04 04:55+0000\n"
-"Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2026-05-22 04:56+0000\n"
+"Last-Translator: Automatic translation add-on <noreply-addon-"
+"autotranslate@weblate.org>\n"
 "Language-Team: Georgian <https://l10n.elementaryos.org/projects/settings/"
 "sound/ka/>\n"
 "Language: ka\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 2026.5\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
 #: src/App.vala:38
@@ -50,7 +51,7 @@ msgstr ""
 
 #: src/AppRow.vala:101
 msgid "Mute"
-msgstr ""
+msgstr "დადუმება"
 
 #: src/Plug.vala:24
 msgid "Sound"
@@ -77,7 +78,7 @@ msgstr "აპლიკაციები"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
 msgid "Event Alerts"
-msgstr ""
+msgstr "მოვლენის განგაშები"
 
 #: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
