@@ -8,25 +8,25 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2024-08-07 18:16+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
-"Language-Team: Greek <https://l10n.elementary.io/projects/switchboard/"
-"switchboard-plug-sound/el/>\n"
+"PO-Revision-Date: 2026-06-29 01:00+0000\n"
+"Last-Translator: Jim Spentzos <jimspentzos2000@gmail.com>\n"
+"Language-Team: Greek <https://l10n.elementaryos.org/projects/settings/sound/"
+"el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 2026.5\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
 #: src/App.vala:38
 msgid "Bluetooth Device"
-msgstr ""
+msgstr "Συσκευή Bluetooth"
 
 #: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
-msgstr ""
+msgstr "Συσκευή"
 
 #: src/App.vala:43
 msgid "Unknown"
@@ -80,14 +80,12 @@ msgid "Event Alerts"
 msgstr ""
 
 #: src/Plug.vala:97 src/Plug.vala:104
-#, fuzzy
 msgid "Port"
-msgstr "Φορητό"
+msgstr "Θύρα"
 
 #: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
-#, fuzzy
 msgid "Volume"
-msgstr "Ένταση εισόδου:"
+msgstr "Ένταση"
 
 #: src/Plug.vala:99
 #, fuzzy
@@ -99,13 +97,12 @@ msgid "Screen Reader"
 msgstr ""
 
 #: src/Plug.vala:101
-#, fuzzy
 msgid "Test Speakers"
-msgstr "Δοκιμή ηχείων…"
+msgstr "Δοκιμή ηχείων"
 
 #: src/Plug.vala:106
 msgid "Enable"
-msgstr ""
+msgstr "Ενεργοποίηση"
 
 #: src/OutputPanel.vala:29
 #, c-format
@@ -114,7 +111,7 @@ msgstr ""
 
 #: src/OutputPanel.vala:30
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/OutputPanel.vala:39
 #, fuzzy
@@ -155,7 +152,7 @@ msgstr ""
 
 #: src/OutputPanel.vala:93
 msgid "Play sound"
-msgstr ""
+msgstr "Αναπαραγωγή ήχου"
 
 #: src/OutputPanel.vala:97
 msgid "Flash screen"
@@ -177,9 +174,8 @@ msgid ""
 msgstr ""
 
 #: src/InputPanel.vala:46
-#, fuzzy
 msgid "Input Volume"
-msgstr "Ένταση εισόδου:"
+msgstr "Ένταση εισόδου"
 
 #: src/InputPanel.vala:54
 msgid "Unamplified"
@@ -199,7 +195,6 @@ msgid "Built-in"
 msgstr "Ενσωματωμένο"
 
 #: src/Device.vala:77
-#, fuzzy
 msgid "Speaker"
 msgstr "Ηχείο"
 
@@ -209,14 +204,12 @@ msgid "Handset"
 msgstr "Ακουστικό (Handset)"
 
 #: src/Device.vala:81
-#, fuzzy
 msgid "TV"
-msgstr "Τηλεόραση (TV)"
+msgstr "Τηλεόραση"
 
 #: src/Device.vala:83
-#, fuzzy
 msgid "Webcam"
-msgstr "Webcam"
+msgstr "Κάμερα web"
 
 #: src/Device.vala:85
 msgid "Microphone"
@@ -241,12 +234,10 @@ msgid "Car"
 msgstr "Αυτοκίνητο"
 
 #: src/Device.vala:95
-#, fuzzy
 msgid "HiFi"
-msgstr "HiFi Ηχοσύστημα"
+msgstr "HiFi"
 
 #: src/Device.vala:97
-#, fuzzy
 msgid "Computer"
 msgstr "Υπολογιστής"
 
