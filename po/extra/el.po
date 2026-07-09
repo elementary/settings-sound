@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2026-06-29 01:00+0000\n"
+"PO-Revision-Date: 2026-07-10 14:00+0000\n"
 "Last-Translator: Jim Spentzos <jimspentzos2000@gmail.com>\n"
 "Language-Team: Greek <https://l10n.elementaryos.org/projects/settings/sound-"
 "plug-extra/el/>\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: data/sound.metainfo.xml.in:62
 msgid "New Features:"
-msgstr ""
+msgstr "Νέες λειτουργίες:"
 
 #: data/sound.metainfo.xml.in:64
 msgid "Control the volume of individual apps"
@@ -90,7 +90,7 @@ msgstr "Νέες λειτουργίες:"
 
 #: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
-msgstr ""
+msgstr "Εμφάνιση εικονιδίων συσκευών"
 
 #: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
