@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 22:55+0000\n"
-"PO-Revision-Date: 2026-07-10 14:00+0000\n"
+"PO-Revision-Date: 2026-07-25 23:01+0000\n"
 "Last-Translator: Jim Spentzos <jimspentzos2000@gmail.com>\n"
 "Language-Team: Greek <https://l10n.elementaryos.org/projects/settings/sound/"
 "el/>\n"
@@ -159,7 +159,6 @@ msgid "Flash screen"
 msgstr ""
 
 #: src/OutputPanel.vala:106
-#, fuzzy
 msgid "Test Speakers…"
 msgstr "Δοκιμή ηχείων…"
 
@@ -199,9 +198,8 @@ msgid "Speaker"
 msgstr "Ηχείο"
 
 #: src/Device.vala:79
-#, fuzzy
 msgid "Handset"
-msgstr "Ακουστικό (Handset)"
+msgstr "Ακουστικό τηλεφώνου"
 
 #: src/Device.vala:81
 msgid "TV"
@@ -216,18 +214,16 @@ msgid "Microphone"
 msgstr "Μικρόφωνο"
 
 #: src/Device.vala:87
-#, fuzzy
 msgid "Headset"
-msgstr "Ακουστικά (Headset)"
+msgstr "Ακουστικά με μικρόφωνο"
 
 #: src/Device.vala:89
-#, fuzzy
 msgid "Headphone"
-msgstr "Ακουστικά (Headphone)"
+msgstr "Ακουστικά"
 
 #: src/Device.vala:91
 msgid "Hands-Free"
-msgstr "Ακουστικά (Hands-Free)"
+msgstr "Ακουστικά hands-free"
 
 #: src/Device.vala:93
 msgid "Car"
