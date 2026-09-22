@@ -16,13 +16,14 @@ public class Sound.Plug : Switchboard.Plug {
 
         var settings = new Gee.TreeMap<string, string?> (null, null);
         settings.set ("sound", null);
+        settings.set ("sound/applications", "applications");
         settings.set ("sound/input", "input");
         settings.set ("sound/output", "output");
         Object (category: Category.HARDWARE,
-                code_name: "io.elementary.switchboard.sound",
+                code_name: "io.elementary.settings.sound",
                 display_name: _("Sound"),
                 description: _("Change sound and microphone volume"),
-                icon: "preferences-desktop-sound",
+                icon: "multimedia-volume-control",
                 supported_settings: settings);
     }
 
@@ -30,30 +31,37 @@ public class Sound.Plug : Switchboard.Plug {
         if (box == null) {
             var output_panel = new OutputPanel ();
             input_panel = new InputPanel ();
+            var applications_panel = new ApplicationsPanel ();
 
             stack = new Gtk.Stack () {
                 hexpand = true,
-                vexpand = true
+                vexpand = true,
+                margin_start = 12,
+                margin_end = 12,
+                margin_bottom = 12
             };
             stack.add_titled (output_panel, "output", _("Output"));
             stack.add_titled (input_panel, "input", _("Input"));
+            stack.add_titled (applications_panel, "applications", _("Applications"));
 
             var stack_switcher = new Gtk.StackSwitcher () {
                 halign = Gtk.Align.CENTER,
-                homogeneous = true,
                 stack = stack
             };
+            ((Gtk.BoxLayout) stack_switcher.layout_manager).homogeneous = true;
 
-            var clamp = new Hdy.Clamp () {
+            var clamp = new Adw.Clamp () {
                 child = stack
             };
 
-            box = new Gtk.Box (VERTICAL, 12) {
-                margin = 12
+            var headerbar = new Adw.HeaderBar () {
+                title_widget = stack_switcher
             };
-            box.add (stack_switcher);
-            box.add (clamp);
-            box.show_all ();
+            headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+            box = new Gtk.Box (VERTICAL, 0);
+            box.append (headerbar);
+            box.append (clamp);
 
             var pam = PulseAudioManager.get_default ();
             pam.start ();
@@ -77,14 +85,7 @@ public class Sound.Plug : Switchboard.Plug {
     }
 
     public override void search_callback (string location) {
-        switch (location) {
-            case "input":
-                stack.set_visible_child_name ("input");
-                break;
-            case "output":
-                stack.set_visible_child_name ("output");
-                break;
-        }
+        stack.set_visible_child_name (location);
     }
 
     // 'search' returns results like ("Keyboard → Behavior → Duration", "keyboard<sep>behavior")
@@ -92,15 +93,18 @@ public class Sound.Plug : Switchboard.Plug {
         var search_results = new Gee.TreeMap<string, string> ();
         search_results.set ("%s → %s".printf (display_name, _("Output")), "output");
         search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Device")), "output");
-        search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Event Sounds")), "output");
+        search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Event Alerts")), "output");
         search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Port")), "output");
         search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Volume")), "output");
         search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Balance")), "output");
+        search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Screen Reader")), "output");
+        search_results.set ("%s → %s → %s".printf (display_name, _("Output"), _("Test Speakers")), "output");
         search_results.set ("%s → %s".printf (display_name, _("Input")), "input");
         search_results.set ("%s → %s → %s".printf (display_name, _("Input"), _("Device")), "input");
         search_results.set ("%s → %s → %s".printf (display_name, _("Input"), _("Port")), "input");
         search_results.set ("%s → %s → %s".printf (display_name, _("Input"), _("Volume")), "input");
         search_results.set ("%s → %s → %s".printf (display_name, _("Input"), _("Enable")), "input");
+        search_results.set ("%s → %s".printf (display_name, _("Applications")), "applications");
         return search_results;
     }
 }

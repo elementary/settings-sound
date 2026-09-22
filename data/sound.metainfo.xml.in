@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>io.elementary.settings.sound</id>
+  <extends>io.elementary.settings</extends>
+  <translation type="gettext">io.elementary.settings.sound</translation>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+
+  <icon type="stock">multimedia-volume-control</icon>
+  <name>Sound Settings</name>
+  <summary>Change sound and microphone volume</summary>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-output.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-input.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/elementary/settings-sound/8.0.0/data/screenshot-applications.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="bugtracker">https://github.com/elementary/settings-sound/issues</url>
+  <url type="donation">https://elementary.io/get-involved#funding</url>
+  <url type="help">https://github.com/elementary/settings-sound/discussions</url>
+  <url type="homepage">https://elementary.io/</url>
+  <url type="translate">https://l10n.elementary.io/engage/settings/</url>
+
+  <developer id="org.elementaryos">
+    <name>elementary, Inc.</name>
+  </developer>
+  <project_group>elementary</project_group>
+  <update_contact>contact_at_elementary.io</update_contact>
+
+  <releases>
+    <release version="8.0.3" date="2026-05-04" urgency="medium">
+      <description>
+        <p>Improvements:</p>
+        <ul>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/elementary/settings-sound/issues/290">Applications "emitting sounds" not detected</issue>
+      </issues>
+    </release>
+
+    <release version="8.0.2" date="2025-11-11" urgency="medium">
+      <description>
+        <p>Improvements:</p>
+        <ul>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="8.0.1" date="2024-11-15" urgency="medium">
+      <description>
+        <p>Improvements:</p>
+        <ul>
+          <li>Fix crash when connecting bluetooth audio players</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/elementary/settings-sound/issues/278">ScreenReader switch does not synchronise with setting</issue>
+      </issues>
+    </release>
+
+    <release version="8.0.0" date="2024-07-26" urgency="medium">
+      <description>
+        <p>New Features:</p>
+        <ul>
+          <li>Control the volume of individual apps</li>
+        </ul>
+        <p>Improvements:</p>
+        <ul>
+          <li>Include missing output items in search results</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/elementary/settings-sound/issues/207">Audio output device not switched correctly when plugged in</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/222">It is very annoying to change sound output</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/259">After plugging wired headphones, can't switch back to speakers</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/260">Toggling mute switch does nothing</issue>
+        <issue url="https://github.com/elementary/settings-sound/issues/264">Unplugging device doesn't remove from list</issue>
+      </issues>
+    </release>
+
+    <release version="2.3.3" date="2023-07-24" urgency="medium">
+      <description>
+        <p>Improvements:</p>
+        <ul>
+          <li>Improve responsiveness for large and small displays</li>
+          <li>Better volume level indicator for microphones</li>
+          <li>Show screen reader shortcut</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/elementary/switchboard-plug-sound/issues/247">Sound settings crashing when entering "Input" submenu</issue>
+      </issues>
+    </release>
+
+    <release version="2.3.2" date="2022-10-26" urgency="medium">
+      <description>
+        <p>Minor updates:</p>
+        <ul>
+          <li>Use device form factor when available to assign more accurate icons</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/elementary/switchboard-plug-sound/pull/225">Fix switch animation when muting</issue>
+      </issues>
+    </release>
+
+    <release version="2.3.1" date="2022-04-06" urgency="medium">
+      <description>
+        <p>Minor updates:</p>
+        <ul>
+          <li>Provide a fallback device icon in case none is available</li>
+          <li>More helpful placeholder text when no input devices are found</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="2.3.0" date="2021-11-23" urgency="medium">
+      <description>
+        <p>New features:</p>
+        <ul>
+          <li>Show device icons</li>
+          <li>Switch to enable the screen reader</li>
+        </ul>
+        <p>Minor updates:</p>
+        <ul>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="2.2.7" date="2021-07-14" />
+    <release version="2.2.6" date="2020-12-23" />
+    <release version="2.2.5" date="2020-09-02" />
+    <release version="2.2.4" date="2020-05-28" />
+    <release version="2.2.3" date="2020-04-03" />
+    <release version="2.2.2" date="2019-11-15" />
+  </releases>
+</component>

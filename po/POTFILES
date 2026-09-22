@@ -1,3 +1,6 @@
+src/App.vala
+src/ApplicationsPanel.vala
+src/AppRow.vala
 src/TestPopover.vala
 src/PulseAudioManager.vala
 src/Plug.vala

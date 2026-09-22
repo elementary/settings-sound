@@ -7,152 +7,181 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2022-01-15 12:35+0000\n"
-"Last-Translator: Yuchen Deng <loaden@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://l10n.elementary.io/projects/"
-"switchboard/switchboard-plug-sound/zh_Hans/>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2025-08-08 14:55+0000\n"
+"Last-Translator: JieXu <xujie0739@qq.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"l10n.elementaryos.org/projects/settings/switchboard-plug-sound/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
-#: src/Plug.vala:23
-msgid "Sound"
-msgstr "声音"
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "无输出设备"
 
-#: src/Plug.vala:24
-msgid "Change sound and microphone volume"
-msgstr "调整声音和麦克风音量"
-
-#: src/Plug.vala:38 src/Plug.vala:93 src/Plug.vala:94 src/Plug.vala:95
-#: src/Plug.vala:96 src/Plug.vala:97 src/Plug.vala:98 src/Device.vala:101
-msgid "Output"
-msgstr "输出设备"
-
-#: src/Plug.vala:39 src/Plug.vala:99 src/Plug.vala:100 src/Plug.vala:101
-#: src/Plug.vala:102 src/Plug.vala:103 src/Device.vala:101
-msgid "Input"
-msgstr "输入设备"
-
-#: src/Plug.vala:94 src/Plug.vala:100
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
 msgstr "设备"
 
-#: src/Plug.vala:95
-msgid "Event Sounds"
-msgstr "事件声音"
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "未知"
 
-#: src/Plug.vala:96 src/Plug.vala:101
+#: src/ApplicationsPanel.vala:12
+msgid "No applications currently emitting sounds"
+msgstr "没有应用程序正在发出声音"
+
+#: src/ApplicationsPanel.vala:13
+msgid "Applications emitting sounds will automatically appear here"
+msgstr "有声音输出的应用会在此处自动显示"
+
+#: src/ApplicationsPanel.vala:32
+msgid "Reset all apps to default"
+msgstr "重置所有应用程序为预设值"
+
+#: src/AppRow.vala:99
+msgid "Unmute"
+msgstr "解除静音"
+
+#: src/AppRow.vala:101
+msgid "Mute"
+msgstr "静音"
+
+#: src/Plug.vala:24
+msgid "Sound"
+msgstr "声音"
+
+#: src/Plug.vala:25
+msgid "Change sound and microphone volume"
+msgstr "调整声音和麦克风音量"
+
+#: src/Plug.vala:43 src/Plug.vala:94 src/Plug.vala:95 src/Plug.vala:96
+#: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
+#: src/Plug.vala:101 src/Device.vala:101
+msgid "Output"
+msgstr "输出设备"
+
+#: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
+#: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
+msgid "Input"
+msgstr "输入设备"
+
+#: src/Plug.vala:45 src/Plug.vala:107
+msgid "Applications"
+msgstr "应用程序"
+
+#: src/Plug.vala:96 src/OutputPanel.vala:89
+msgid "Event Alerts"
+msgstr "事件警告"
+
+#: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
 msgstr "端口"
 
-#: src/Plug.vala:97 src/Plug.vala:102 src/OutputPanel.vala:45
+#: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
 msgstr "音量"
 
-#: src/Plug.vala:98
+#: src/Plug.vala:99
 msgid "Balance"
 msgstr "音量平衡"
 
-#: src/Plug.vala:103
+#: src/Plug.vala:100 src/OutputPanel.vala:112
+msgid "Screen Reader"
+msgstr "屏幕阅读器"
+
+#: src/Plug.vala:101
+msgid "Test Speakers"
+msgstr "测试扬声器"
+
+#: src/Plug.vala:106
 msgid "Enable"
 msgstr "启用"
 
-#: src/OutputPanel.vala:25
-#, fuzzy
-#| msgid "No Connected Audio Devices Detected"
-msgid "No Connected Output Devices Detected"
-msgstr "未检测到连接的音频设备"
+#: src/OutputPanel.vala:29
+#, c-format
+msgid "Provide audio descriptions for items on the screen. %s"
+msgstr "为屏幕上的项目提供音频描述。%s"
 
-#: src/OutputPanel.vala:26
-#, fuzzy
-#| msgid ""
-#| "Check that all cables are securely attached and audio input devices are "
-#| "powered on."
+#: src/OutputPanel.vala:30
+msgid ", "
+msgstr ", "
+
+#: src/OutputPanel.vala:39
+msgid "No Connected Output Devices Detected"
+msgstr "未检测到连接的输出设备"
+
+#: src/OutputPanel.vala:41
 msgid ""
 "Check that all cables are securely attached and audio output devices are "
 "powered on."
-msgstr "检查所有电缆是否已牢固连接并且音频输入设备已打开电源。"
+msgstr "检查所有电缆是否已牢固连接并且音频输出设备已打开电源。"
 
-#: src/OutputPanel.vala:64
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:83
+msgctxt "balance"
 msgid "Left"
 msgstr "左声道"
 
-#: src/OutputPanel.vala:65
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:85
+msgctxt "balance"
 msgid "Center"
 msgstr "均衡"
 
-#: src/OutputPanel.vala:66
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:87
+msgctxt "balance"
 msgid "Right"
 msgstr "右声道"
 
-#: src/OutputPanel.vala:68
-#, fuzzy
-#| msgid "Event alerts:"
-msgid "Event Alerts"
-msgstr "事件警告："
-
-#: src/OutputPanel.vala:70
-msgid "Play sound"
-msgstr "播放声音"
-
-#: src/OutputPanel.vala:74
-msgid "Flash screen"
-msgstr "闪烁屏幕"
-
-#: src/OutputPanel.vala:79
-#, fuzzy
-#| msgid ""
-#| "Event alerts occur when the system cannot do something in response to "
-#| "user input, like attempting to backspace in an empty input or switch "
-#| "windows when only one is open."
+#: src/OutputPanel.vala:90
 msgid ""
 "Notify when the system can't do something in response to input, like "
 "attempting to backspace in an empty input or switch windows when only one is "
 "open."
 msgstr ""
-"事件警告用于系统无法对输入指令做出响应的情况，如在空白内容处退格、仅有单一窗"
-"口时进行窗口切换等。"
+"用于系统无法对输入指令做出响应的情况，如在空白内容处退格、仅有单一窗口时进行"
+"窗口切换等。"
 
-#: src/OutputPanel.vala:91
+#: src/OutputPanel.vala:93
+msgid "Play sound"
+msgstr "播放声音"
+
+#: src/OutputPanel.vala:97
+msgid "Flash screen"
+msgstr "闪烁屏幕"
+
+#: src/OutputPanel.vala:106
 msgid "Test Speakers…"
 msgstr "声音测试…"
-
-#: src/OutputPanel.vala:95
-#, fuzzy
-#| msgid "Screen Reader:"
-msgid "Screen Reader"
-msgstr "屏幕阅读："
-
-#: src/OutputPanel.vala:103
-msgid "Provide audio descriptions for items on the screen"
-msgstr "为屏幕上的项目提供音频描述"
 
 #: src/InputPanel.vala:21
 msgid "No Connected Audio Devices Detected"
 msgstr "未检测到连接的音频设备"
 
-#: src/InputPanel.vala:22
+#: src/InputPanel.vala:23
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
 "powered on."
 msgstr "检查所有电缆是否已牢固连接并且音频输入设备已打开电源。"
 
-#: src/InputPanel.vala:45
-#, fuzzy
-#| msgid "Input volume:"
+#: src/InputPanel.vala:46
 msgid "Input Volume"
-msgstr "输入音量："
+msgstr "输入音量"
 
-#: src/InputPanel.vala:53
+#: src/InputPanel.vala:54
 msgid "Unamplified"
 msgstr "不放大"
 
-#: src/InputPanel.vala:54
+#: src/InputPanel.vala:55
 msgid "100%"
 msgstr "100%"
 
@@ -212,6 +241,9 @@ msgstr "电脑"
 msgid "Portable"
 msgstr "便携"
 
+#~ msgid "Event Sounds"
+#~ msgstr "事件声音"
+
 #~ msgid "Input level:"
 #~ msgstr "输入等级："
 
@@ -220,9 +252,6 @@ msgstr "便携"
 
 #~ msgid "Balance:"
 #~ msgstr "音量均衡："
-
-#~ msgid "No Output Device"
-#~ msgstr "无输出设备"
 
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
@@ -272,9 +301,6 @@ msgstr "便携"
 
 #~ msgid "Updates"
 #~ msgstr "检查更新"
-
-#~ msgid "Unknown"
-#~ msgstr "未知"
 
 #~ msgid "Dual-Core"
 #~ msgstr "双核"

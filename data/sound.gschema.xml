@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="io.elementary.switchboard.sound" path="/io/elementary/switchboard/sound/">
+    <key name="show-unknown-apps" type="b">
+      <default>false</default>
+      <summary>Show apps for which no info could be found</summary>
+      <description>Show apps that are found by PulseAudio but misbehave in a way that no app info can be found. This setting may cause apps to appear that have wrong names or icons or none at all.</description>
+    </key>
+  </schema>
+</schemalist>

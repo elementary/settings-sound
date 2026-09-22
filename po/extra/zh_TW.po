@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2020-03-01 14:09+0000\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-09-14 02:16+0000\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Chinese (Traditional) <https://l10n.elementary.io/projects/"
 "switchboard/sound-plug-extra/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -17,70 +17,90 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 5.6.2\n"
 
-#: data/sound.appdata.xml.in:5
+#: data/sound.metainfo.xml.in:10
 msgid "Sound Settings"
-msgstr ""
+msgstr "音效設定值"
 
-#: data/sound.appdata.xml.in:6
+#: data/sound.metainfo.xml.in:11
 msgid "Change sound and microphone volume"
 msgstr "變更音量與麥克風收音量"
 
-#: data/sound.appdata.xml.in:12 data/sound.appdata.xml.in:25
-#: data/sound.appdata.xml.in:40 data/sound.appdata.xml.in:48
-#: data/sound.appdata.xml.in:56 data/sound.appdata.xml.in:65
-#: data/sound.appdata.xml.in:74 data/sound.appdata.xml.in:82
-msgid "Minor updates:"
-msgstr ""
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
+#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
+msgid "Improvements:"
+msgstr "改善項目："
 
-#: data/sound.appdata.xml.in:14
-msgid "Use device form factor when available to assign more accurate icons"
-msgstr ""
-
-#: data/sound.appdata.xml.in:15 data/sound.appdata.xml.in:29
-#: data/sound.appdata.xml.in:42 data/sound.appdata.xml.in:50
-#: data/sound.appdata.xml.in:59 data/sound.appdata.xml.in:68
-#: data/sound.appdata.xml.in:76 data/sound.appdata.xml.in:84
-#: data/sound.appdata.xml.in:92
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:129
 msgid "Updated translations"
 msgstr "翻譯更新"
 
-#: data/sound.appdata.xml.in:27
+#: data/sound.metainfo.xml.in:51
+msgid "Fix crash when connecting bluetooth audio players"
+msgstr "修正連接藍牙音效播放器時的崩潰"
+
+#: data/sound.metainfo.xml.in:62
+msgid "New Features:"
+msgstr "新功能："
+
+#: data/sound.metainfo.xml.in:64
+msgid "Control the volume of individual apps"
+msgstr "控制個別應用程式的音量"
+
+#: data/sound.metainfo.xml.in:68
+msgid "Include missing output items in search results"
+msgstr "修正輸出分頁中有些項目不會顯示在搜尋結果裡的問題"
+
+#: data/sound.metainfo.xml.in:85
+msgid "Improve responsiveness for large and small displays"
+msgstr "改善在特別大和特別小的螢幕環境下的顯示"
+
+#: data/sound.metainfo.xml.in:86
+msgid "Better volume level indicator for microphones"
+msgstr "改善麥克風音量指示器的外觀"
+
+#: data/sound.metainfo.xml.in:87
+msgid "Show screen reader shortcut"
+msgstr "顯示螢幕閱讀器的快捷鍵"
+
+#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
+#: data/sound.metainfo.xml.in:127
+msgid "Minor updates:"
+msgstr "小型更新："
+
+#: data/sound.metainfo.xml.in:100
+msgid "Use device form factor when available to assign more accurate icons"
+msgstr "可能的話依裝置種類來選擇更精確的圖示"
+
+#: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
-msgstr ""
+msgstr "沒有其他可用的裝置圖示的時候提供備用的裝置圖示"
 
-#: data/sound.appdata.xml.in:28
+#: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
-msgstr ""
+msgstr "沒有找到輸入裝置時提供更有用的替代說明文字"
 
-#: data/sound.appdata.xml.in:35
+#: data/sound.metainfo.xml.in:122
 msgid "New features:"
-msgstr ""
+msgstr "新功能："
 
-#: data/sound.appdata.xml.in:37
+#: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
-msgstr ""
+msgstr "顯示裝置圖示"
 
-#: data/sound.appdata.xml.in:38
+#: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
-msgstr ""
+msgstr "新增啟用螢幕閱讀器的開關"
 
-#: data/sound.appdata.xml.in:58
-msgid "Smoother transition when navigating away from this view"
-msgstr ""
+#~ msgid "elementary, Inc."
+#~ msgstr "elementary, Inc."
 
-#: data/sound.appdata.xml.in:67
-msgid "Fix crash with PulseAudio's echo cancellation plugin"
-msgstr ""
-
-#: data/sound.appdata.xml.in:91
-msgid "Add volume slider event sound"
-msgstr "加入音量滑桿事件音"
-
-#: data/sound.appdata.xml.in:102
-msgid "elementary, Inc."
-msgstr "elementary, Inc."
+#~ msgid "Add volume slider event sound"
+#~ msgstr "加入音量滑桿事件音"
 
 #~ msgid "Sound"
 #~ msgstr "音效"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2022-11-01 00:12+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-09-14 02:16+0000\n"
 "Last-Translator: TomiOhl <ohlslager.tom@gmail.com>\n"
 "Language-Team: Hungarian <https://l10n.elementary.io/projects/switchboard/"
 "sound-plug-extra/hu/>\n"
@@ -17,75 +17,102 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
-#: data/sound.appdata.xml.in:5
+#: data/sound.metainfo.xml.in:10
 msgid "Sound Settings"
 msgstr "Hangbeállítások"
 
-#: data/sound.appdata.xml.in:6
+#: data/sound.metainfo.xml.in:11
 msgid "Change sound and microphone volume"
 msgstr "Hang és mikrofon hangerejének beállítása"
 
-#: data/sound.appdata.xml.in:12 data/sound.appdata.xml.in:25
-#: data/sound.appdata.xml.in:40 data/sound.appdata.xml.in:48
-#: data/sound.appdata.xml.in:56 data/sound.appdata.xml.in:65
-#: data/sound.appdata.xml.in:74 data/sound.appdata.xml.in:82
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
+#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
+msgid "Improvements:"
+msgstr "Újítások:"
+
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:129
+msgid "Updated translations"
+msgstr "Frissített fordítások"
+
+#: data/sound.metainfo.xml.in:51
+msgid "Fix crash when connecting bluetooth audio players"
+msgstr ""
+"Bluetooth-audiólejátszók csatlakoztatásakor történő összeomlás javítása"
+
+#: data/sound.metainfo.xml.in:62
+msgid "New Features:"
+msgstr "Új funkciók:"
+
+#: data/sound.metainfo.xml.in:64
+msgid "Control the volume of individual apps"
+msgstr "Az egyes alkalmazások hangerejének szabályozása"
+
+#: data/sound.metainfo.xml.in:68
+msgid "Include missing output items in search results"
+msgstr "A keresési eredményekből hiányzó elemek megjelenítése"
+
+#: data/sound.metainfo.xml.in:85
+msgid "Improve responsiveness for large and small displays"
+msgstr "A reszponzivitás javítása nagy és kicsi képernyőkön"
+
+#: data/sound.metainfo.xml.in:86
+msgid "Better volume level indicator for microphones"
+msgstr "Jobb hangerő-indikátor a mikrofonokhoz"
+
+#: data/sound.metainfo.xml.in:87
+msgid "Show screen reader shortcut"
+msgstr "Képernyőlvasó-gyorsparancs megjelenítése"
+
+#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
+#: data/sound.metainfo.xml.in:127
 msgid "Minor updates:"
 msgstr "Kisebb frissítések:"
 
-#: data/sound.appdata.xml.in:14
+#: data/sound.metainfo.xml.in:100
 msgid "Use device form factor when available to assign more accurate icons"
 msgstr ""
 "A pontosabb ikonok hozzárendeléséhez használja az eszköz formai tényezőjét, "
 "ha az rendelkezésre áll"
 
-#: data/sound.appdata.xml.in:15 data/sound.appdata.xml.in:29
-#: data/sound.appdata.xml.in:42 data/sound.appdata.xml.in:50
-#: data/sound.appdata.xml.in:59 data/sound.appdata.xml.in:68
-#: data/sound.appdata.xml.in:76 data/sound.appdata.xml.in:84
-#: data/sound.appdata.xml.in:92
-msgid "Updated translations"
-msgstr "Frissített fordítások"
-
-#: data/sound.appdata.xml.in:27
+#: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
 msgstr "Alapértelmezett ikon biztosítása arra az esetre, ha nincs elérhető"
 
-#: data/sound.appdata.xml.in:28
+#: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
 msgstr ""
 "Hasznosabb helykitöltő szöveg arra az esetre, ha nem találhatóak bemeneti "
 "eszközök"
 
-#: data/sound.appdata.xml.in:35
+#: data/sound.metainfo.xml.in:122
 msgid "New features:"
 msgstr "Új funkciók:"
 
-#: data/sound.appdata.xml.in:37
+#: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
 msgstr "Eszközikonok kijelzése"
 
-#: data/sound.appdata.xml.in:38
+#: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
 msgstr "Kapcsoló a képernyőolvasóhoz"
 
-#: data/sound.appdata.xml.in:58
-msgid "Smoother transition when navigating away from this view"
-msgstr "Folyamatosabb átmenet a nézetből való elnavigáláskor"
+#~ msgid "Smoother transition when navigating away from this view"
+#~ msgstr "Folyamatosabb átmenet a nézetből való elnavigáláskor"
 
-#: data/sound.appdata.xml.in:67
-msgid "Fix crash with PulseAudio's echo cancellation plugin"
-msgstr ""
-"A PulseAudio visszhangeltávolító moduljával kapcsolatos összeomlás javítva"
+#~ msgid "elementary, Inc."
+#~ msgstr "elementary, Inc."
 
-#: data/sound.appdata.xml.in:91
-msgid "Add volume slider event sound"
-msgstr "Hangeffekt a hangerő-csúszkához"
+#~ msgid "Fix crash with PulseAudio's echo cancellation plugin"
+#~ msgstr ""
+#~ "A PulseAudio visszhangeltávolító moduljával kapcsolatos összeomlás javítva"
 
-#: data/sound.appdata.xml.in:102
-msgid "elementary, Inc."
-msgstr "elementary, Inc."
+#~ msgid "Add volume slider event sound"
+#~ msgstr "Hangeffekt a hangerő-csúszkához"
 
 #~ msgid "Sound"
 #~ msgstr "Hang"

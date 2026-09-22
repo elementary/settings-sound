@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2022-01-15 14:00+0000\n"
-"Last-Translator: Dennis ten Hoove <dennistenhoove@protonmail.com>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-12-20 08:28+0000\n"
+"Last-Translator: DutchVipperloid <svenroelof@e.email>\n"
 "Language-Team: Dutch <https://l10n.elementary.io/projects/switchboard/sound-"
 "plug-extra/nl/>\n"
 "Language: nl\n"
@@ -17,70 +17,99 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
-#: data/sound.appdata.xml.in:5
+#: data/sound.metainfo.xml.in:10
 msgid "Sound Settings"
 msgstr "Geluidsinstellingen"
 
-#: data/sound.appdata.xml.in:6
+#: data/sound.metainfo.xml.in:11
 msgid "Change sound and microphone volume"
 msgstr "Wijzig geluids- en microfoonvolume"
 
-#: data/sound.appdata.xml.in:12 data/sound.appdata.xml.in:25
-#: data/sound.appdata.xml.in:40 data/sound.appdata.xml.in:48
-#: data/sound.appdata.xml.in:56 data/sound.appdata.xml.in:65
-#: data/sound.appdata.xml.in:74 data/sound.appdata.xml.in:82
-msgid "Minor updates:"
-msgstr "Kleine updates:"
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
+#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
+msgid "Improvements:"
+msgstr "Verbeteringen:"
 
-#: data/sound.appdata.xml.in:14
-msgid "Use device form factor when available to assign more accurate icons"
-msgstr ""
-
-#: data/sound.appdata.xml.in:15 data/sound.appdata.xml.in:29
-#: data/sound.appdata.xml.in:42 data/sound.appdata.xml.in:50
-#: data/sound.appdata.xml.in:59 data/sound.appdata.xml.in:68
-#: data/sound.appdata.xml.in:76 data/sound.appdata.xml.in:84
-#: data/sound.appdata.xml.in:92
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:129
 msgid "Updated translations"
 msgstr "Bijgewerkte vertalingen"
 
-#: data/sound.appdata.xml.in:27
+#: data/sound.metainfo.xml.in:51
+msgid "Fix crash when connecting bluetooth audio players"
+msgstr "Crash verholpen wanneer bluetooth-geluidsapparatuur wordt verbonden"
+
+#: data/sound.metainfo.xml.in:62
+msgid "New Features:"
+msgstr "Nieuwe functies:"
+
+#: data/sound.metainfo.xml.in:64
+msgid "Control the volume of individual apps"
+msgstr "Bedien het volume van individuele apps"
+
+#: data/sound.metainfo.xml.in:68
+msgid "Include missing output items in search results"
+msgstr "Voeg missende uitvoer-items toe in zoekresultaten"
+
+#: data/sound.metainfo.xml.in:85
+msgid "Improve responsiveness for large and small displays"
+msgstr "Verbeter de responsiviteit voor kleine en grote beeldschermen"
+
+#: data/sound.metainfo.xml.in:86
+msgid "Better volume level indicator for microphones"
+msgstr "Betere volumeniveau-indicator voor microfoons"
+
+#: data/sound.metainfo.xml.in:87
+msgid "Show screen reader shortcut"
+msgstr "Geef schermlezersneltoets weer"
+
+#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
+#: data/sound.metainfo.xml.in:127
+msgid "Minor updates:"
+msgstr "Kleine updates:"
+
+#: data/sound.metainfo.xml.in:100
+msgid "Use device form factor when available to assign more accurate icons"
+msgstr ""
+"Gebruik de vormfactor van het apparaat wanneer beschikbaar om beter passende "
+"iconen toe te wijzen"
+
+#: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
 msgstr ""
+"Bied een terugval apparaat-icoon in het geval dat er geen andere beschikbaar "
+"is"
 
-#: data/sound.appdata.xml.in:28
+#: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
 msgstr ""
+"Behulpzamere plaatsaanduidende tekst wanneer geen invoerapparaten zijn "
+"gevonden"
 
-#: data/sound.appdata.xml.in:35
+#: data/sound.metainfo.xml.in:122
 msgid "New features:"
-msgstr "Nieuwe functionaliteit:"
+msgstr "Nieuwe functies:"
 
-#: data/sound.appdata.xml.in:37
+#: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
-msgstr ""
+msgstr "Geef apparaaticonen weer"
 
-#: data/sound.appdata.xml.in:38
+#: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
-msgstr ""
+msgstr "Wissel om de schermlezer te activeren"
 
-#: data/sound.appdata.xml.in:58
-msgid "Smoother transition when navigating away from this view"
-msgstr ""
+#~ msgid "elementary, Inc."
+#~ msgstr "elementary, Inc."
 
-#: data/sound.appdata.xml.in:67
-msgid "Fix crash with PulseAudio's echo cancellation plugin"
-msgstr "Een crash verholpen met de echo dempingsplugin van PulseAudio"
+#~ msgid "Fix crash with PulseAudio's echo cancellation plugin"
+#~ msgstr "Een crash verholpen met de echo dempingsplugin van PulseAudio"
 
-#: data/sound.appdata.xml.in:91
-msgid "Add volume slider event sound"
-msgstr "Volume slider gebeurtenis geluid toegevoegd"
-
-#: data/sound.appdata.xml.in:102
-msgid "elementary, Inc."
-msgstr "elementary, Inc."
+#~ msgid "Add volume slider event sound"
+#~ msgstr "Volume slider gebeurtenis geluid toegevoegd"
 
 #~ msgid "Sound"
 #~ msgstr "Geluid"

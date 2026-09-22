@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2023-02-16 09:25+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-08-27 01:16+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://l10n.elementary.io/projects/switchboard/sound-"
 "plug-extra/fr/>\n"
@@ -17,76 +17,106 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
-#: data/sound.appdata.xml.in:5
+#: data/sound.metainfo.xml.in:10
 msgid "Sound Settings"
 msgstr "Paramètres de son"
 
-#: data/sound.appdata.xml.in:6
+#: data/sound.metainfo.xml.in:11
 msgid "Change sound and microphone volume"
 msgstr "Changer le volume du son et du microphone"
 
-#: data/sound.appdata.xml.in:12 data/sound.appdata.xml.in:25
-#: data/sound.appdata.xml.in:40 data/sound.appdata.xml.in:48
-#: data/sound.appdata.xml.in:56 data/sound.appdata.xml.in:65
-#: data/sound.appdata.xml.in:74 data/sound.appdata.xml.in:82
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
+#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
+msgid "Improvements:"
+msgstr "Améliorations :"
+
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
+#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
+#: data/sound.metainfo.xml.in:129
+msgid "Updated translations"
+msgstr "Mise à jour des traductions"
+
+#: data/sound.metainfo.xml.in:51
+msgid "Fix crash when connecting bluetooth audio players"
+msgstr ""
+"Correction d'un plantage lors de la connexion de lecteurs audio Bluetooth"
+
+#: data/sound.metainfo.xml.in:62
+msgid "New Features:"
+msgstr "Nouvelles fonctionnalités :"
+
+#: data/sound.metainfo.xml.in:64
+msgid "Control the volume of individual apps"
+msgstr "Contrôlez individuellement le volume des applications"
+
+#: data/sound.metainfo.xml.in:68
+msgid "Include missing output items in search results"
+msgstr ""
+"Ajout des éléments de sortie manquants dans les résultats de la recherche"
+
+#: data/sound.metainfo.xml.in:85
+msgid "Improve responsiveness for large and small displays"
+msgstr "Amélioration de l'adaptabilité pour les grands et petits écrans"
+
+#: data/sound.metainfo.xml.in:86
+msgid "Better volume level indicator for microphones"
+msgstr "Meilleur indicateur de volume pour les micros"
+
+#: data/sound.metainfo.xml.in:87
+msgid "Show screen reader shortcut"
+msgstr "Affichage d'un raccourci vers le lecteur d'écrab"
+
+#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
+#: data/sound.metainfo.xml.in:127
 msgid "Minor updates:"
 msgstr "Mises à jour mineures :"
 
-#: data/sound.appdata.xml.in:14
+#: data/sound.metainfo.xml.in:100
 msgid "Use device form factor when available to assign more accurate icons"
 msgstr ""
 "Utilisation du format de l'appareil, lorsqu'il est disponible, pour "
 "attribuer des icônes plus précises"
 
-#: data/sound.appdata.xml.in:15 data/sound.appdata.xml.in:29
-#: data/sound.appdata.xml.in:42 data/sound.appdata.xml.in:50
-#: data/sound.appdata.xml.in:59 data/sound.appdata.xml.in:68
-#: data/sound.appdata.xml.in:76 data/sound.appdata.xml.in:84
-#: data/sound.appdata.xml.in:92
-msgid "Updated translations"
-msgstr "Mise à jour des traductions"
-
-#: data/sound.appdata.xml.in:27
+#: data/sound.metainfo.xml.in:113
 msgid "Provide a fallback device icon in case none is available"
 msgstr ""
 "Ajout d'une icône de périphérique par défaut si aucune icône n'est disponible"
 
-#: data/sound.appdata.xml.in:28
+#: data/sound.metainfo.xml.in:114
 msgid "More helpful placeholder text when no input devices are found"
 msgstr ""
 "Texte explicatif plus clair lorsqu'aucun périphérique d'entrée n'est trouvé"
 
-#: data/sound.appdata.xml.in:35
+#: data/sound.metainfo.xml.in:122
 msgid "New features:"
 msgstr "Nouvelles fonctionnalités :"
 
-#: data/sound.appdata.xml.in:37
+#: data/sound.metainfo.xml.in:124
 msgid "Show device icons"
 msgstr "Affichage des icônes des appareils"
 
-#: data/sound.appdata.xml.in:38
+#: data/sound.metainfo.xml.in:125
 msgid "Switch to enable the screen reader"
 msgstr "Option pour activer le lecteur d'écran"
 
-#: data/sound.appdata.xml.in:58
-msgid "Smoother transition when navigating away from this view"
-msgstr ""
-"Transition plus fluide lorsque cette vue est fermée au cours de la navigation"
+#~ msgid "Smoother transition when navigating away from this view"
+#~ msgstr ""
+#~ "Transition plus fluide lorsque cette vue est fermée au cours de la "
+#~ "navigation"
 
-#: data/sound.appdata.xml.in:67
-msgid "Fix crash with PulseAudio's echo cancellation plugin"
-msgstr ""
-"Correction d'un plantage avec le plugin d'annulation de l'écho de PulseAudio"
+#~ msgid "elementary, Inc."
+#~ msgstr "elementary, Inc."
 
-#: data/sound.appdata.xml.in:91
-msgid "Add volume slider event sound"
-msgstr "Ajout du retour sonore lors de la modification du volume"
+#~ msgid "Fix crash with PulseAudio's echo cancellation plugin"
+#~ msgstr ""
+#~ "Correction d'un plantage avec le plugin d'annulation de l'écho de "
+#~ "PulseAudio"
 
-#: data/sound.appdata.xml.in:102
-msgid "elementary, Inc."
-msgstr "elementary, Inc."
+#~ msgid "Add volume slider event sound"
+#~ msgstr "Ajout du retour sonore lors de la modification du volume"
 
 #~ msgid "Sound"
 #~ msgstr "Son"

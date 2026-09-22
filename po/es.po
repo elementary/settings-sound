@@ -7,148 +7,185 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2020-09-29 06:14+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Spanish <https://l10n.elementary.io/projects/switchboard/"
-"switchboard-plug-sound/es/>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2026-02-16 23:55+0000\n"
+"Last-Translator: Italo Felipe Capasso Ballesteros <italo@gp-mail.com>\n"
+"Language-Team: Spanish <https://l10n.elementaryos.org/projects/settings/"
+"sound/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
-#: src/Plug.vala:23
-msgid "Sound"
-msgstr "Sonido"
+#: src/App.vala:38
+msgid "Bluetooth Device"
+msgstr "Dispositivo Bluetooth"
 
-#: src/Plug.vala:24
-msgid "Change sound and microphone volume"
-msgstr "Cambie el volumen del micrófono y el sonido"
-
-#: src/Plug.vala:38 src/Plug.vala:93 src/Plug.vala:94 src/Plug.vala:95
-#: src/Plug.vala:96 src/Plug.vala:97 src/Plug.vala:98 src/Device.vala:101
-msgid "Output"
-msgstr "Salida"
-
-#: src/Plug.vala:39 src/Plug.vala:99 src/Plug.vala:100 src/Plug.vala:101
-#: src/Plug.vala:102 src/Plug.vala:103 src/Device.vala:101
-msgid "Input"
-msgstr "Entrada"
-
-#: src/Plug.vala:94 src/Plug.vala:100
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
 msgstr "Dispositivo"
 
-#: src/Plug.vala:95
-msgid "Event Sounds"
-msgstr "Sonidos de sucesos"
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Desconocido"
 
-#: src/Plug.vala:96 src/Plug.vala:101
+#: src/ApplicationsPanel.vala:12
+msgid "No applications currently emitting sounds"
+msgstr "No hay aplicaciones emitiendo sonidos en este momento"
+
+#: src/ApplicationsPanel.vala:13
+msgid "Applications emitting sounds will automatically appear here"
+msgstr ""
+"Las aplicaciones que emitan sonidos aparecerán aquí de forma automática"
+
+#: src/ApplicationsPanel.vala:32
+msgid "Reset all apps to default"
+msgstr "Restablecer todas las aplicaciones a sus valores predeterminados"
+
+#: src/AppRow.vala:99
+msgid "Unmute"
+msgstr "Reactivar"
+
+#: src/AppRow.vala:101
+msgid "Mute"
+msgstr "Silenciar"
+
+#: src/Plug.vala:24
+msgid "Sound"
+msgstr "Sonido"
+
+#: src/Plug.vala:25
+msgid "Change sound and microphone volume"
+msgstr "Cambie el volumen del micrófono y el sonido"
+
+#: src/Plug.vala:43 src/Plug.vala:94 src/Plug.vala:95 src/Plug.vala:96
+#: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
+#: src/Plug.vala:101 src/Device.vala:101
+msgid "Output"
+msgstr "Salida"
+
+#: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
+#: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
+msgid "Input"
+msgstr "Entrada"
+
+#: src/Plug.vala:45 src/Plug.vala:107
+msgid "Applications"
+msgstr "Aplicaciones"
+
+#: src/Plug.vala:96 src/OutputPanel.vala:89
+msgid "Event Alerts"
+msgstr "Alertas de sucesos"
+
+#: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
 msgstr "Puerto"
 
-#: src/Plug.vala:97 src/Plug.vala:102 src/OutputPanel.vala:45
+#: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
 msgstr "Volumen"
 
-#: src/Plug.vala:98
+#: src/Plug.vala:99
 msgid "Balance"
 msgstr "Balance"
 
-#: src/Plug.vala:103
+#: src/Plug.vala:100 src/OutputPanel.vala:112
+msgid "Screen Reader"
+msgstr "Lector de pantalla"
+
+#: src/Plug.vala:101
+msgid "Test Speakers"
+msgstr "Probar altavoces"
+
+#: src/Plug.vala:106
 msgid "Enable"
 msgstr "Activar"
 
-#: src/OutputPanel.vala:25
-#, fuzzy
-#| msgid "No Output Device"
-msgid "No Connected Output Devices Detected"
-msgstr "No hay ningún dispositivo de salida"
+#: src/OutputPanel.vala:29
+#, c-format
+msgid "Provide audio descriptions for items on the screen. %s"
+msgstr "Provee descripciones de audio para elementos en la pantalla. %s"
 
-#: src/OutputPanel.vala:26
+#: src/OutputPanel.vala:30
+msgid ", "
+msgstr ", "
+
+#: src/OutputPanel.vala:39
+msgid "No Connected Output Devices Detected"
+msgstr "No se detectaron dispositivos de salida conectados"
+
+#: src/OutputPanel.vala:41
 msgid ""
 "Check that all cables are securely attached and audio output devices are "
 "powered on."
 msgstr ""
+"Verifique que todos los cables estén conectados correctamente y los "
+"dispositivos de salida estén encendidos."
 
-#: src/OutputPanel.vala:64
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:83
+msgctxt "balance"
 msgid "Left"
-msgstr "Izquierda"
+msgstr "Izquierdo"
 
-#: src/OutputPanel.vala:65
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:85
+msgctxt "balance"
 msgid "Center"
 msgstr "Centro"
 
-#: src/OutputPanel.vala:66
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:87
+msgctxt "balance"
 msgid "Right"
-msgstr "Derecha"
+msgstr "Derecho"
 
-#: src/OutputPanel.vala:68
-#, fuzzy
-#| msgid "Event alerts:"
-msgid "Event Alerts"
-msgstr "Alertas de sucesos:"
-
-#: src/OutputPanel.vala:70
-msgid "Play sound"
-msgstr "Reproducir sonido"
-
-#: src/OutputPanel.vala:74
-msgid "Flash screen"
-msgstr "Hacer parpadear pantalla"
-
-#: src/OutputPanel.vala:79
-#, fuzzy
-#| msgid ""
-#| "Event alerts occur when the system cannot do something in response to "
-#| "user input, like attempting to backspace in an empty input or switch "
-#| "windows when only one is open."
+#: src/OutputPanel.vala:90
 msgid ""
 "Notify when the system can't do something in response to input, like "
 "attempting to backspace in an empty input or switch windows when only one is "
 "open."
 msgstr ""
-"Las alertas de sucesos ocurren cuando el sistema no es capaz de responder a "
-"alguna entrada de usuario, por ejemplo, al presionar Retrocesos en un campo "
-"de entrada vacío o al intentar alternar entre ventanas cuando solo existe "
-"una."
+"Notificar cuando el sistema no es capaz de responder a alguna entrada, por "
+"ejemplo, al presionar Retroceso en un campo de entrada vacío o al intentar "
+"alternar entre ventanas cuando solo existe una."
 
-#: src/OutputPanel.vala:91
+#: src/OutputPanel.vala:93
+msgid "Play sound"
+msgstr "Reproducir sonido"
+
+#: src/OutputPanel.vala:97
+msgid "Flash screen"
+msgstr "Hacer parpadear la pantalla"
+
+#: src/OutputPanel.vala:106
 msgid "Test Speakers…"
 msgstr "Probar altavoces…"
 
-#: src/OutputPanel.vala:95
-msgid "Screen Reader"
-msgstr ""
-
-#: src/OutputPanel.vala:103
-msgid "Provide audio descriptions for items on the screen"
-msgstr ""
-
 #: src/InputPanel.vala:21
 msgid "No Connected Audio Devices Detected"
-msgstr ""
+msgstr "No se detectaron dispositivos de audio conectados"
 
-#: src/InputPanel.vala:22
+#: src/InputPanel.vala:23
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
 "powered on."
 msgstr ""
+"Verifique que todos los cables estén conectados correctamente y los "
+"dispositivos de entrada estén encendidos."
 
-#: src/InputPanel.vala:45
-#, fuzzy
-#| msgid "Input volume:"
+#: src/InputPanel.vala:46
 msgid "Input Volume"
-msgstr "Volumen de entrada:"
+msgstr "Volumen de entrada"
 
-#: src/InputPanel.vala:53
+#: src/InputPanel.vala:54
 msgid "Unamplified"
 msgstr "Sin amplificar"
 
-#: src/InputPanel.vala:54
+#: src/InputPanel.vala:55
 msgid "100%"
 msgstr "100 %"
 
@@ -207,6 +244,9 @@ msgstr "PC"
 #: src/Device.vala:99
 msgid "Portable"
 msgstr "Portátil"
+
+#~ msgid "Event Sounds"
+#~ msgstr "Sonidos de sucesos"
 
 #~ msgid "Input level:"
 #~ msgstr "Nivel de entrada:"
@@ -269,9 +309,6 @@ msgstr "Portátil"
 
 #~ msgid "Updates"
 #~ msgstr "Actualizaciones"
-
-#~ msgid "Unknown"
-#~ msgstr "Desconocido"
 
 #~ msgid "Dual-Core"
 #~ msgstr "Doble núcleo"

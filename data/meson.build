@@ -1,8 +1,13 @@
 i18n.merge_file(
-    input: 'sound.appdata.xml.in',
-    output: 'io.elementary.switchboard.sound.appdata.xml',
-    po_dir: join_paths(meson.source_root(), 'po', 'extra'),
+    input: 'sound.metainfo.xml.in',
+    output: meson.project_name() + '.metainfo.xml',
+    po_dir: meson.project_source_root() / 'po' / 'extra',
     type: 'xml',
     install: true,
-    install_dir: join_paths(datadir, 'metainfo'),
+    install_dir: datadir / 'metainfo',
+)
+
+install_data(
+    'sound.gschema.xml',
+    install_dir: datadir / 'glib-2.0' / 'schemas'
 )

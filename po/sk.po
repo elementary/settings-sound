@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2022-02-05 22:24+0000\n"
-"Last-Translator: JohnDumpling <john_dumpling@protonmail.com>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-08-07 18:16+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://l10n.elementary.io/projects/switchboard/"
 "switchboard-plug-sound/sk/>\n"
 "Language: sk\n"
@@ -17,58 +17,115 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.6.2\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
-#: src/Plug.vala:23
-msgid "Sound"
-msgstr "Zvuk"
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "Žiadne výstupné zariadenie"
 
-#: src/Plug.vala:24
-msgid "Change sound and microphone volume"
-msgstr "Meňte hlasitosť zvuku a mikrofónu"
-
-#: src/Plug.vala:38 src/Plug.vala:93 src/Plug.vala:94 src/Plug.vala:95
-#: src/Plug.vala:96 src/Plug.vala:97 src/Plug.vala:98 src/Device.vala:101
-msgid "Output"
-msgstr "Výstup"
-
-#: src/Plug.vala:39 src/Plug.vala:99 src/Plug.vala:100 src/Plug.vala:101
-#: src/Plug.vala:102 src/Plug.vala:103 src/Device.vala:101
-msgid "Input"
-msgstr "Vstup"
-
-#: src/Plug.vala:94 src/Plug.vala:100
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
 msgstr "Zariadenie"
 
-#: src/Plug.vala:95
-msgid "Event Sounds"
-msgstr "Zvuky udalostí"
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Neznáme"
 
-#: src/Plug.vala:96 src/Plug.vala:101
+#: src/ApplicationsPanel.vala:12
+msgid "No applications currently emitting sounds"
+msgstr ""
+
+#: src/ApplicationsPanel.vala:13
+msgid "Applications emitting sounds will automatically appear here"
+msgstr ""
+
+#: src/ApplicationsPanel.vala:32
+msgid "Reset all apps to default"
+msgstr ""
+
+#: src/AppRow.vala:99
+msgid "Unmute"
+msgstr ""
+
+#: src/AppRow.vala:101
+msgid "Mute"
+msgstr "Stlmiť"
+
+#: src/Plug.vala:24
+msgid "Sound"
+msgstr "Zvuk"
+
+#: src/Plug.vala:25
+msgid "Change sound and microphone volume"
+msgstr "Meňte hlasitosť zvuku a mikrofónu"
+
+#: src/Plug.vala:43 src/Plug.vala:94 src/Plug.vala:95 src/Plug.vala:96
+#: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
+#: src/Plug.vala:101 src/Device.vala:101
+msgid "Output"
+msgstr "Výstup"
+
+#: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
+#: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
+msgid "Input"
+msgstr "Vstup"
+
+#: src/Plug.vala:45 src/Plug.vala:107
+msgid "Applications"
+msgstr "Aplikácie"
+
+#: src/Plug.vala:96 src/OutputPanel.vala:89
+msgid "Event Alerts"
+msgstr "Upozornenia na udalosti"
+
+#: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
 msgstr "Port"
 
-#: src/Plug.vala:97 src/Plug.vala:102 src/OutputPanel.vala:45
+#: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
 msgstr "Hlasitosť"
 
-#: src/Plug.vala:98
+#: src/Plug.vala:99
 msgid "Balance"
 msgstr "Vyváženie"
 
-#: src/Plug.vala:103
+#: src/Plug.vala:100 src/OutputPanel.vala:112
+#, fuzzy
+#| msgid "Screen Reader:"
+msgid "Screen Reader"
+msgstr "Čítačka obrazovky:"
+
+#: src/Plug.vala:101
+#, fuzzy
+#| msgid "Test Speakers…"
+msgid "Test Speakers"
+msgstr "Otestovať reproduktory…"
+
+#: src/Plug.vala:106
 msgid "Enable"
 msgstr "Zapnúť"
 
-#: src/OutputPanel.vala:25
+#: src/OutputPanel.vala:29
+#, fuzzy, c-format
+#| msgid "Provide audio descriptions for items on the screen"
+msgid "Provide audio descriptions for items on the screen. %s"
+msgstr "Poskytuje zvukový popis položiek na obrazovke"
+
+#: src/OutputPanel.vala:30
+msgid ", "
+msgstr ", "
+
+#: src/OutputPanel.vala:39
 #, fuzzy
 #| msgid "No Connected Audio Devices Detected"
 msgid "No Connected Output Devices Detected"
 msgstr "Neboli nájdené žiadne pripojené zvukové zariadenia"
 
-#: src/OutputPanel.vala:26
+#: src/OutputPanel.vala:41
 #, fuzzy
 #| msgid ""
 #| "Check that all cables are securely attached and audio input devices are "
@@ -80,33 +137,25 @@ msgstr ""
 "Skontrolujte, či sú všetky káble dobre zapojené a vstupné zvukové zariadenia "
 "zapnuté."
 
-#: src/OutputPanel.vala:64
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:83
+msgctxt "balance"
 msgid "Left"
 msgstr "Ľavé"
 
-#: src/OutputPanel.vala:65
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:85
+msgctxt "balance"
 msgid "Center"
 msgstr "Stredné"
 
-#: src/OutputPanel.vala:66
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:87
+msgctxt "balance"
 msgid "Right"
 msgstr "Pravé"
 
-#: src/OutputPanel.vala:68
-#, fuzzy
-#| msgid "Event alerts:"
-msgid "Event Alerts"
-msgstr "Upozornenia udalostí:"
-
-#: src/OutputPanel.vala:70
-msgid "Play sound"
-msgstr "Prehrať zvuk"
-
-#: src/OutputPanel.vala:74
-msgid "Flash screen"
-msgstr "Prebliknúť obrazovku"
-
-#: src/OutputPanel.vala:79
+#: src/OutputPanel.vala:90
 #, fuzzy
 #| msgid ""
 #| "Event alerts occur when the system cannot do something in response to "
@@ -121,25 +170,23 @@ msgstr ""
 "požaduje používateľ. Napríklad stlačenie klávesy Backspace, keď nie je čo "
 "zmazať, alebo pokus o prepnutie na ďalšie okno, ak je otvorené iba jedno."
 
-#: src/OutputPanel.vala:91
+#: src/OutputPanel.vala:93
+msgid "Play sound"
+msgstr "Prehrať zvuk"
+
+#: src/OutputPanel.vala:97
+msgid "Flash screen"
+msgstr "Prebliknúť obrazovku"
+
+#: src/OutputPanel.vala:106
 msgid "Test Speakers…"
 msgstr "Otestovať reproduktory…"
-
-#: src/OutputPanel.vala:95
-#, fuzzy
-#| msgid "Screen Reader:"
-msgid "Screen Reader"
-msgstr "Čítačka obrazovky:"
-
-#: src/OutputPanel.vala:103
-msgid "Provide audio descriptions for items on the screen"
-msgstr "Poskytuje zvukový popis položiek na obrazovke"
 
 #: src/InputPanel.vala:21
 msgid "No Connected Audio Devices Detected"
 msgstr "Neboli nájdené žiadne pripojené zvukové zariadenia"
 
-#: src/InputPanel.vala:22
+#: src/InputPanel.vala:23
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
 "powered on."
@@ -147,17 +194,17 @@ msgstr ""
 "Skontrolujte, či sú všetky káble dobre zapojené a vstupné zvukové zariadenia "
 "zapnuté."
 
-#: src/InputPanel.vala:45
+#: src/InputPanel.vala:46
 #, fuzzy
 #| msgid "Input volume:"
 msgid "Input Volume"
 msgstr "Vstupná hlasitosť:"
 
-#: src/InputPanel.vala:53
+#: src/InputPanel.vala:54
 msgid "Unamplified"
 msgstr "Nezosilnené"
 
-#: src/InputPanel.vala:54
+#: src/InputPanel.vala:55
 msgid "100%"
 msgstr "100%"
 
@@ -217,6 +264,9 @@ msgstr "Počítač"
 msgid "Portable"
 msgstr "Prenosné"
 
+#~ msgid "Event Sounds"
+#~ msgstr "Zvuky udalostí"
+
 #~ msgid "Input level:"
 #~ msgstr "Vstupná úroveň:"
 
@@ -225,9 +275,6 @@ msgstr "Prenosné"
 
 #~ msgid "Balance:"
 #~ msgstr "Vyváženie:"
-
-#~ msgid "No Output Device"
-#~ msgstr "Žiadne výstupné zariadenie"
 
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
@@ -268,9 +315,6 @@ msgstr "Prenosné"
 
 #~ msgid "Restore Default Settings"
 #~ msgstr "Obnoviť predvolené nastavenia"
-
-#~ msgid "Unknown"
-#~ msgstr "Neznáme"
 
 #~ msgid "Dual-Core"
 #~ msgstr "dvojjadrový"

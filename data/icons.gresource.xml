@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/io/elementary/switchboard/sound/icons/scalable/devices/">
+  <gresource prefix="/io/elementary/settings/sound/icons/scalable/devices/">
     <file alias="audio-speaker-center-back-testing.svg" compressed="true" preprocess="xml-stripblanks">audio-speaker-center-back-testing.svg</file>
     <file alias="audio-speaker-center.svg" compressed="true" preprocess="xml-stripblanks">audio-speaker-center.svg</file>
     <file alias="audio-speaker-center-testing.svg" compressed="true" preprocess="xml-stripblanks">audio-speaker-center-testing.svg</file>

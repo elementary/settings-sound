@@ -18,24 +18,25 @@ public class Sound.InputPanel : Gtk.Box {
     construct {
         margin_bottom = 12;
 
-        var no_device_grid = new Granite.Widgets.AlertView (
-            _("No Connected Audio Devices Detected"),
-            _("Check that all cables are securely attached and audio input devices are powered on."),
-            "audio-input-microphone-symbolic"
-        );
-        no_device_grid.show_all ();
+        var no_device_grid = new Granite.Placeholder (
+            _("No Connected Audio Devices Detected")
+        ) {
+            description = _("Check that all cables are securely attached and audio input devices are powered on."),
+            icon = new ThemedIcon ("audio-input-microphone-symbolic")
+        };
 
         devices_listbox = new Gtk.ListBox () {
             activate_on_single_click = true,
             vexpand = true
         };
         devices_listbox.set_placeholder (no_device_grid);
+        devices_listbox.add_css_class (Granite.STYLE_CLASS_RICH_LIST);
 
         devices_listbox.row_activated.connect ((row) => {
             pam.set_default_device.begin (((Sound.DeviceRow) row).device);
         });
 
-        var scrolled = new Gtk.ScrolledWindow (null, null) {
+        var scrolled = new Gtk.ScrolledWindow () {
             child = devices_listbox
         };
 
@@ -59,7 +60,7 @@ public class Sound.InputPanel : Gtk.Box {
         };
 
         level_bar = new Gtk.LevelBar.for_interval (0.0, 1.0);
-        level_bar.get_style_context ().add_class ("inverted");
+        level_bar.add_css_class ("inverted");
 
         level_bar.add_offset_value ("low", 0.8);
         level_bar.add_offset_value ("high", 0.95);
@@ -76,8 +77,8 @@ public class Sound.InputPanel : Gtk.Box {
 
         orientation = VERTICAL;
         spacing = 18;
-        add (devices_frame);
-        add (volume_grid);
+        append (devices_frame);
+        append (volume_grid);
 
         device_monitor = new InputDeviceMonitor ();
         device_monitor.update_fraction.connect ((fraction) => {
@@ -98,8 +99,6 @@ public class Sound.InputPanel : Gtk.Box {
         pam.notify["default-input"].connect (() => {
             default_changed ();
         });
-
-        volume_switch.bind_property ("active", volume_scale, "sensitive", BindingFlags.DEFAULT);
 
         connect_signals ();
     }
@@ -162,6 +161,8 @@ public class Sound.InputPanel : Gtk.Box {
                 if (volume_switch.active == default_device.is_muted) {
                     volume_switch.activate ();
                 }
+
+                volume_scale.sensitive = !default_device.is_muted;
                 break;
             case "volume":
                 volume_scale.set_value (default_device.volume);
@@ -182,10 +183,11 @@ public class Sound.InputPanel : Gtk.Box {
             device_row.link_to_row ((DeviceRow) row);
         }
 
-        device_row.show_all ();
-        devices_listbox.add (device_row);
+        devices_listbox.append (device_row);
         device_row.set_as_default.connect (() => {
             pam.set_default_device.begin (device);
         });
+
+        device.removed.connect (() => devices_listbox.remove (device_row));
     }
 }

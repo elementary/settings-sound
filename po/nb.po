@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2023-02-14 13:25+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2024-08-07 18:16+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Norwegian Bokmål <https://l10n.elementary.io/projects/"
 "switchboard/switchboard-plug-sound/nb/>\n"
 "Language: nb\n"
@@ -17,58 +17,116 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.6.2\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
-#: src/Plug.vala:23
-msgid "Sound"
-msgstr "Lyd"
+#: src/App.vala:38
+#, fuzzy
+#| msgid "No Output Device"
+msgid "Bluetooth Device"
+msgstr "Ingen utgangsenhet"
 
-#: src/Plug.vala:24
-msgid "Change sound and microphone volume"
-msgstr "Endre lydstyrke for avspilling og mikrofon"
-
-#: src/Plug.vala:38 src/Plug.vala:93 src/Plug.vala:94 src/Plug.vala:95
-#: src/Plug.vala:96 src/Plug.vala:97 src/Plug.vala:98 src/Device.vala:101
-msgid "Output"
-msgstr "Utgang"
-
-#: src/Plug.vala:39 src/Plug.vala:99 src/Plug.vala:100 src/Plug.vala:101
-#: src/Plug.vala:102 src/Plug.vala:103 src/Device.vala:101
-msgid "Input"
-msgstr "Inngang"
-
-#: src/Plug.vala:94 src/Plug.vala:100
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
 msgstr "Enhet"
 
-#: src/Plug.vala:95
-msgid "Event Sounds"
-msgstr "Hendelseslyder"
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Ukjent"
 
-#: src/Plug.vala:96 src/Plug.vala:101
+#: src/ApplicationsPanel.vala:12
+msgid "No applications currently emitting sounds"
+msgstr "Ingen programmer spiller lyd"
+
+#: src/ApplicationsPanel.vala:13
+#, fuzzy
+msgid "Applications emitting sounds will automatically appear here"
+msgstr "Programmer som spiller lyd vises her"
+
+#: src/ApplicationsPanel.vala:32
+msgid "Reset all apps to default"
+msgstr "Tilbakestill alle programmer til forvalg"
+
+#: src/AppRow.vala:99
+msgid "Unmute"
+msgstr "Opphev forstumming"
+
+#: src/AppRow.vala:101
+msgid "Mute"
+msgstr "Forstum"
+
+#: src/Plug.vala:24
+msgid "Sound"
+msgstr "Lyd"
+
+#: src/Plug.vala:25
+msgid "Change sound and microphone volume"
+msgstr "Endre lydstyrke for avspilling og mikrofon"
+
+#: src/Plug.vala:43 src/Plug.vala:94 src/Plug.vala:95 src/Plug.vala:96
+#: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
+#: src/Plug.vala:101 src/Device.vala:101
+msgid "Output"
+msgstr "Utgang"
+
+#: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
+#: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
+msgid "Input"
+msgstr "Inngang"
+
+#: src/Plug.vala:45 src/Plug.vala:107
+msgid "Applications"
+msgstr "Programmer"
+
+#: src/Plug.vala:96 src/OutputPanel.vala:89
+#, fuzzy
+msgid "Event Alerts"
+msgstr "Hendelseslyder:"
+
+#: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
 msgstr "Port"
 
-#: src/Plug.vala:97 src/Plug.vala:102 src/OutputPanel.vala:45
+#: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
 msgstr "Lydstyrke"
 
-#: src/Plug.vala:98
+#: src/Plug.vala:99
 #, fuzzy
 msgid "Balance"
 msgstr "Balanse"
 
-#: src/Plug.vala:103
+#: src/Plug.vala:100 src/OutputPanel.vala:112
+#, fuzzy
+#| msgid "Screen Reader:"
+msgid "Screen Reader"
+msgstr "Skjermleser:"
+
+#: src/Plug.vala:101
+#, fuzzy
+#| msgid "Test Speakers…"
+msgid "Test Speakers"
+msgstr "Test høyttalere…"
+
+#: src/Plug.vala:106
 msgid "Enable"
 msgstr "Skru på"
 
-#: src/OutputPanel.vala:25
+#: src/OutputPanel.vala:29
+#, c-format
+msgid "Provide audio descriptions for items on the screen. %s"
+msgstr "Tilby lydbeskrivelser for elementer på skjermen. %s"
+
+#: src/OutputPanel.vala:30
+msgid ", "
+msgstr ", "
+
+#: src/OutputPanel.vala:39
 #, fuzzy
 msgid "No Connected Output Devices Detected"
 msgstr "Ingen tilkoblede lydenheter ble oppdaget"
 
-#: src/OutputPanel.vala:26
+#: src/OutputPanel.vala:41
 #, fuzzy
 msgid ""
 "Check that all cables are securely attached and audio output devices are "
@@ -77,32 +135,25 @@ msgstr ""
 "Sjekk at alle kabler er koblet til riktig og at lydinngangsenhetene er "
 "påskrudd."
 
-#: src/OutputPanel.vala:64
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:83
+msgctxt "balance"
 msgid "Left"
 msgstr "Venstre"
 
-#: src/OutputPanel.vala:65
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:85
+msgctxt "balance"
 msgid "Center"
 msgstr "Senter"
 
-#: src/OutputPanel.vala:66
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:87
+msgctxt "balance"
 msgid "Right"
 msgstr "Høyre"
 
-#: src/OutputPanel.vala:68
-#, fuzzy
-msgid "Event Alerts"
-msgstr "Hendelseslyder:"
-
-#: src/OutputPanel.vala:70
-msgid "Play sound"
-msgstr "Spill lyd"
-
-#: src/OutputPanel.vala:74
-msgid "Flash screen"
-msgstr "Blink skjerm"
-
-#: src/OutputPanel.vala:79
+#: src/OutputPanel.vala:90
 #, fuzzy
 #| msgid ""
 #| "Event alerts occur when the system cannot do something in response to "
@@ -117,27 +168,24 @@ msgstr ""
 "som har med inndata å gjøre, som å forsøke å bruke rettetast i et tomt felt, "
 "eller bytte vinduer når kun ett er åpent."
 
-#: src/OutputPanel.vala:91
+#: src/OutputPanel.vala:93
+msgid "Play sound"
+msgstr "Spill lyd"
+
+#: src/OutputPanel.vala:97
+msgid "Flash screen"
+msgstr "Blink skjerm"
+
+#: src/OutputPanel.vala:106
 msgid "Test Speakers…"
 msgstr "Test høyttalere…"
-
-#: src/OutputPanel.vala:95
-#, fuzzy
-#| msgid "Screen Reader:"
-msgid "Screen Reader"
-msgstr "Skjermleser:"
-
-#: src/OutputPanel.vala:103
-#, fuzzy
-msgid "Provide audio descriptions for items on the screen"
-msgstr "Angi lydbeskrivelser for elementer på skjermen"
 
 #: src/InputPanel.vala:21
 #, fuzzy
 msgid "No Connected Audio Devices Detected"
 msgstr "Ingen tilkoblede lydenheter ble oppdaget"
 
-#: src/InputPanel.vala:22
+#: src/InputPanel.vala:23
 #, fuzzy
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
@@ -146,16 +194,16 @@ msgstr ""
 "Sjekk at alle kabler er koblet til riktig og at lydinngangsenhetene er "
 "påskrudd."
 
-#: src/InputPanel.vala:45
+#: src/InputPanel.vala:46
 #, fuzzy
 msgid "Input Volume"
 msgstr "Inngangslydstyrke:"
 
-#: src/InputPanel.vala:53
+#: src/InputPanel.vala:54
 msgid "Unamplified"
 msgstr "Uforsterket"
 
-#: src/InputPanel.vala:54
+#: src/InputPanel.vala:55
 msgid "100%"
 msgstr "100%"
 
@@ -215,6 +263,9 @@ msgstr "Datamaskin"
 msgid "Portable"
 msgstr "Flyttbar"
 
+#~ msgid "Event Sounds"
+#~ msgstr "Hendelseslyder"
+
 #, fuzzy
 #~ msgid "Input level:"
 #~ msgstr "Inngangsnivå:"
@@ -225,9 +276,6 @@ msgstr "Flyttbar"
 
 #~ msgid "Balance:"
 #~ msgstr "Balanse:"
-
-#~ msgid "No Output Device"
-#~ msgstr "Ingen utgangsenhet"
 
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
@@ -283,9 +331,6 @@ msgstr "Flyttbar"
 
 #~ msgid "Updates"
 #~ msgstr "Oppdateringer"
-
-#~ msgid "Unknown"
-#~ msgstr "Ukjent"
 
 #~ msgid "Dual-Core"
 #~ msgstr "To-kjerner"

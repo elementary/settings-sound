@@ -7,140 +7,168 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-17 06:21+0000\n"
-"PO-Revision-Date: 2021-12-20 09:18+0000\n"
+"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"PO-Revision-Date: 2026-03-22 15:55+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
-"Language-Team: Finnish <https://l10n.elementary.io/projects/switchboard/"
-"switchboard-plug-sound/fi/>\n"
+"Language-Team: Finnish <https://l10n.elementaryos.org/projects/settings/"
+"sound/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.11.4\n"
 "X-Launchpad-Export-Date: 2016-09-28 06:53+0000\n"
 
-#: src/Plug.vala:23
-msgid "Sound"
-msgstr "Ääni"
+#: src/App.vala:38
+msgid "Bluetooth Device"
+msgstr "Bluetooth-laite"
 
-#: src/Plug.vala:24
-msgid "Change sound and microphone volume"
-msgstr "Muuta äänen ja mikrofonin voimakkuutta"
-
-#: src/Plug.vala:38 src/Plug.vala:93 src/Plug.vala:94 src/Plug.vala:95
-#: src/Plug.vala:96 src/Plug.vala:97 src/Plug.vala:98 src/Device.vala:101
-msgid "Output"
-msgstr "Ulostulo"
-
-#: src/Plug.vala:39 src/Plug.vala:99 src/Plug.vala:100 src/Plug.vala:101
-#: src/Plug.vala:102 src/Plug.vala:103 src/Device.vala:101
-msgid "Input"
-msgstr "Sisääntulo"
-
-#: src/Plug.vala:94 src/Plug.vala:100
+#: src/App.vala:41 src/Plug.vala:95 src/Plug.vala:103
 msgid "Device"
 msgstr "Laite"
 
-#: src/Plug.vala:95
-msgid "Event Sounds"
+#: src/App.vala:43
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: src/ApplicationsPanel.vala:12
+msgid "No applications currently emitting sounds"
+msgstr "Yksikään sovellus ei toista ääntä"
+
+#: src/ApplicationsPanel.vala:13
+msgid "Applications emitting sounds will automatically appear here"
+msgstr "Ääntä toistavat sovellukset ilmestyvät tänne"
+
+#: src/ApplicationsPanel.vala:32
+msgid "Reset all apps to default"
+msgstr "Palauta kaikki sovellukset oletusarvoihin"
+
+#: src/AppRow.vala:99
+msgid "Unmute"
+msgstr "Poista vaimennus"
+
+#: src/AppRow.vala:101
+msgid "Mute"
+msgstr "Vaimenna"
+
+#: src/Plug.vala:24
+msgid "Sound"
+msgstr "Ääni"
+
+#: src/Plug.vala:25
+msgid "Change sound and microphone volume"
+msgstr "Muuta äänen ja mikrofonin voimakkuutta"
+
+#: src/Plug.vala:43 src/Plug.vala:94 src/Plug.vala:95 src/Plug.vala:96
+#: src/Plug.vala:97 src/Plug.vala:98 src/Plug.vala:99 src/Plug.vala:100
+#: src/Plug.vala:101 src/Device.vala:101
+msgid "Output"
+msgstr "Ulostulo"
+
+#: src/Plug.vala:44 src/Plug.vala:102 src/Plug.vala:103 src/Plug.vala:104
+#: src/Plug.vala:105 src/Plug.vala:106 src/Device.vala:101
+msgid "Input"
+msgstr "Sisääntulo"
+
+#: src/Plug.vala:45 src/Plug.vala:107
+msgid "Applications"
+msgstr "Sovellukset"
+
+#: src/Plug.vala:96 src/OutputPanel.vala:89
+msgid "Event Alerts"
 msgstr "Tapahtumaäänet"
 
-#: src/Plug.vala:96 src/Plug.vala:101
+#: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
 msgstr "Portti"
 
-#: src/Plug.vala:97 src/Plug.vala:102 src/OutputPanel.vala:45
+#: src/Plug.vala:98 src/Plug.vala:105 src/OutputPanel.vala:60
 msgid "Volume"
 msgstr "Äänenvoimakkuus"
 
-#: src/Plug.vala:98
+#: src/Plug.vala:99
 msgid "Balance"
 msgstr "Tasapaino"
 
-#: src/Plug.vala:103
+#: src/Plug.vala:100 src/OutputPanel.vala:112
+msgid "Screen Reader"
+msgstr "Näytönlukija"
+
+#: src/Plug.vala:101
+msgid "Test Speakers"
+msgstr "Testaa kaiuttimia"
+
+#: src/Plug.vala:106
 msgid "Enable"
 msgstr "Käytä"
 
-#: src/OutputPanel.vala:25
-#, fuzzy
-#| msgid "No Connected Audio Devices Detected"
-msgid "No Connected Output Devices Detected"
-msgstr "Yhdistettyjä äänilaitteita ei havaittu"
+#: src/OutputPanel.vala:29
+#, c-format
+msgid "Provide audio descriptions for items on the screen. %s"
+msgstr "Tarjoa äänikuvaukset näytöllä oleville kohteille. %s"
 
-#: src/OutputPanel.vala:26
-#, fuzzy
-#| msgid ""
-#| "Check that all cables are securely attached and audio input devices are "
-#| "powered on."
+#: src/OutputPanel.vala:30
+msgid ", "
+msgstr ", "
+
+#: src/OutputPanel.vala:39
+msgid "No Connected Output Devices Detected"
+msgstr "Yhdistettyjä äänen ulostulolaitteita ei havaittu"
+
+#: src/OutputPanel.vala:41
 msgid ""
 "Check that all cables are securely attached and audio output devices are "
 "powered on."
 msgstr ""
-"Varmista, että kaikki kaapelit on liitetty ja äänen tulolaitteisiin on "
+"Varmista, että kaikki kaapelit on liitetty ja äänen ulostulolaitteisiin on "
 "kytketty virta."
 
-#: src/OutputPanel.vala:64
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:83
+msgctxt "balance"
 msgid "Left"
 msgstr "Vasen"
 
-#: src/OutputPanel.vala:65
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:85
+msgctxt "balance"
 msgid "Center"
 msgstr "Keski"
 
-#: src/OutputPanel.vala:66
+#. / TRANSLATORS: describes sound balance
+#: src/OutputPanel.vala:87
+msgctxt "balance"
 msgid "Right"
 msgstr "Oikea"
 
-#: src/OutputPanel.vala:68
-#, fuzzy
-#| msgid "Event alerts:"
-msgid "Event Alerts"
-msgstr "Tapahtumaäänet:"
-
-#: src/OutputPanel.vala:70
-msgid "Play sound"
-msgstr "Toista ääni"
-
-#: src/OutputPanel.vala:74
-msgid "Flash screen"
-msgstr "Väläytä näyttöä"
-
-#: src/OutputPanel.vala:79
-#, fuzzy
-#| msgid ""
-#| "Event alerts occur when the system cannot do something in response to "
-#| "user input, like attempting to backspace in an empty input or switch "
-#| "windows when only one is open."
+#: src/OutputPanel.vala:90
 msgid ""
 "Notify when the system can't do something in response to input, like "
 "attempting to backspace in an empty input or switch windows when only one is "
 "open."
 msgstr ""
-"Tapahtumahälytykset tapahtuvat silloin kun järjestelmä ei voi vastata "
-"käyttäjän syötteeseen, esimerkiksi kun käyttäjä painaa askelpalautinta "
-"tyhjässä syötekentässä tai yrittää vaihtaa toiseen ikkunaan vain yhden "
-"ollessa auki."
+"Ilmoita kun järjestelmä ei voi vastata syötteeseen, esimerkiksi kun "
+"askelpalautinta painetaan tyhjässä syötekentässä tai kun ikkunaa yritetään "
+"vaihtaa vain yhden ollessa avoinna."
 
-#: src/OutputPanel.vala:91
+#: src/OutputPanel.vala:93
+msgid "Play sound"
+msgstr "Toista ääni"
+
+#: src/OutputPanel.vala:97
+msgid "Flash screen"
+msgstr "Väläytä näyttöä"
+
+#: src/OutputPanel.vala:106
 msgid "Test Speakers…"
 msgstr "Testaa kaiuttimia…"
-
-#: src/OutputPanel.vala:95
-#, fuzzy
-#| msgid "Screen Reader:"
-msgid "Screen Reader"
-msgstr "Näytönlukija:"
-
-#: src/OutputPanel.vala:103
-msgid "Provide audio descriptions for items on the screen"
-msgstr "Tarjoa äänikuvaukset näytöllä oleville kohteille"
 
 #: src/InputPanel.vala:21
 msgid "No Connected Audio Devices Detected"
 msgstr "Yhdistettyjä äänilaitteita ei havaittu"
 
-#: src/InputPanel.vala:22
+#: src/InputPanel.vala:23
 msgid ""
 "Check that all cables are securely attached and audio input devices are "
 "powered on."
@@ -148,17 +176,15 @@ msgstr ""
 "Varmista, että kaikki kaapelit on liitetty ja äänen tulolaitteisiin on "
 "kytketty virta."
 
-#: src/InputPanel.vala:45
-#, fuzzy
-#| msgid "Input volume:"
+#: src/InputPanel.vala:46
 msgid "Input Volume"
-msgstr "Sisääntulon äänenvoimakkuus:"
+msgstr "Sisääntulon äänenvoimakkuus"
 
-#: src/InputPanel.vala:53
+#: src/InputPanel.vala:54
 msgid "Unamplified"
 msgstr "Vahvistamaton"
 
-#: src/InputPanel.vala:54
+#: src/InputPanel.vala:55
 msgid "100%"
 msgstr "100 %"
 
@@ -218,6 +244,9 @@ msgstr "Tietokone"
 msgid "Portable"
 msgstr "Kannettava"
 
+#~ msgid "Event Sounds"
+#~ msgstr "Tapahtumaäänet"
+
 #~ msgid "Input level:"
 #~ msgstr "Sisääntulon taso:"
 
@@ -226,9 +255,6 @@ msgstr "Kannettava"
 
 #~ msgid "Balance:"
 #~ msgstr "Tasapaino:"
-
-#~ msgid "No Output Device"
-#~ msgstr "Ei ulostulolaitetta"
 
 #~ msgid ""
 #~ "There is no output device detected. You might want to add one to start "
@@ -282,9 +308,6 @@ msgstr "Kannettava"
 
 #~ msgid "Updates"
 #~ msgstr "Päivitykset"
-
-#~ msgid "Unknown"
-#~ msgstr "Tuntematon"
 
 #~ msgid "Dual-Core"
 #~ msgstr "Tuplaydin"

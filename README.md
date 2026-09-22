@@ -1,18 +1,19 @@
-# Switchboard Sound Plug
-[![Translation status](https://l10n.elementary.io/widgets/switchboard/-/switchboard-plug-sound/svg-badge.svg)](https://l10n.elementary.io/engage/switchboard/?utm_source=widget)
+# Sound Settings
+[![Translation status](https://l10n.elementaryos.org/widget/settings/sound/svg-badge.svg)](https://l10n.elementaryos.org/engage/settings/)
 
-![screenshot](data/screenshot.png?raw=true)
+![screenshot](data/screenshot-output.png?raw=true)
 
 ## Building and Installation
 
 You'll need the following dependencies:
 
-* libcanberra-gtk3-dev
-* libgranite-dev
-* libgtk-3-dev
+* libadwaita-1-dev
+* libcanberra-dev
+* libgranite-7-dev
+* libgtk-4-dev
 * libpulse-dev
-* libswitchboard-2.0-dev
-* meson
+* libswitchboard-3-dev
+* meson (>= 0.58.0)
 * valac
 
 Run `meson` to configure the build environment and then `ninja` to build
@@ -23,4 +24,4 @@ Run `meson` to configure the build environment and then `ninja` to build
 
 To install, use `ninja install`
 
-    sudo ninja install
+    ninja install

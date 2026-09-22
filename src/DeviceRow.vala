@@ -24,7 +24,7 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
 
     public Device device { get; construct; }
 
-    private Gtk.RadioButton activate_radio;
+    private Gtk.CheckButton activate_radio;
     private bool ignore_default = false;
 
     public DeviceRow (Device device) {
@@ -32,9 +32,10 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
     }
 
     construct {
-        activate_radio = new Gtk.RadioButton (null);
+        activate_radio = new Gtk.CheckButton ();
 
-        var image = new Gtk.Image.from_icon_name (device.icon_name, Gtk.IconSize.DND) {
+        var image = new Gtk.Image.from_icon_name (device.icon_name) {
+            pixel_size = 32,
             tooltip_text = device.get_nice_form_factor (),
             use_fallback = true
         };
@@ -46,13 +47,10 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
         var description_label = new Gtk.Label (device.description) {
             xalign = 0
         };
-
-        unowned var description_style_context = description_label.get_style_context ();
-        description_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        description_style_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        description_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var grid = new Gtk.Grid () {
-            margin = 6,
             column_spacing = 12,
             orientation = Gtk.Orientation.HORIZONTAL
         };
@@ -61,7 +59,7 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
         grid.attach (name_label, 2, 0);
         grid.attach (description_label, 2, 1);
 
-        add (grid);
+        child = grid;
 
         activate.connect (() => {
             activate_radio.active = true;
@@ -76,7 +74,6 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
         device.bind_property ("display-name", name_label, "label");
         device.bind_property ("description", description_label, "label");
 
-        device.removed.connect (() => destroy ());
         device.notify["is-default"].connect (() => {
             ignore_default = true;
             activate_radio.active = device.is_default;
@@ -85,7 +82,7 @@ public class Sound.DeviceRow : Gtk.ListBoxRow {
     }
 
     public void link_to_row (DeviceRow row) {
-        activate_radio.join_group (row.activate_radio);
+        activate_radio.group = row.activate_radio;
         activate_radio.active = device.is_default;
     }
 }
