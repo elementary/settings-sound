@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"POT-Creation-Date: 2026-09-22 01:23+0000\n"
 "PO-Revision-Date: 2025-08-08 14:55+0000\n"
 "Last-Translator: JieXu <xujie0739@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
@@ -46,11 +46,11 @@ msgstr "有声音输出的应用会在此处自动显示"
 msgid "Reset all apps to default"
 msgstr "重置所有应用程序为预设值"
 
-#: src/AppRow.vala:99
+#: src/AppRow.vala:100
 msgid "Unmute"
 msgstr "解除静音"
 
-#: src/AppRow.vala:101
+#: src/AppRow.vala:102
 msgid "Mute"
 msgstr "静音"
 

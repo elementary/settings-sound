@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"POT-Creation-Date: 2026-09-22 01:23+0000\n"
 "PO-Revision-Date: 2019-05-17 01:15+0000\n"
 "Last-Translator: Daniel Foré <daniel@elementary.io>\n"
 "Language-Team: English (Australia) <https://l10n.elementary.io/projects/"
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Reset all apps to default"
 msgstr ""
 
-#: src/AppRow.vala:99
+#: src/AppRow.vala:100
 msgid "Unmute"
 msgstr ""
 
-#: src/AppRow.vala:101
+#: src/AppRow.vala:102
 msgid "Mute"
 msgstr ""
 

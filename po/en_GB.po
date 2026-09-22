@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"POT-Creation-Date: 2026-09-22 01:23+0000\n"
 "PO-Revision-Date: 2024-04-28 18:46+0000\n"
 "Last-Translator: David Hewitt <davidmhewitt@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://l10n.elementary.io/projects/"
@@ -46,11 +46,11 @@ msgstr "Applications emitting sounds will automatically appear here"
 msgid "Reset all apps to default"
 msgstr "Reset all apps to default"
 
-#: src/AppRow.vala:99
+#: src/AppRow.vala:100
 msgid "Unmute"
 msgstr "Unmute"
 
-#: src/AppRow.vala:101
+#: src/AppRow.vala:102
 msgid "Mute"
 msgstr "Mute"
 
