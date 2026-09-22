@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 22:55+0000\n"
+"POT-Creation-Date: 2026-09-22 01:23+0000\n"
 "PO-Revision-Date: 2024-09-14 02:16+0000\n"
 "Last-Translator: TomiOhl <ohlslager.tom@gmail.com>\n"
 "Language-Team: Hungarian <https://l10n.elementary.io/projects/switchboard/"
@@ -27,85 +27,87 @@ msgstr "Hangbeállítások"
 msgid "Change sound and microphone volume"
 msgstr "Hang és mikrofon hangerejének beállítása"
 
-#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:49
-#: data/sound.metainfo.xml.in:66 data/sound.metainfo.xml.in:83
+#: data/sound.metainfo.xml.in:32
+msgid "elementary, Inc."
+msgstr "elementary, Inc."
+
+#: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:52
+#: data/sound.metainfo.xml.in:61 data/sound.metainfo.xml.in:78
+#: data/sound.metainfo.xml.in:95
 msgid "Improvements:"
 msgstr "Újítások:"
 
-#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:52
-#: data/sound.metainfo.xml.in:69 data/sound.metainfo.xml.in:88
-#: data/sound.metainfo.xml.in:101 data/sound.metainfo.xml.in:115
-#: data/sound.metainfo.xml.in:129
+#: data/sound.metainfo.xml.in:42 data/sound.metainfo.xml.in:54
+#: data/sound.metainfo.xml.in:64 data/sound.metainfo.xml.in:81
+#: data/sound.metainfo.xml.in:100 data/sound.metainfo.xml.in:113
+#: data/sound.metainfo.xml.in:127 data/sound.metainfo.xml.in:141
 msgid "Updated translations"
 msgstr "Frissített fordítások"
 
-#: data/sound.metainfo.xml.in:51
+#: data/sound.metainfo.xml.in:63
 msgid "Fix crash when connecting bluetooth audio players"
 msgstr ""
 "Bluetooth-audiólejátszók csatlakoztatásakor történő összeomlás javítása"
 
-#: data/sound.metainfo.xml.in:62
+#: data/sound.metainfo.xml.in:74
 msgid "New Features:"
 msgstr "Új funkciók:"
 
-#: data/sound.metainfo.xml.in:64
+#: data/sound.metainfo.xml.in:76
 msgid "Control the volume of individual apps"
 msgstr "Az egyes alkalmazások hangerejének szabályozása"
 
-#: data/sound.metainfo.xml.in:68
+#: data/sound.metainfo.xml.in:80
 msgid "Include missing output items in search results"
 msgstr "A keresési eredményekből hiányzó elemek megjelenítése"
 
-#: data/sound.metainfo.xml.in:85
+#: data/sound.metainfo.xml.in:97
 msgid "Improve responsiveness for large and small displays"
 msgstr "A reszponzivitás javítása nagy és kicsi képernyőkön"
 
-#: data/sound.metainfo.xml.in:86
+#: data/sound.metainfo.xml.in:98
 msgid "Better volume level indicator for microphones"
 msgstr "Jobb hangerő-indikátor a mikrofonokhoz"
 
-#: data/sound.metainfo.xml.in:87
+#: data/sound.metainfo.xml.in:99
 msgid "Show screen reader shortcut"
 msgstr "Képernyőlvasó-gyorsparancs megjelenítése"
 
-#: data/sound.metainfo.xml.in:98 data/sound.metainfo.xml.in:111
-#: data/sound.metainfo.xml.in:127
+#: data/sound.metainfo.xml.in:110 data/sound.metainfo.xml.in:123
+#: data/sound.metainfo.xml.in:139
 msgid "Minor updates:"
 msgstr "Kisebb frissítések:"
 
-#: data/sound.metainfo.xml.in:100
+#: data/sound.metainfo.xml.in:112
 msgid "Use device form factor when available to assign more accurate icons"
 msgstr ""
 "A pontosabb ikonok hozzárendeléséhez használja az eszköz formai tényezőjét, "
 "ha az rendelkezésre áll"
 
-#: data/sound.metainfo.xml.in:113
+#: data/sound.metainfo.xml.in:125
 msgid "Provide a fallback device icon in case none is available"
 msgstr "Alapértelmezett ikon biztosítása arra az esetre, ha nincs elérhető"
 
-#: data/sound.metainfo.xml.in:114
+#: data/sound.metainfo.xml.in:126
 msgid "More helpful placeholder text when no input devices are found"
 msgstr ""
 "Hasznosabb helykitöltő szöveg arra az esetre, ha nem találhatóak bemeneti "
 "eszközök"
 
-#: data/sound.metainfo.xml.in:122
+#: data/sound.metainfo.xml.in:134
 msgid "New features:"
 msgstr "Új funkciók:"
 
-#: data/sound.metainfo.xml.in:124
+#: data/sound.metainfo.xml.in:136
 msgid "Show device icons"
 msgstr "Eszközikonok kijelzése"
 
-#: data/sound.metainfo.xml.in:125
+#: data/sound.metainfo.xml.in:137
 msgid "Switch to enable the screen reader"
 msgstr "Kapcsoló a képernyőolvasóhoz"
 
 #~ msgid "Smoother transition when navigating away from this view"
 #~ msgstr "Folyamatosabb átmenet a nézetből való elnavigáláskor"
-
-#~ msgid "elementary, Inc."
-#~ msgstr "elementary, Inc."
 
 #~ msgid "Fix crash with PulseAudio's echo cancellation plugin"
 #~ msgstr ""
