@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-22 01:23+0000\n"
-"PO-Revision-Date: 2025-10-31 07:55+0000\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"PO-Revision-Date: 2026-09-23 02:02+0000\n"
+"Last-Translator: Automatic translation add-on <noreply-addon-"
+"autotranslate@weblate.org>\n"
 "Language-Team: Swedish <https://l10n.elementaryos.org/projects/settings/"
 "sound-plug-extra/sv/>\n"
 "Language: sv\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 2026.5\n"
 
 #: data/sound.metainfo.xml.in:10
 msgid "Sound Settings"
@@ -29,7 +30,7 @@ msgstr "Ändra ljud- och mikrofonvolym"
 
 #: data/sound.metainfo.xml.in:32
 msgid "elementary, Inc."
-msgstr ""
+msgstr "elementary, Inc."
 
 #: data/sound.metainfo.xml.in:40 data/sound.metainfo.xml.in:52
 #: data/sound.metainfo.xml.in:61 data/sound.metainfo.xml.in:78
