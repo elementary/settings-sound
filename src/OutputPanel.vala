@@ -17,6 +17,7 @@ public class Sound.OutputPanel : Gtk.Box {
     private unowned Canberra.Context? ca_context = null;
     private unowned PulseAudioManager pam;
     private Settings media_keys_settings;
+    private SpeakerEqualizerPanel equalizer = new SpeakerEqualizerPanel ();
 
     private string _screenreader_shortcut_label = "";
     private string screenreader_shortcut_label {
@@ -140,6 +141,7 @@ public class Sound.OutputPanel : Gtk.Box {
         spacing = 18;
         append (devices_frame);
         append (output_grid);
+        append (equalizer);
         append (alerts_box);
         append (screen_reader_box);
         append (test_button);
@@ -199,6 +201,7 @@ public class Sound.OutputPanel : Gtk.Box {
             }
 
             default_device = pam.default_output;
+            equalizer.set_device (default_device);
             if (default_device != null) {
                 if (volume_switch.active == default_device.is_muted) {
                     volume_switch.activate ();

@@ -1,0 +1,10 @@
+{
+  "origin": "/home/sean/Documents/vale-settings-sound/validation",
+  "sha256_before_test_path_adaptation": {
+    "audio-owner.vala": "759552975a13001f722aed6165ae3b086d947b34b801e6018a998ae2f8c36051",
+    "echo-client.vala": "13b9f79228cc10fddab9c3889024226ad605f85bc1c774de9442d9a7798e8d67",
+    "stream-client.vala": "3942124d147545d12c5c45cd8c52c27bbac735ca4824e2a84293b8023cedf38d",
+    "ui-client.vala": "f5dba38efd9564fa69232bf12e936abcd686f3abac926929e0977d187512a532",
+    "run-functional.py": "a7fc018a0d9cc1ef7004695f03edf4a96abb7767513b9a0d345e1db55c9c314c"
+  }
+}

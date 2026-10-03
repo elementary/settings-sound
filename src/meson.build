@@ -1,4 +1,6 @@
 plug_files = files(
+    'SpeakerEqualizer.vala',
+    'SpeakerEqualizerPanel.vala',
     'App.vala',
     'ApplicationsPanel.vala',
     'AppRow.vala',
