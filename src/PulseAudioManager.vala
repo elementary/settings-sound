@@ -41,6 +41,7 @@ public class Sound.PulseAudioManager : GLib.Object {
     public signal void new_device (Device dev);
 
     public PulseAudio.Context context { get; private set; }
+    public EchoCancellation echo_cancellation { get; private set; }
     public ListStore apps { get; construct; }
 
     private PulseAudio.GLibMainLoop loop;
@@ -59,6 +60,17 @@ public class Sound.PulseAudioManager : GLib.Object {
     }
 
     construct {
+        echo_cancellation = new EchoCancellation ();
+        echo_cancellation.notify["source-master"].connect (() => {
+            if (is_ready) {
+                context.get_server_info (server_info_callback);
+            }
+        });
+        echo_cancellation.notify["sink-master"].connect (() => {
+            if (is_ready) {
+                context.get_server_info (server_info_callback);
+            }
+        });
         loop = new PulseAudio.GLibMainLoop ();
         apps = new ListStore (typeof (App));
         input_devices = new Gee.HashMap<string, Device> ();
@@ -415,7 +427,6 @@ public class Sound.PulseAudioManager : GLib.Object {
                 break;
 
             case PulseAudio.Context.SubscriptionEventType.SOURCE:
-            case PulseAudio.Context.SubscriptionEventType.SOURCE_OUTPUT:
                 var event_type = t & PulseAudio.Context.SubscriptionEventType.TYPE_MASK;
                 switch (event_type) {
                     case PulseAudio.Context.SubscriptionEventType.NEW:
@@ -500,7 +511,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                     device.source_name = source.name;
                     debug ("\t\t\tdevice.source_name: %s", device.card_source_name);
                     device.source_index = (int)source.index;
-                    device.is_default = (source.name == default_source_name);
+                    device.is_default = (source.name == echo_cancellation.resolve_source (default_source_name));
                     debug ("\t\t\tis_default: %s", device.is_default ? "true" : "false");
 
                     device.is_muted = (source.mute != 0);
@@ -572,7 +583,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                     device.sink_name = sink.name;
                     debug ("\t\t\tdevice.sink_name: %s", device.card_sink_name);
                     device.sink_index = (int)sink.index;
-                    device.is_default = (sink.name == default_sink_name);
+                    device.is_default = (sink.name == echo_cancellation.resolve_sink (default_sink_name));
                     debug ("\t\t\tis_default: %s", device.is_default ? "true" : "false");
                     device.is_muted = (sink.mute != 0);
                     device.cvolume = sink.volume;
@@ -840,8 +851,12 @@ public class Sound.PulseAudioManager : GLib.Object {
 
         if (default_sink_name != server.default_sink_name) {
             debug ("\tdefault_sink_name: %s > %s", default_sink_name, server.default_sink_name);
+            var filter_change = default_sink_name == EchoCancellation.SINK_NAME ||
+                server.default_sink_name == EchoCancellation.SINK_NAME;
             default_sink_name = server.default_sink_name;
-            PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_sink_callback);
+            if (!filter_change) {
+                PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_sink_callback);
+            }
         }
 
         if (default_source_name == null) {
@@ -851,8 +866,12 @@ public class Sound.PulseAudioManager : GLib.Object {
 
         if (default_source_name != server.default_source_name) {
             debug ("\tdefault_source_name: %s > %s", default_source_name, server.default_source_name);
+            var filter_change = default_source_name == EchoCancellation.SOURCE_NAME ||
+                server.default_source_name == EchoCancellation.SOURCE_NAME;
             default_source_name = server.default_source_name;
-            PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_source_callback);
+            if (!filter_change) {
+                PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_source_callback);
+            }
         }
 
         // request info on cards and ports before requesting info on
@@ -867,7 +886,8 @@ public class Sound.PulseAudioManager : GLib.Object {
      */
 
     private void ext_stream_restore_read_sink_callback (PulseAudio.Context c, PulseAudio.ExtStreamRestoreInfo? info, int eol) {
-        if (eol != 0 || !info.name.has_prefix ("sink-input-by")) {
+        if (eol != 0 || default_sink_name == EchoCancellation.SINK_NAME ||
+            !info.name.has_prefix ("sink-input-by")) {
             return;
         }
 
@@ -886,7 +906,8 @@ public class Sound.PulseAudioManager : GLib.Object {
     }
 
     private void ext_stream_restore_read_source_callback (PulseAudio.Context c, PulseAudio.ExtStreamRestoreInfo? info, int eol) {
-        if (eol != 0 || !info.name.has_prefix ("source-output-by")) {
+        if (eol != 0 || default_source_name == EchoCancellation.SOURCE_NAME ||
+            !info.name.has_prefix ("source-output-by")) {
             return;
         }
 
