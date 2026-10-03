@@ -5,6 +5,7 @@ plug_files = files(
     'CanberraGtk4.vala',
     'TestPopover.vala',
     'PulseAudioManager.vala',
+    'EchoCancellation.vala',
     'Plug.vala',
     'OutputPanel.vala',
     'InputPanel.vala',

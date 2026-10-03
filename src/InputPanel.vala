@@ -11,7 +11,12 @@ public class Sound.InputPanel : Gtk.Box {
     private Gtk.ListBox devices_listbox;
     private Gtk.Scale volume_scale;
     private Gtk.Switch volume_switch;
+    private Gtk.Switch echo_switch;
+    private Gtk.Label echo_status;
+    private ulong echo_switch_handler;
+    private EchoCancellation echo_cancellation;
     private InputDeviceMonitor device_monitor;
+    private bool monitor_visible;
     private unowned PulseAudioManager pam;
 
     construct {
@@ -74,10 +79,42 @@ public class Sound.InputPanel : Gtk.Box {
         volume_grid.attach (volume_scale, 0, 2);
         volume_grid.attach (volume_switch, 1, 1, 1, 2);
 
+        echo_switch = new Gtk.Switch () {
+            valign = START
+        };
+        echo_switch_handler = echo_switch.notify["active"].connect (() => {
+            echo_cancellation.request (echo_switch.active);
+        });
+
+        var echo_description = new Gtk.Label (
+            _("Reduce background noise and speaker echo in new applications using the default microphone.")
+        ) {
+            wrap = true,
+            xalign = 0,
+            hexpand = true
+        };
+        echo_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        echo_status = new Gtk.Label (null) {
+            wrap = true,
+            xalign = 0
+        };
+        echo_status.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        var echo_grid = new Gtk.Grid () {
+            column_spacing = 12,
+            row_spacing = 3
+        };
+        echo_grid.attach (new Granite.HeaderLabel (_("Noise Cancellation")), 0, 0);
+        echo_grid.attach (echo_description, 0, 1);
+        echo_grid.attach (echo_status, 0, 2);
+        echo_grid.attach (echo_switch, 1, 0, 1, 2);
+
         orientation = VERTICAL;
         spacing = 18;
         append (devices_frame);
         append (volume_grid);
+        append (echo_grid);
 
         device_monitor = new InputDeviceMonitor ();
         device_monitor.update_fraction.connect ((fraction) => {
@@ -85,6 +122,9 @@ public class Sound.InputPanel : Gtk.Box {
         });
 
         pam = PulseAudioManager.get_default ();
+        echo_cancellation = pam.echo_cancellation;
+        echo_cancellation.notify.connect (echo_status_changed);
+        echo_status_changed ();
         pam.new_device.connect (add_device);
         pam.notify["default-input"].connect (() => {
             default_changed ();
@@ -93,8 +133,23 @@ public class Sound.InputPanel : Gtk.Box {
         connect_signals ();
     }
 
+    private void echo_status_changed () {
+        SignalHandler.block (echo_switch, echo_switch_handler);
+        echo_switch.sensitive = !echo_cancellation.busy &&
+            (echo_cancellation.available || echo_cancellation.enabled || echo_cancellation.requested);
+        echo_switch.state = echo_cancellation.enabled;
+        // Setting active even to its current value cancels GTK's animation.
+        if (echo_switch.active != echo_cancellation.requested) {
+            echo_switch.active = echo_cancellation.requested;
+        }
+        SignalHandler.unblock (echo_switch, echo_switch_handler);
+        echo_status.label = echo_cancellation.error != null ? echo_cancellation.error : "";
+        echo_status.visible = echo_status.label != "";
+    }
+
     public void set_visibility (bool is_visible) {
-        if (is_visible) {
+        monitor_visible = is_visible;
+        if (is_visible && default_device != null) {
             device_monitor.start_record ();
         } else {
             device_monitor.stop_record ();
@@ -131,10 +186,18 @@ public class Sound.InputPanel : Gtk.Box {
             }
 
             default_device = pam.default_input;
+            volume_switch.sensitive = default_device != null;
+            volume_scale.sensitive = default_device != null && !default_device.is_muted;
+            if (default_device == null) {
+                device_monitor.stop_record ();
+            }
             if (default_device != null) {
                 device_monitor.set_device (default_device);
+                if (monitor_visible) {
+                    device_monitor.start_record ();
+                }
                 if (volume_switch.active == default_device.is_muted) {
-                    volume_switch.activate ();
+                    volume_switch.active = !default_device.is_muted;
                 }
                 volume_scale.set_value (default_device.volume);
                 default_device.notify.connect (device_notify);
@@ -149,7 +212,7 @@ public class Sound.InputPanel : Gtk.Box {
         switch (pspec.get_name ()) {
             case "is-muted":
                 if (volume_switch.active == default_device.is_muted) {
-                    volume_switch.activate ();
+                    volume_switch.active = !default_device.is_muted;
                 }
 
                 volume_scale.sensitive = !default_device.is_muted;

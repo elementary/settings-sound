@@ -41,6 +41,7 @@ public class Sound.PulseAudioManager : GLib.Object {
     public signal void new_device (Device dev);
 
     public PulseAudio.Context context { get; private set; }
+    public EchoCancellation echo_cancellation { get; private set; }
     public ListStore apps { get; construct; }
 
     private PulseAudio.GLibMainLoop loop;
@@ -52,6 +53,13 @@ public class Sound.PulseAudioManager : GLib.Object {
     public Device default_input { get; private set; }
     private string default_source_name;
     private string default_sink_name;
+    private string? physical_source_name;
+    private string? physical_sink_name;
+    private bool changing_device;
+    private signal void device_selection_finished ();
+    private uint sink_selection_generation;
+    private uint source_selection_generation;
+    private signal void physical_default_changed (bool input);
     private Gee.HashMap<uint32, PulseAudio.Operation> volume_operations;
 
     private PulseAudioManager () {
@@ -59,6 +67,22 @@ public class Sound.PulseAudioManager : GLib.Object {
     }
 
     construct {
+        echo_cancellation = new EchoCancellation ();
+        echo_cancellation.notify["source-master"].connect (() => {
+            if (is_ready) {
+                request_server_info.begin ();
+            }
+        });
+        echo_cancellation.notify["sink-master"].connect (() => {
+            if (is_ready) {
+                request_server_info.begin ();
+            }
+        });
+        echo_cancellation.notify["busy"].connect (() => {
+            if (is_ready && !echo_cancellation.busy) {
+                request_server_info.begin ();
+            }
+        });
         loop = new PulseAudio.GLibMainLoop ();
         apps = new ListStore (typeof (App));
         input_devices = new Gee.HashMap<string, Device> ();
@@ -80,135 +104,365 @@ public class Sound.PulseAudioManager : GLib.Object {
         debug ("\n");
         debug ("set_default_device: %s", device.id);
         debug ("\t%s", device.input? "input" : "output");
-        // #1 Set card profile
-        // Some sinks / sources are only available under certain card profiles,
-        // for example to switch between onboard speakers to hdmi
-        // the profile has to be switched from analog stereo to digital stereo.
-        // Attempt to find profiles that support both selected input and output
-        var other_device = device.input? default_output : default_input;
-
-        var profile_name = device.get_matching_profile (other_device);
-        // otherwise fall back to supporting this device only
-        if (profile_name == null) {
-            profile_name = device.profiles[0];
+        // Snapshot ordinary streams before a device change can rescue filtered
+        // streams onto their old physical master during an AEC rebuild.
+        while (changing_device || echo_cancellation.busy) {
+            if (!(yield wait_for_processing (device.input, null))) {
+                return;
+            }
         }
+        changing_device = true;
+        try {
+            var owner = context;
+            var streams = yield list_application_streams (device.input);
+            if (owner != context) {
+                return;
+            }
+            // #1 Set card profile
+            // Some sinks / sources are only available under certain card profiles,
+            // for example to switch between onboard speakers to hdmi
+            // the profile has to be switched from analog stereo to digital stereo.
+            // Attempt to find profiles that support both selected input and output
+            var other_device = device.input? default_output : default_input;
 
-        if (profile_name != device.card_active_profile_name) {
-            debug ("set card profile: %s > %s", device.card_active_profile_name, profile_name);
-            // switch profile to get sink for this device
-            yield set_card_profile_by_index (device.card_index, profile_name);
-            // wait for new card sink to appear
-            debug ("wait for card sink / source");
-            yield wait_for_update (device, device.input? "card-source-name" : "card-sink-name");
-        }
+            var profile_name = device.get_matching_profile (other_device);
+            // otherwise fall back to supporting this device only
+            if (profile_name == null) {
+                profile_name = device.profiles[0];
+            }
 
-        // #2 Set sink / source port
-        // Speakers and headphones can be different ports on the same sink
-        if (!device.input && device.port_name != device.card_sink_port_name) {
-            debug ("set sink port: %s > %s", device.card_sink_port_name, device.port_name);
-            // set sink port (enables switching between headphones and speakers for example)
-            yield set_sink_port_by_name (device.card_sink_name, device.port_name);
-        }
+            if (profile_name != device.card_active_profile_name) {
+                debug ("set card profile: %s > %s", device.card_active_profile_name, profile_name);
+                // switch profile to get sink for this device
+                if (!(yield set_card_profile_by_index (device.card_index, profile_name))) {
+                    return;
+                }
+                // wait for new card sink to appear
+                debug ("wait for card sink / source");
+                if (!(yield wait_for_update (device, device.input? "card-source-name" : "card-sink-name"))) {
+                    return;
+                }
+            }
 
-        if (device.input && device.port_name != device.card_source_port_name) {
-            debug ("set source port: %s > %s", device.card_source_port_name, device.port_name);
-            yield set_source_port_by_name (device.card_source_name, device.port_name);
-        }
+            // #2 Set sink / source port
+            // Speakers and headphones can be different ports on the same sink
+            if (!device.input && device.port_name != device.card_sink_port_name) {
+                debug ("set sink port: %s > %s", device.card_sink_port_name, device.port_name);
+                // set sink port (enables switching between headphones and speakers for example)
+                if (!(yield set_sink_port_by_name (device.card_sink_name, device.port_name))) {
+                    return;
+                }
+            }
 
-        // #3 Wait for sink / source to appear for this device
-        if (!device.input && device.sink_name == null ||
-            device.input && device.source_name == null) {
-            debug ("wait for sink / source");
-            yield wait_for_update (device, device.input? "source-name" : "sink-name");
-        }
+            if (device.input && device.port_name != device.card_source_port_name) {
+                debug ("set source port: %s > %s", device.card_source_port_name, device.port_name);
+                if (!(yield set_source_port_by_name (device.card_source_name, device.port_name))) {
+                    return;
+                }
+            }
 
-        // #4 Set sink / source
-        // To for example switch between onboard speakers and bluetooth audio devices
-        if (!device.input && device.sink_name != default_sink_name) {
-            debug ("set sink: %s > %s", default_sink_name, device.sink_name);
-            yield set_default_sink (device.sink_name);
-        }
+            // #3 Wait for sink / source to appear for this device
+            if (!device.input && device.sink_name == null ||
+                device.input && device.source_name == null) {
+                debug ("wait for sink / source");
+                if (!(yield wait_for_update (device, device.input? "source-name" : "sink-name"))) {
+                    return;
+                }
+            }
 
-        if (device.input && device.source_name != default_source_name) {
-            debug ("set source: %s > %s", default_source_name, device.source_name);
-            yield set_default_source (device.source_name);
+            yield request_server_info ();
+            if (owner != context) {
+                return;
+            }
+            // #4 Set sink / source
+            // To for example switch between onboard speakers and bluetooth audio devices
+            if (!device.input && device.sink_name != default_sink_name) {
+                debug ("set sink: %s > %s", default_sink_name, device.sink_name);
+                if (!(yield set_default_sink (device.sink_name, streams))) {
+                    return;
+                }
+            }
+
+            if (device.input && device.source_name != default_source_name) {
+                debug ("set source: %s > %s", default_source_name, device.source_name);
+                if (!(yield set_default_source (device.source_name, streams))) {
+                    return;
+                }
+            }
+            yield wait_for_processing (device.input, device.input ? physical_source_name : physical_sink_name,
+                device.input ? source_selection_generation : sink_selection_generation);
+        } finally {
+            changing_device = false;
+            device_selection_finished ();
         }
     }
 
-    private async void set_card_profile_by_index (uint32 card_index, string profile_name) {
-        context.set_card_profile_by_index (card_index, profile_name, (c, success) => {
-            if (success == 1) {
-                set_card_profile_by_index.callback ();
-            } else {
-                warning ("setting card %u profile to %s failed", card_index, profile_name);
+    // Completion, cancellation, disconnect and timeout all resume the caller.
+    // Cancel before releasing callback data on timeout (libpulse's contract).
+    private async bool wait_operation (PulseAudio.Operation? operation) {
+        if (operation == null) {
+            return false;
+        }
+
+        if (operation.get_state () != PulseAudio.Operation.State.RUNNING) {
+            return operation.get_state () == PulseAudio.Operation.State.DONE;
+        }
+
+        bool timed_out = false;
+        var timeout = new TimeoutSource (5000);
+        timeout.set_callback (() => {
+            timed_out = true;
+            operation.cancel ();
+            wait_operation.callback ();
+            return Source.REMOVE;
+        });
+        PulseAudio.operation_set_state_callback (operation, (op) => {
+            if (!timed_out && op.get_state () != PulseAudio.Operation.State.RUNNING) {
+                timeout.destroy ();
+                wait_operation.callback ();
             }
         });
-
+        timeout.attach ();
         yield;
+        PulseAudio.operation_set_state_callback (operation, null);
+        return !timed_out && operation.get_state () == PulseAudio.Operation.State.DONE;
     }
 
-    // TODO make more robust. Add timeout? Prevent multiple connects?
-    private async void wait_for_update (Device device, string prop_name) {
-        debug ("wait_for_update: %s:%s", device.id, prop_name);
-        ulong handler_id = 0;
-        handler_id = device.notify[prop_name].connect ((s, p) => {
-            string prop_value;
-            device.get (prop_name, out prop_value);
-            if (prop_value != null) {
-                device.disconnect (handler_id);
+    private async bool set_card_profile_by_index (uint32 card_index, string profile_name) {
+        bool selected = false;
+        var operation = context.set_card_profile_by_index (card_index, profile_name, (c, success) => {
+            selected = success == 1;
+        });
+        if (!(yield wait_operation (operation)) || !selected) {
+            warning ("setting card %u profile to %s failed", card_index, profile_name);
+            return false;
+        }
+        return true;
+    }
+
+    private async bool wait_for_update (Device device, string prop_name) {
+        bool success = false;
+        bool finished = false;
+        var deadline = new TimeoutSource (5000);
+        SourceFunc finish = () => {
+            if (!finished) {
+                finished = true;
+                deadline.destroy ();
                 wait_for_update.callback ();
             }
-        });
-
-        yield;
-    }
-
-    private async void set_sink_port_by_name (string sink_name, string port_name) {
-        context.set_sink_port_by_name (sink_name, port_name, (c, success) => {
-            if (success == 1) {
-                set_sink_port_by_name.callback ();
-            } else {
-                warning ("setting sink %s port to %s failed", sink_name, port_name);
+            return Source.REMOVE;
+        };
+        ulong changed = device.notify[prop_name].connect (() => {
+            string value;
+            device.get (prop_name, out value);
+            if (value != null) {
+                success = true;
+                finish ();
             }
         });
-
+        ulong removed = device.removed.connect (() => finish ());
+        deadline.set_callback (finish);
+        deadline.attach ();
         yield;
+        device.disconnect (changed);
+        device.disconnect (removed);
+        return success;
     }
 
-    private async void set_source_port_by_name (string source_name, string port_name) {
-        context.set_source_port_by_name (source_name, port_name, (c, success) => {
-            if (success == 1) {
-                set_source_port_by_name.callback ();
-            } else {
-                warning ("setting source %s port to %s failed", source_name, port_name);
-            }
+    private async bool set_sink_port_by_name (string sink_name, string port_name) {
+        bool selected = false;
+        var operation = context.set_sink_port_by_name (sink_name, port_name, (c, success) => {
+            selected = success == 1;
         });
-
-        yield;
+        if (!(yield wait_operation (operation)) || !selected) {
+            warning ("setting sink %s port to %s failed", sink_name, port_name);
+            return false;
+        }
+        return true;
     }
 
-    private async void set_default_sink (string sink_name) {
-        context.set_default_sink (sink_name, (c, success) => {
-            if (success == 1) {
-                set_default_sink.callback ();
-            } else {
-                warning ("setting default sink to %s failed", sink_name);
-            }
+    private async bool set_source_port_by_name (string source_name, string port_name) {
+        bool selected = false;
+        var operation = context.set_source_port_by_name (source_name, port_name, (c, success) => {
+            selected = success == 1;
         });
-
-        yield;
+        if (!(yield wait_operation (operation)) || !selected) {
+            warning ("setting source %s port to %s failed", source_name, port_name);
+            return false;
+        }
+        return true;
     }
 
-    private async void set_default_source (string source_name) {
-        context.set_default_source (source_name, (c, success) => {
-            if (success == 1) {
-                set_default_source.callback ();
-            } else {
-                warning ("setting default source to %s failed", source_name);
+    private async bool set_default_sink (string sink_name, Gee.ArrayList<uint> streams) {
+        var owner = context;
+        var generation = ++sink_selection_generation;
+        bool selected = false;
+        var operation = owner.set_default_sink (sink_name, (c, success) => {
+            selected = success == 1;
+        });
+        if (!(yield wait_operation (operation)) || !selected) {
+            warning ("setting default sink to %s failed", sink_name);
+            if (owner == context) {
+                request_server_info.begin ();
+            }
+            return false;
+        }
+        if (owner != context) {
+            return false;
+        }
+        if (!(yield wait_for_processing (false, sink_name, generation)) || owner != context) {
+            return false;
+        }
+        // An A -> B -> A change can coalesce without advancing the observer.
+        yield request_server_info ();
+        if (owner != context) {
+            return false;
+        }
+        if (generation == sink_selection_generation && physical_sink_name == sink_name) {
+            yield restore_application_routes (false, sink_name, generation, streams);
+        }
+        return true;
+    }
+
+    private async bool set_default_source (string source_name, Gee.ArrayList<uint> streams) {
+        var owner = context;
+        var generation = ++source_selection_generation;
+        bool selected = false;
+        var operation = owner.set_default_source (source_name, (c, success) => {
+            selected = success == 1;
+        });
+        if (!(yield wait_operation (operation)) || !selected) {
+            warning ("setting default source to %s failed", source_name);
+            if (owner == context) {
+                request_server_info.begin ();
+            }
+            return false;
+        }
+        if (owner != context) {
+            return false;
+        }
+        if (!(yield wait_for_processing (true, source_name, generation)) || owner != context) {
+            return false;
+        }
+        yield request_server_info ();
+        if (owner != context) {
+            return false;
+        }
+        if (generation == source_selection_generation && physical_source_name == source_name) {
+            yield restore_application_routes (true, source_name, generation, streams);
+        }
+        return true;
+    }
+
+    private async void restore_application_routes (bool input, string target, uint generation, Gee.ArrayList<uint> streams) {
+        var owner = context;
+        var deadline = new TimeoutSource (2000);
+        var operation = PulseAudio.ext_stream_restore_read (context, (c, info, eol) => {
+            if (owner == context && generation == (input ? source_selection_generation : sink_selection_generation)) {
+                update_stream_route (c, info, eol, input, target);
+            }
+            if (eol != 0) {
+                deadline.destroy ();
+                restore_application_routes.callback ();
             }
         });
-
+        if (operation == null) {
+            return;
+        }
+        // Keep the callback's target alive until enumeration ends or is canceled.
+        deadline.set_callback (() => {
+            operation.cancel ();
+            restore_application_routes.callback ();
+            return Source.REMOVE;
+        });
+        deadline.attach ();
         yield;
+        do {
+            if (!(yield wait_for_processing (input, target, generation)) || owner != context ||
+                generation != (input ? source_selection_generation : sink_selection_generation)) {
+                return;
+            }
+        } while (echo_cancellation.busy);
+        // A client may have opted into processing since the initial snapshot.
+        var ordinary = yield list_application_streams (input);
+        if (owner == context && generation == (input ? source_selection_generation : sink_selection_generation)) {
+            foreach (uint index in streams) {
+                if (!ordinary.contains (index)) {
+                    continue;
+                }
+                if (input) {
+                    owner.move_source_output_by_name (index, target);
+                } else {
+                    owner.move_sink_input_by_name (index, target);
+                }
+            }
+        }
+    }
+
+    private async Gee.ArrayList<uint> list_application_streams (bool input) {
+        var streams = new Gee.ArrayList<uint> ();
+        if (echo_cancellation.busy) {
+            return streams;
+        }
+        var devices = new Gee.ArrayList<uint> ();
+        var deadline = new TimeoutSource (2000);
+        PulseAudio.Operation? operation = null;
+        SourceFunc finished = () => {
+            deadline.destroy ();
+            list_application_streams.callback ();
+            return Source.REMOVE;
+        };
+        if (input) {
+            operation = context.get_source_info_list ((c, info, eol) => {
+                if (info != null && info.name != EchoCancellation.SOURCE_NAME) {
+                    devices.add (info.index);
+                }
+                if (eol < 0) {
+                    finished ();
+                } else if (eol > 0) {
+                    operation = c.get_source_output_info_list ((owner, stream, end) => {
+                        if (stream != null && stream.client != PulseAudio.INVALID_INDEX && devices.contains (stream.source)) {
+                            streams.add (stream.index);
+                        }
+                        if (end != 0) {
+                            finished ();
+                        }
+                    });
+                }
+            });
+        } else {
+            operation = context.get_sink_info_list ((c, info, eol) => {
+                if (info != null && info.name != EchoCancellation.SINK_NAME) {
+                    devices.add (info.index);
+                }
+                if (eol < 0) {
+                    finished ();
+                } else if (eol > 0) {
+                    operation = c.get_sink_input_info_list ((owner, stream, end) => {
+                        if (stream != null && stream.client != PulseAudio.INVALID_INDEX && devices.contains (stream.sink)) {
+                            streams.add (stream.index);
+                        }
+                        if (end != 0) {
+                            finished ();
+                        }
+                    });
+                }
+            });
+        }
+        if (operation == null) {
+            return streams;
+        }
+        deadline.set_callback (() => {
+            if (operation != null) {
+                operation.cancel ();
+            }
+            streams.clear ();
+            list_application_streams.callback ();
+            return Source.REMOVE;
+        });
+        deadline.attach ();
+        yield;
+        return streams;
     }
 
     public void change_device_mute (Device? device, bool mute = true) {
@@ -289,6 +543,7 @@ public class Sound.PulseAudioManager : GLib.Object {
 
         var props = new PulseAudio.Proplist ();
         props.sets (PulseAudio.Proplist.PROP_APPLICATION_ID, "io.elementary.settings.sound");
+        physical_source_name = physical_sink_name = null;
         context = new PulseAudio.Context (loop.get_api (), null, props);
         context.set_state_callback (context_state_callback);
 
@@ -307,7 +562,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                              PulseAudio.Context.SubscriptionMask.SINK_INPUT |
                              PulseAudio.Context.SubscriptionMask.SOURCE_OUTPUT |
                              PulseAudio.Context.SubscriptionMask.CARD);
-                context.get_server_info (server_info_callback);
+                request_server_info.begin ();
                 context.get_sink_input_info_list (sink_input_info_callback);
 
                 is_ready = true;
@@ -392,7 +647,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                 break;
 
             case PulseAudio.Context.SubscriptionEventType.SERVER:
-                context.get_server_info (server_info_callback);
+                request_server_info.begin ();
                 break;
 
             case PulseAudio.Context.SubscriptionEventType.CARD:
@@ -415,7 +670,6 @@ public class Sound.PulseAudioManager : GLib.Object {
                 break;
 
             case PulseAudio.Context.SubscriptionEventType.SOURCE:
-            case PulseAudio.Context.SubscriptionEventType.SOURCE_OUTPUT:
                 var event_type = t & PulseAudio.Context.SubscriptionEventType.TYPE_MASK;
                 switch (event_type) {
                     case PulseAudio.Context.SubscriptionEventType.NEW:
@@ -434,6 +688,9 @@ public class Sound.PulseAudioManager : GLib.Object {
                                 device.source_name = null;
                                 device.source_index = -1;
                                 device.is_default = false;
+                                if (default_input == device) {
+                                    default_input = null;
+                                }
                                 debug ("\t\tdevice.source_name: %s", device.source_name);
                             }
 
@@ -500,7 +757,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                     device.source_name = source.name;
                     debug ("\t\t\tdevice.source_name: %s", device.card_source_name);
                     device.source_index = (int)source.index;
-                    device.is_default = (source.name == default_source_name);
+                    device.is_default = (source.name == echo_cancellation.resolve_source (default_source_name));
                     debug ("\t\t\tis_default: %s", device.is_default ? "true" : "false");
 
                     device.is_muted = (source.mute != 0);
@@ -527,6 +784,9 @@ public class Sound.PulseAudioManager : GLib.Object {
                     device.source_name = null;
                     device.source_index = -1;
                     device.is_default = false;
+                    if (default_input == device) {
+                        default_input = null;
+                    }
                 }
             }
         }
@@ -572,7 +832,7 @@ public class Sound.PulseAudioManager : GLib.Object {
                     device.sink_name = sink.name;
                     debug ("\t\t\tdevice.sink_name: %s", device.card_sink_name);
                     device.sink_index = (int)sink.index;
-                    device.is_default = (sink.name == default_sink_name);
+                    device.is_default = (sink.name == echo_cancellation.resolve_sink (default_sink_name));
                     debug ("\t\t\tis_default: %s", device.is_default ? "true" : "false");
                     device.is_muted = (sink.mute != 0);
                     device.cvolume = sink.volume;
@@ -607,6 +867,13 @@ public class Sound.PulseAudioManager : GLib.Object {
 
     private void sink_input_info_callback (PulseAudio.Context c, PulseAudio.SinkInputInfo? sink_input, int eol) {
         if (sink_input == null) {
+            return;
+        }
+
+        // Server-side filters are processing streams, not applications.
+        if (sink_input.client == PulseAudio.INVALID_INDEX &&
+            (sink_input.proplist.gets (PulseAudio.Proplist.PROP_MEDIA_ROLE) == "filter" ||
+             sink_input.proplist.gets ("node.virtual") == "true")) {
             return;
         }
 
@@ -780,6 +1047,9 @@ public class Sound.PulseAudioManager : GLib.Object {
 
             if (!found) {
                 debug ("\t\tremoving device: %s", device.id);
+                if (default_input == device) {
+                    default_input = null;
+                }
                 device.removed ();
                 iter.unset ();
             }
@@ -821,38 +1091,45 @@ public class Sound.PulseAudioManager : GLib.Object {
             var device = iter.get_value ();
             if (device.card_index == card_index) {
                 debug ("removing device: %s", device.id);
+                if (default_input == device) {
+                    default_input = null;
+                }
                 device.removed ();
                 iter.unset ();
             }
         }
     }
 
-    private void server_info_callback (PulseAudio.Context context, PulseAudio.ServerInfo? server) {
+    private async void request_server_info () {
+        uint sink_generation = sink_selection_generation;
+        uint source_generation = source_selection_generation;
+        var operation = context.get_server_info ((owner, server) => {
+            server_info_callback (owner, server, sink_generation, source_generation);
+        });
+        yield wait_operation (operation);
+    }
+
+    private void server_info_callback (PulseAudio.Context context, PulseAudio.ServerInfo? server, uint sink_generation, uint source_generation) {
         debug ("server info update");
-        if (server == null) {
+        if (context != this.context || server == null) {
             return;
         }
 
-        if (default_sink_name == null) {
+        if (sink_generation == sink_selection_generation) {
             default_sink_name = server.default_sink_name;
-            debug ("\tdefault_sink_name: %s", default_sink_name);
+            if (default_sink_name == EchoCancellation.SINK_NAME) {
+                resolve_physical_default.begin (false, sink_generation);
+            } else {
+                update_physical_default (false, default_sink_name);
+            }
         }
-
-        if (default_sink_name != server.default_sink_name) {
-            debug ("\tdefault_sink_name: %s > %s", default_sink_name, server.default_sink_name);
-            default_sink_name = server.default_sink_name;
-            PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_sink_callback);
-        }
-
-        if (default_source_name == null) {
+        if (source_generation == source_selection_generation) {
             default_source_name = server.default_source_name;
-            debug ("\tdefault_source_name: %s", default_source_name);
-        }
-
-        if (default_source_name != server.default_source_name) {
-            debug ("\tdefault_source_name: %s > %s", default_source_name, server.default_source_name);
-            default_source_name = server.default_source_name;
-            PulseAudio.ext_stream_restore_read (context, ext_stream_restore_read_source_callback);
+            if (default_source_name == EchoCancellation.SOURCE_NAME) {
+                resolve_physical_default.begin (true, source_generation);
+            } else {
+                update_physical_default (true, default_source_name);
+            }
         }
 
         // request info on cards and ports before requesting info on
@@ -862,42 +1139,131 @@ public class Sound.PulseAudioManager : GLib.Object {
         context.get_sink_info_list (sink_info_callback);
     }
 
-    /*
-     * Change the Source
-     */
-
-    private void ext_stream_restore_read_sink_callback (PulseAudio.Context c, PulseAudio.ExtStreamRestoreInfo? info, int eol) {
-        if (eol != 0 || !info.name.has_prefix ("sink-input-by")) {
-            return;
+    private async void resolve_physical_default (bool input, uint generation) {
+        // Keep captured generations alive until the native request completes.
+        PulseAudio.Operation? operation;
+        if (input) {
+            operation = context.get_source_info_by_name (EchoCancellation.SOURCE_NAME, (owner, info, eol) => {
+                if (owner == context && generation == source_selection_generation && info != null &&
+                    default_source_name == EchoCancellation.SOURCE_NAME && !echo_cancellation.busy &&
+                    info.proplist.gets ("device.master_device") == echo_cancellation.source_master) {
+                    update_physical_default (true, info.proplist.gets ("device.master_device"));
+                }
+            });
+        } else {
+            operation = context.get_sink_info_by_name (EchoCancellation.SINK_NAME, (owner, info, eol) => {
+                if (owner == context && generation == sink_selection_generation && info != null &&
+                    default_sink_name == EchoCancellation.SINK_NAME && !echo_cancellation.busy &&
+                    info.proplist.gets ("device.master_device") == echo_cancellation.sink_master) {
+                    update_physical_default (false, info.proplist.gets ("device.master_device"));
+                }
+            });
         }
-
-        // We need to duplicate the info but with the right device name
-        var new_info = PulseAudio.ExtStreamRestoreInfo ();
-        new_info.name = info.name;
-        new_info.channel_map = info.channel_map;
-        new_info.volume = info.volume;
-        new_info.mute = info.mute;
-        new_info.device = default_sink_name;
-        PulseAudio.ext_stream_restore_write (c, PulseAudio.UpdateMode.REPLACE, {new_info}, 1, (c, success) => {
-            if (success != 1) {
-                warning ("Updating source failed");
-            }
-        });
+        yield wait_operation (operation);
     }
 
-    private void ext_stream_restore_read_source_callback (PulseAudio.Context c, PulseAudio.ExtStreamRestoreInfo? info, int eol) {
-        if (eol != 0 || !info.name.has_prefix ("source-output-by")) {
+    private void update_physical_default (bool input, string? name) {
+        if (name == null) {
+            return;
+        }
+        var previous = input ? physical_source_name : physical_sink_name;
+        if (input) {
+            physical_source_name = name;
+        } else {
+            physical_sink_name = name;
+        }
+        if (previous == null || previous == name) {
+            return;
+        }
+        uint generation = input ? ++source_selection_generation : ++sink_selection_generation;
+        physical_default_changed (input);
+        restore_external_routes.begin (input, name, generation);
+    }
+
+    private async bool wait_for_processing (bool input, string? target, uint? generation = null) {
+        SourceFunc settled = () => {
+            var current = target;
+            if (generation != null && generation != (input ? source_selection_generation : sink_selection_generation)) {
+                current = input ? physical_source_name : physical_sink_name;
+            }
+            return (target != null || !changing_device) && !echo_cancellation.busy &&
+                (current == null || !echo_cancellation.enabled ||
+                (input ? echo_cancellation.source_master : echo_cancellation.sink_master) == current);
+        };
+        if (settled ()) {
+            return true;
+        }
+        var deadline = new TimeoutSource (5000);
+        bool resumed = false;
+        bool expired = false;
+        SourceFunc finish = () => {
+            if (!resumed && settled ()) {
+                resumed = true;
+                deadline.destroy ();
+                wait_for_processing.callback ();
+            }
+            return Source.REMOVE;
+        };
+        ulong default_handler = physical_default_changed.connect ((changed_input) => {
+            if (changed_input == input) {
+                finish ();
+            }
+        });
+        ulong selection_handler = device_selection_finished.connect (() => finish ());
+        ulong busy_handler = echo_cancellation.notify["busy"].connect (() => finish ());
+        ulong master_handler = echo_cancellation.notify[input ? "source-master" : "sink-master"].connect (() => finish ());
+        deadline.set_callback (() => {
+            expired = true;
+            resumed = true;
+            wait_for_processing.callback ();
+            return Source.REMOVE;
+        });
+        deadline.attach ();
+        yield;
+        disconnect (default_handler);
+        disconnect (selection_handler);
+        echo_cancellation.disconnect (busy_handler);
+        echo_cancellation.disconnect (master_handler);
+        // A queued selector rechecks and reserves the guard without yielding.
+        return !expired && (target == null || settled ());
+    }
+
+    private async void restore_external_routes (bool input, string target, uint generation) {
+        var owner = context;
+        // Rescued AEC streams must be reattached before we enumerate ordinary
+        // applications on the physical device.
+        do {
+            if (!(yield wait_for_processing (input, target, generation)) || owner != context ||
+                generation != (input ? source_selection_generation : sink_selection_generation)) {
+                return;
+            }
+        } while (echo_cancellation.busy);
+        var streams = yield list_application_streams (input);
+        if (owner == context) {
+            yield restore_application_routes (input, target, generation, streams);
+        }
+    }
+
+    private void update_stream_route (PulseAudio.Context c, PulseAudio.ExtStreamRestoreInfo? info, int eol, bool input, string? target) {
+        if (eol != 0 || info == null || target == null ||
+            target == (input ? EchoCancellation.SOURCE_NAME : EchoCancellation.SINK_NAME) ||
+            info.device == (input ? EchoCancellation.SOURCE_NAME : EchoCancellation.SINK_NAME) ||
+            (info.device == null && echo_cancellation.requested) ||
+            !info.name.has_prefix (input ? "source-output-by" : "sink-input-by")) {
             return;
         }
 
-        // We need to duplicate the info but with the right device name
         var new_info = PulseAudio.ExtStreamRestoreInfo ();
         new_info.name = info.name;
         new_info.channel_map = info.channel_map;
         new_info.volume = info.volume;
         new_info.mute = info.mute;
-        new_info.device = default_source_name;
-        PulseAudio.ext_stream_restore_write (c, PulseAudio.UpdateMode.REPLACE, {new_info}, 1, null);
+        new_info.device = target;
+        PulseAudio.ext_stream_restore_write (c, PulseAudio.UpdateMode.REPLACE, {new_info}, 0, (owner, success) => {
+            if (success != 1) {
+                warning ("Updating application route failed");
+            }
+        });
     }
 
     /*
