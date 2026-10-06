@@ -12,7 +12,7 @@ User preferences take precedence over recommendations. Invalid profiles remain
 unavailable; a supported operation failure can be recovered by an explicit
 changed preference after the daemon revalidates the graph.
 
-Private integration checks use the companion daemon source and vendor graph
+Private integration checks use the companion daemon source and vendor marker policy
 and profile, in the existing SDK without `/dev/snd`:
 
 ```

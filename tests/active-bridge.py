@@ -24,11 +24,12 @@ generic = bool(generic_case)
 node_name = 'alsa_output.pci-0000_00_1f.3.analog-stereo' if generic else 'elementary.eq.test'
 legacy = os.environ.get('EQ_LEGACY') == '1'
 cache_probe = os.environ.get('EQ_TEST_CACHE_PARAMS') == '1'
-evidence = base / ('bridge-generic-'+generic_case if generic else 'bridge-cache-results' if cache_probe else 'bridge-legacy-results' if legacy else 'bridge-results')
+restart_probe = os.environ.get('EQ_SERVER_RESTART_TEST') == '1'
+evidence = base / ('bridge-server-restart-results' if restart_probe else 'bridge-generic-'+generic_case if generic else 'bridge-cache-results' if cache_probe else 'bridge-legacy-results' if legacy else 'bridge-results')
 evidence.mkdir(exist_ok=True)
 runtime = Path(tempfile.mkdtemp(prefix='vale-sound-eq-bridge-'))
 profiles = Path(os.environ['EQ_TEST_PROFILE_DIR'])
-assert profiles.parent.parent == Path('/root') and profiles.parent.name.startswith('elementary-eq-bridge.')
+assert profiles.parent.parent == Path.home() and profiles.parent.name.startswith('elementary-eq-bridge.')
 profiles.mkdir(exist_ok=True)
 daemon_source = Path(os.environ['EQ_DAEMON_SOURCE'])
 profile_id = 'generic-speakers-v1' if generic else 'fixture-v1'
@@ -141,6 +142,10 @@ def props(identifier=None):
     values = {k:float(v) for k,v in re.findall(r'String "(eos_eq_[^"]+)"\s+Float ([-\d.eE+]+)', text)}
     return values
 
+def bypassed(identifier=None):
+    node = sink_id if identifier is None else identifier
+    return not props(node) and 'eos_eq_' not in run(['pw-cli', 'enum-params', str(node), 'PropInfo'], False)
+
 def curve(gains, headroom, identifier=None):
     values = props(identifier)
     return all(abs(values.get(f'eos_eq_{i+1}:Gain', 999)-g) < .001 for i,g in enumerate(gains)) and abs(values.get('eos_eq_h:Mult', 999)-headroom) < .00001
@@ -164,25 +169,7 @@ def native_clients():
             str(o.get('info',{}).get('props',{}).get('application.process.id'))==str(owner.pid) and
             o['info']['props'].get('client.api') != 'pipewire-pulse']
 
-try:
-    bus = start('bus', ['dbus-daemon', '--session', '--nofork', '--print-address=1'], stdout=subprocess.PIPE, text=True)
-    assert select.select([bus.stdout], [], [], 3)[0]
-    env['DBUS_SESSION_BUS_ADDRESS'] = bus.stdout.readline().strip()
-    server = start('pipewire', ['pipewire'])
-    wait(lambda:(runtime/'elementary-eq-bridge').exists())
-    card = start('card', [str(base/'bridge-device')], stdout=subprocess.PIPE, text=True)
-    assert select.select([card.stdout], [], [], 3)[0]
-    card_id = int(card.stdout.readline())
-    pulse = start('pulse', ['pipewire-pulse'])
-    start('wireplumber', ['wireplumber'])
-    wait(lambda:(runtime/'native').exists())
-    if generic:
-        marker = run([str(base/'graph-rules'), node_name]).strip()
-        check('native_rule_order_selects_expected_profile', marker == profile_id)
-        check('declared_invalid_profile_is_not_overridden',
-              run([str(base/'graph-rules'), 'alsa_output.other', 'invalid-oem-v1']).strip() == 'invalid-oem-v1')
-        check('non_alsa_output_has_no_generic_marker',
-              run([str(base/'graph-rules'), 'bluez_output.fixture']).strip() == '')
+def create_fixture():
     cli([
         f'create-node adapter {{ factory.name = support.null-audio-sink node.name = {node_name} '
         f'media.class = Audio/Sink device.id = {card_id} card.profile.device = 0 '
@@ -193,6 +180,30 @@ try:
         'media.class = Audio/Source audio.channels = 2 audio.position = [ FL FR ] '
         'priority.session = 2000 object.linger = true }'
     ])
+
+try:
+    bus = start('bus', ['dbus-daemon', '--session', '--nofork', '--print-address=1'], stdout=subprocess.PIPE, text=True)
+    assert select.select([bus.stdout], [], [], 3)[0]
+    env['DBUS_SESSION_BUS_ADDRESS'] = bus.stdout.readline().strip()
+    server = start('pipewire', ['pipewire'])
+    wait(lambda:(runtime/'elementary-eq-bridge').exists())
+    card = start('card', [str(base/'bridge-device')], stdout=subprocess.PIPE, text=True)
+    assert select.select([card.stdout], [], [], 3)[0]
+    card_id = int(card.stdout.readline())
+    if restart_probe:
+        create_fixture()
+    pulse = start('pulse', ['pipewire-pulse'])
+    wireplumber = start('wireplumber', ['wireplumber'])
+    wait(lambda:(runtime/'native').exists())
+    if generic:
+        marker = run([str(base/'graph-rules'), node_name]).strip()
+        check('native_rule_order_selects_expected_profile', marker == profile_id)
+        check('declared_invalid_profile_is_not_overridden',
+              run([str(base/'graph-rules'), 'alsa_output.other', 'invalid-oem-v1']).strip() == 'invalid-oem-v1')
+        check('non_alsa_output_has_no_generic_marker',
+              run([str(base/'graph-rules'), 'bluez_output.fixture']).strip() == '')
+    if not restart_probe:
+        create_fixture()
     wait(lambda:any(s['name']==node_name for s in sinks()))
     if generic_case == 'oem-independent-graph':
         run(['pw-cli','set-param',str(card_id),'Route','{ index = 1 device = 0 }'])
@@ -218,7 +229,7 @@ try:
     fmt = dict(mediaType='audio', mediaSubtype='raw', format='F32P', rate=48000, channels=2, position=['FL','FR'])
     cli([f'set-param {tone_id} PortConfig '+json.dumps(dict(direction='Output', mode='dsp', format=fmt)),
          f'set-param {sink_id} PortConfig '+json.dumps(dict(direction='Input', mode='dsp', format=fmt)),
-         *([] if generic else [f'set-param {sink_id} Props '+json.dumps(dict(params=['audioconvert.filter-graph.0', graph]))]),
+         *([ ] if not (legacy or cache_probe) else [f'set-param {sink_id} Props '+json.dumps(dict(params=['audioconvert.filter-graph.0', graph]))]),
          f'set-param {sink_id} Props '+json.dumps(dict(channelVolumes=[.7,.35],mute=True))])
     for channel in ('FL','FR'): run(['pw-link', f'elementary.eq.tone:capture_{channel}', f'{node_name}:playback_{channel}'])
     run(['pw-cli','enum-params',str(sink_id),'PropInfo'])
@@ -239,11 +250,8 @@ try:
         wait(lambda:any(sink['name'] == hdmi_name for sink in sinks()))
         hdmi_id = next(o['id'] for o in objects() if o.get('info',{}).get('props',{}).get('node.name') == hdmi_name)
         run(['pactl','set-default-sink',hdmi_name])
-    if generic:
-        wait(lambda:len(props()) == 48)
-        metadata = run(['pw-cli','enum-params',str(sink_id),'Props'])
-        check('only_one_shipped_neutral_graph', curve([0]*5,1) and
-              len(re.findall(r'String "(eos_eq_[^"]+)"', metadata)) == 48)
+    if not (legacy or cache_probe):
+        check('no_graph_before_processing_is_enabled', bypassed())
     owner = start('audio-owner', [str(base/'bridge-audio-owner')])
     run(['gdbus','wait','--session','--timeout=5','io.elementary.settings-daemon'])
     env['GTK_A11Y']='none'
@@ -286,7 +294,7 @@ try:
             (profiles/(profile_id+'.ini')).unlink()
             run(['pactl','set-default-sink',next_name])
             wait(lambda:receive().get('node') == next_name and last.get('available') and last.get('applied'))
-            check('removed_previous_profile_does_not_block_new_output', curve([0]*5,1,next_id))
+            check('removed_previous_profile_does_not_block_new_output', bypassed(next_id))
             raise SystemExit(0)
         if generic_case not in ('valid', 'oem-valid'):
             expected_error = {
@@ -302,7 +310,7 @@ try:
             check('declared_oem_or_untrusted_profile_fails_closed', True)
             send('on')
             time.sleep(.3)
-            check('invalid_profile_enable_does_not_fallback', curve([0]*5,1) and not receive()['available'])
+            check('invalid_profile_enable_does_not_fallback', bypassed() and not receive()['available'])
             raise SystemExit(0)
         if generic_case == 'oem-valid':
             recommended = [7.5,8,-0.5,1.5,.5]
@@ -322,7 +330,7 @@ try:
             send('gtk-gain 0 -6')
             wait(lambda:receive().get('applied') and curve([-6,8,-0.5,1.5,.5],1))
             send('gtk-toggle')
-            wait(lambda:not receive().get('enabled',True) and last.get('applied') and curve([0]*5,1))
+            wait(lambda:not receive().get('enabled',True) and last.get('applied') and bypassed())
             check('native_oem_off_retains_saved_gains', last['gains'] == [-6,8,-0.5,1.5,.5])
             path = profiles/(profile_id+'.ini')
             path.write_text(path.read_text().replace('DefaultGains=7.5;8;-0.5;1.5;0.5;', 'DefaultGains=0;0;0;0;0;'))
@@ -338,7 +346,7 @@ try:
         check('selected_hdmi_has_neutral_independent_preferences',
               not last['enabled'] and last['gains'] == [0]*5 and last['route'] == 'hdmi-output-0')
         run(['pactl','set-default-sink',node_name])
-        wait(lambda:receive().get('available') and last.get('applied'))
+        wait(lambda:receive().get('node') == node_name and last.get('available') and last.get('applied'))
         check('hdmi_default_to_speakers_discovers_generic_eq', last['node'] == node_name)
         unused_card = start('unused-card', [str(base/'bridge-device'), 'elementary.eq.unused-card'],
             stdout=subprocess.PIPE, text=True)
@@ -354,13 +362,14 @@ try:
         check('never_started_output_has_no_initialized_controls', 'eos_eq_1:Gain' not in props(unused_id))
         run(['pactl','set-default-sink',unused_name])
         wait(lambda:receive().get('node') == unused_name and last.get('available') and not last.get('busy'))
-        check('never_started_output_waits_without_writing', not last['applied'] and not last['error'])
+        check('never_started_off_output_needs_no_graph', last['applied'] and not last['error'] and bypassed(unused_id))
         run(['pactl','set-default-sink',node_name])
         wait(lambda:receive().get('node') == node_name and last.get('applied'))
         check('never_started_default_switch_releases_untouched_graph', 'eos_eq_1:Gain' not in props(unused_id))
         run(['pw-cli','destroy',str(unused_id)])
         run(['pw-cli','destroy',str(hdmi_id)])
         check('generic_defaults_are_empty', last['defaults_count'] == 0 and last['gains'] == [0]*5)
+        run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',graph]))])
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-7.]))])
         wait(lambda:receive().get('error') and last.get('available') and not last.get('applied'))
         check('generic_off_failure_remains_supported', not last['enabled'] and last['gtk_switch_sensitive'])
@@ -374,7 +383,7 @@ try:
         wait(lambda:receive().get('error') and last.get('gtk_switch_sensitive') and last.get('available') and not last.get('applied'))
         check('generic_normalized_default_stays_failed', last['gains'] == [0]*5 and curve([-7,0,0,0,0],1))
         send('gtk-toggle')
-        wait(lambda:not receive().get('enabled',True) and last.get('applied') and curve([0]*5,1))
+        wait(lambda:not receive().get('enabled',True) and last.get('applied') and bypassed())
         check('generic_failed_off_recovers_with_normalized_default', True)
         send('on')
         wait(lambda:receive().get('enabled') and last.get('applied'))
@@ -395,7 +404,7 @@ try:
         send('gtk-gain 0 3')
         wait(lambda:receive().get('applied') and curve([3,0,0,0,0],1))
         run(['pw-cli','set-param',str(card_id),'Route','{ index = 1 device = 0 }'])
-        wait(lambda:receive().get('route')=='analog-output-headphones' and curve([0]*5,1))
+        wait(lambda:receive().get('route')=='analog-output-headphones' and bypassed())
         send('select-output '+node_name+' analog-output-headphones')
         wait(lambda:receive().get('gtk_switch_sensitive'))
         check('generic_headphones_have_neutral_independent_preferences',
@@ -409,7 +418,7 @@ try:
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-7.]))])
         wait(lambda:receive().get('error') and last.get('available'))
         send('gtk-toggle')
-        wait(lambda:not receive().get('enabled',True) and not last.get('error') and curve([0]*5,1))
+        wait(lambda:not receive().get('enabled',True) and not last.get('error') and bypassed())
         check('explicit_off_on_headphones_revalidates_failed_bypass', last['gains'] == [-6,0,0,0,0])
         run(['pw-cli','set-param',str(card_id),'Route','{ index = 0 device = 0 }'])
         send('select-output '+node_name+' analog-output-speaker')
@@ -442,17 +451,17 @@ try:
               not last['applied'] and curve([3,0,0,0,0],1))
         run(['pactl','set-default-sink',usb_name])
         wait(lambda:receive().get('node') == usb_name and last.get('available') and last.get('applied'))
-        check('two_speaker_defaults_retire_idle_old_graph', curve([0]*5,1) and curve([0]*5,1,usb_id))
+        check('two_speaker_defaults_retire_idle_old_graph', bypassed() and bypassed(usb_id))
         check('new_output_hides_old_physical_panel', not last['gtk_switch_sensitive'])
         send('on')
         time.sleep(.5)
         send('gain')
         wait(lambda:receive().get('applied') and curve([-6,0,0,0,0],1,usb_id))
-        check('second_output_custom_uses_its_own_preferences', curve([0]*5,1))
+        check('second_output_custom_uses_its_own_preferences', bypassed())
         linked(True)
         run(['pactl','set-default-sink',node_name])
         wait(lambda:receive().get('node') == node_name and last.get('applied') and curve([3,0,0,0,0],1))
-        check('return_to_first_output_restores_preferences_and_neutralizes_second', curve([0]*5,1,usb_id))
+        check('return_to_first_output_restores_preferences_and_removes_second_graph', bypassed(usb_id))
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Freq',201.]))])
         wait(lambda:receive().get('error') and not last.get('applied'))
         run(['pactl','set-default-sink',usb_name])
@@ -468,10 +477,55 @@ try:
         check('no_second_visible_output', len(sinks()) == 1)
         raise SystemExit(0)
     wait(lambda:receive().get('available') and last.get('applied'))
-    if not legacy: check('initial_off_is_flat_unity', curve([0]*5,1))
+    if not legacy: check('initial_off_has_no_graph', bypassed())
     send('on')
     wait(lambda:receive().get('enabled') and last.get('applied') and curve([-1,-2,-3,-4,-5],1))
     check('model_daemon_pulse_native_default_applied', True)
+    if restart_probe:
+        old_properties = next(o['info']['props'] for o in objects() if o['id'] == sink_id)
+        run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-8.]))])
+        wait(lambda:receive().get('error') and not last.get('applied'))
+        for process in (wireplumber, pulse, card, server):
+            if process.poll() is None:
+                process.terminate()
+            process.wait(timeout=5)
+        wait(lambda:not receive().get('available'))
+        # Keep the reconnecting owner from allocating globals before the
+        # replacement fixture has recreated the original IDs.
+        owner.send_signal(signal.SIGSTOP)
+        try:
+            server = start('new-pipewire', ['pipewire'])
+            wait(lambda:(runtime/'elementary-eq-bridge').exists())
+            card = start('new-card', [str(base/'bridge-device')], stdout=subprocess.PIPE, text=True)
+            assert select.select([card.stdout], [], [], 3)[0]
+            card_id = int(card.stdout.readline())
+            create_fixture()
+            pulse = start('new-pulse', ['pipewire-pulse'])
+            wireplumber = start('new-wireplumber', ['wireplumber'])
+            wait(lambda:(runtime/'native').exists())
+            wait(lambda:any(s['name'] == node_name for s in sinks()))
+            nodes = objects()
+            sink_id = next(n['id'] for n in nodes if n.get('info',{}).get('props',{}).get('node.name') == node_name)
+            tone_id = next(n['id'] for n in nodes if n.get('info',{}).get('props',{}).get('node.name') == 'elementary.eq.tone')
+            cli([f'set-param {tone_id} PortConfig '+json.dumps(dict(direction='Output',mode='dsp',format=fmt)),
+                 f'set-param {sink_id} PortConfig '+json.dumps(dict(direction='Input',mode='dsp',format=fmt))])
+            linked(True)
+            run(['pactl','set-default-sink',node_name])
+        finally:
+            owner.send_signal(signal.SIGCONT)
+        wait(lambda:receive().get('enabled') and last.get('applied') and curve([-1,-2,-3,-4,-5],1), 15)
+        check('new_server_restores_saved_eq_after_failed_old_graph', owner.poll() is None)
+        new_properties = next(o['info']['props'] for o in objects() if o['id'] == sink_id)
+        identity_keys = ('object.serial', 'device.id')
+        (evidence/'server-restart.json').write_text(json.dumps(dict(
+            before={key:old_properties[key] for key in identity_keys},
+            after={key:new_properties[key] for key in identity_keys}))+'\n')
+        check('new_server_reuses_request_identifiers',
+              all(old_properties[key] == new_properties[key] for key in identity_keys))
+        send('off')
+        wait(lambda:receive().get('applied') and bypassed())
+        check('new_server_off_removes_graph', True)
+        raise SystemExit(0)
     settings_path = re.search(r'/io/elementary/settings-daemon/audio/equalizer/[0-9a-f]+/', backend_status()).group()
     schema = 'io.elementary.settings-daemon.audio.equalizer:' + settings_path
     run(['gsettings','set',schema,'gains','[1000., -2., -3., -4., -5.]'])
@@ -507,7 +561,7 @@ try:
         send('reset')
         wait(lambda:receive().get('applied') and curve([-1,-2,-3,-4,-5],1))
         send('off')
-        wait(lambda:not receive().get('enabled',True) and last.get('applied') and curve([0]*5,1))
+        wait(lambda:not receive().get('enabled',True) and last.get('applied') and bypassed())
         wait(lambda:receive().get('gtk_switch_sensitive') and last.get('aec_available'))
         send('aec-on')
         wait(lambda:receive().get('aec_enabled') and not last.get('aec_busy') and last.get('applied') and last.get('gtk_switch_sensitive'))
@@ -526,11 +580,11 @@ try:
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-8.]))])
         wait(lambda:receive().get('error') and last.get('gtk_switch_sensitive') and last.get('gtk_bands_sensitive'))
         send('gtk-toggle')
-        wait(lambda:not receive().get('gtk_on',True) and last.get('applied') and curve([0]*5,1))
+        wait(lambda:not receive().get('gtk_on',True) and last.get('applied') and bypassed())
         check('real_gtk_failed_off_recovers_unity_with_owned_aec', last['aec_enabled'])
         send('aec-off')
         wait(lambda:not receive().get('aec_enabled',True) and not last.get('aec_busy'))
-        check('owned_aec_disables_without_changing_eq_controls', curve([0]*5,1))
+        check('owned_aec_disables_without_attaching_eq', bypassed())
         check('failed_off_withdraws_preference_and_bypasses', True)
         send('on'); wait(lambda:receive().get('enabled') and last.get('applied') and curve([-1,-2,-3,-4,-5],1))
         send('zero'); wait(lambda:receive().get('applied') and curve([0]*5,1))
@@ -539,7 +593,7 @@ try:
         send('gain'); wait(lambda:receive().get('applied') and curve([-6,-2,-3,-4,-5],1))
         check('explicit_custom_keeps_unity_gain', True)
         run(['pw-cli','set-param',str(card_id),'Route','{ index = 1 device = 0 }'])
-        wait(lambda:receive().get('route')=='fixture-headphones' and curve([0]*5,1))
+        wait(lambda:receive().get('route')=='fixture-headphones' and bypassed())
         check('headphones_do_not_inherit_oem_recommendations',
               last['available'] and not last['enabled'] and last['defaults_count'] == 0 and last['gains'] == [0]*5)
         run(['pw-cli','set-param',str(card_id),'Route','{ index = 0 device = 0 }'])
@@ -563,7 +617,7 @@ try:
             time.sleep(1.2)
             check('foreign_idle_'+control.split(':')[1]+'_survives_resume', curve(expected,headroom))
             send('off')
-            wait(lambda:not receive().get('enabled',True) and last.get('applied') and curve([0]*5,1))
+            wait(lambda:not receive().get('enabled',True) and last.get('applied') and bypassed())
             send('on')
             wait(lambda:receive().get('enabled') and last.get('applied') and curve([-6,-2,-3,-4,-5],1))
         clients = native_clients()
@@ -590,32 +644,36 @@ try:
         check('pulse_bridge_restart_retains_failure_and_foreign_gains',
               owner.poll() is None and not last['applied'] and curve([-8,-2,-3,-4,-5],1))
         send('off')
-        wait(lambda:not receive().get('enabled',True) and last.get('applied') and curve([0]*5,1))
+        wait(lambda:not receive().get('enabled',True) and last.get('applied') and bypassed())
         send('invalid-gains')
         time.sleep(.3)
-        check('nonfinite_out_of_range_and_invalid_band_refused', curve([0]*5,1))
+        check('nonfinite_out_of_range_and_invalid_band_refused', bypassed())
         linked(False)
-        wait(lambda:not receive().get('applied'))
+        wait(lambda:next(o['info']['state'] for o in objects() if o['id'] == sink_id) in ('idle', 'suspended'))
+        wait(lambda:receive().get('applied') and bypassed())
         send('on')
-        wait(lambda:receive().get('enabled') and not last.get('busy'))
-        check('explicit_idle_request_waits_for_running_node', not last['applied'])
+        # The preference arrives before the daemon has reconciled the request.
+        wait(lambda:receive().get('enabled') and not last.get('busy') and not last.get('applied'))
+        check('explicit_idle_request_waits_for_running_node', bypassed())
         run(['pw-cli','destroy',str(native_clients()[0]['id'])])
         wait(lambda:receive().get('error'))
+        run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',graph]))])
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-8.]))])
         linked(True)
         wait(lambda:len(native_clients()) == 1 and receive().get('error') and not last.get('applied'))
         time.sleep(.5)
         check('idle_write_authority_is_revoked_on_disconnect', curve([-8,0,0,0,0],1))
         send('off')
-        wait(lambda:receive().get('applied') and curve([0]*5,1))
+        wait(lambda:receive().get('applied') and bypassed())
         linked(False)
-        wait(lambda:not receive().get('applied'))
+        wait(lambda:next(o['info']['state'] for o in objects() if o['id'] == sink_id) in ('idle', 'suspended'))
+        wait(lambda:receive().get('applied') and bypassed())
         send('on')
-        wait(lambda:receive().get('enabled') and not last.get('busy'))
+        wait(lambda:receive().get('enabled') and not last.get('busy') and not last.get('applied'))
         send('off')
         wait(lambda:not receive().get('enabled',True) and not last.get('busy'))
         linked(True)
-        wait(lambda:receive().get('applied') and curve([0]*5,1))
+        wait(lambda:receive().get('applied') and bypassed())
         check('superseded_idle_request_never_applies_old_gains', True)
         # Queue a real Props notification while the owner is stopped, then stall
         # the server before allowing its async audit to issue enumeration.
@@ -632,9 +690,9 @@ try:
         finally:
             server.send_signal(signal.SIGCONT)
         wait(lambda:receive().get('applied') and len(native_clients())==1)
-        check('deadline_cancellation_reconnects_without_old_write', curve([0]*5,1))
+        check('deadline_cancellation_reconnects_without_old_write', bypassed())
         run(['pw-cli','set-param',str(sink_id),'Props','{ mute = true }'])
-        run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.1',graph]))])
+        run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',graph,'audioconvert.filter-graph.1',graph]))])
         wait(lambda:receive().get('error') and not last['applied'])
         check('duplicate_reserved_namespace_fails_closed', not last['applied'])
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.1','']))])
