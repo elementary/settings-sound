@@ -84,6 +84,9 @@ public class Sound.InputPanel : Switchboard.SettingsPage {
         echo_switch = new Gtk.Switch () {
             valign = START
         };
+        echo_switch.state_set.connect (() => {
+            return true;
+        });
         echo_switch_handler = echo_switch.notify["active"].connect (() => {
             echo_cancellation.request (echo_switch.active);
         });
