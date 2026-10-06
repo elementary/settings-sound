@@ -110,7 +110,12 @@ public class Sound.SpeakerEqualizer : Object {
         changed ();
     }
 
-    private void preferences_changed () { changed (); }
+    private void preferences_changed () {
+        generation++;
+        pending = false;
+        status.applied = false;
+        changed ();
+    }
 
     private void refresh () {
         pending = true;

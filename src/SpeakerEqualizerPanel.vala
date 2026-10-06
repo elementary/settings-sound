@@ -14,6 +14,8 @@ public class Sound.SpeakerEqualizerPanel : Gtk.Box {
     private Gtk.Label[] values = {};
     private Device? device;
     private bool updating;
+    private string confirmed_profile = "";
+    private bool confirmed_enabled;
 
     construct {
         orientation = VERTICAL;
@@ -50,6 +52,9 @@ public class Sound.SpeakerEqualizerPanel : Gtk.Box {
         append (reset);
         append (feedback);
         enabled.notify["active"].connect (() => { if (!updating) equalizer.enable (enabled.active); });
+        enabled.state_set.connect (() => {
+            return true;
+        });
         reset.clicked.connect (equalizer.reset);
         equalizer.changed.connect (update);
         map.connect (() => equalizer.start ());
@@ -77,8 +82,18 @@ public class Sound.SpeakerEqualizerPanel : Gtk.Box {
         // for the newly selected physical output.
         bool matches = device != null && status.node == device.card_sink_name && status.route == device.port_name;
         enabled.visible = reset.visible = matches;
-        if (enabled.active != equalizer.requested) enabled.active = equalizer.requested;
-        enabled.sensitive = matches && (status.available || enabled.active);
+        if (!matches || confirmed_profile != status.settings_path) {
+            confirmed_enabled = false;
+        }
+        confirmed_profile = matches ? status.settings_path : "";
+        if (matches && status.applied) {
+            confirmed_enabled = equalizer.requested;
+        }
+        enabled.state = confirmed_enabled;
+        if (enabled.active != equalizer.requested) {
+            enabled.active = equalizer.requested;
+        }
+        enabled.sensitive = matches && !status.busy && (status.available || enabled.active);
         reset.sensitive = matches && status.available;
         bands.sensitive = matches && status.available;
         var gains = equalizer.get_gains ();
