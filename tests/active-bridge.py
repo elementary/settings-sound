@@ -371,7 +371,7 @@ try:
         check('generic_defaults_are_empty', last['defaults_count'] == 0 and last['gains'] == [0]*5)
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',graph]))])
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['eos_eq_1:Gain',-7.]))])
-        wait(lambda:receive().get('error') and last.get('available') and not last.get('applied'))
+        wait(lambda:receive().get('error') and last.get('available') and not last.get('applied') and not last.get('busy'))
         check('generic_off_failure_remains_supported', not last['enabled'] and last['gtk_switch_sensitive'])
         send('gtk-toggle')
         wait(lambda:receive().get('enabled') and last.get('applied') and curve([0]*5,1))
@@ -691,6 +691,29 @@ try:
             server.send_signal(signal.SIGCONT)
         wait(lambda:receive().get('applied') and len(native_clients())==1)
         check('deadline_cancellation_reconnects_without_old_write', bypassed())
+        # A profile marker does not grant ownership of an existing graph.
+        # Exercise both ordinary foreign controls and a graph with no controls.
+        for foreign in (
+            dict(nodes=[dict(type='builtin',name='foreign',label='linear',control=dict(Mult=.7))]),
+            dict(nodes=[dict(type='builtin',name='foreign',label='copy')]),
+        ):
+            run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',json.dumps(foreign)]))])
+            wait(lambda:receive().get('error') and not last['applied'])
+            before_foreign = run(['pw-cli','enum-params',str(sink_id),'Props'])
+            send('on')
+            wait(lambda:receive().get('enabled') and last.get('error') and not last['busy'])
+            time.sleep(.3)
+            check('foreign_graph_'+foreign['nodes'][0]['label']+'_survives_enable',
+                  before_foreign == run(['pw-cli','enum-params',str(sink_id),'Props']) and not last['applied'])
+            send('off')
+            wait(lambda:not receive().get('enabled') and last.get('error') and not last['busy'])
+            check('foreign_graph_'+foreign['nodes'][0]['label']+'_survives_disable',
+                  before_foreign == run(['pw-cli','enum-params',str(sink_id),'Props']))
+            run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0','']))])
+            send('on')
+            wait(lambda:receive().get('applied') and not last['error'])
+            send('off')
+            wait(lambda:receive().get('applied') and bypassed())
         run(['pw-cli','set-param',str(sink_id),'Props','{ mute = true }'])
         run(['pw-cli','set-param',str(sink_id),'Props',json.dumps(dict(params=['audioconvert.filter-graph.0',graph,'audioconvert.filter-graph.1',graph]))])
         wait(lambda:receive().get('error') and not last['applied'])

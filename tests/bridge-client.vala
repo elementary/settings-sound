@@ -25,6 +25,7 @@ private void snapshot () {
     b.set_member_name ("route"); b.add_string_value (s.route);
     b.set_member_name ("defaults_count"); b.add_int_value (s.defaults.length);
     b.set_member_name ("gtk_on"); b.add_boolean_value (toggle.active);
+    b.set_member_name ("gtk_switch_state"); b.add_boolean_value (toggle.state);
     b.set_member_name ("gtk_switch_sensitive"); b.add_boolean_value (toggle.sensitive);
     b.set_member_name ("gtk_bands_sensitive"); b.add_boolean_value (bands.sensitive);
     b.set_member_name ("aec_available"); b.add_boolean_value (echo.available);
