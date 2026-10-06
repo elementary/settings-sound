@@ -99,6 +99,30 @@ Sound.Device other_device (bool input, string suffix = "2") {
     return device;
 }
 
+async void check_device_updates (Sound.PulseAudioManager pam) {
+    var device = other_device (false);
+    int64 start = get_monotonic_time ();
+    assert (yield pam.wait_for_update (device, "sink-name"));
+    assert (get_monotonic_time () - start < 500000);
+    print ("PASS device already published before waiting\n");
+
+    device.sink_name = null;
+    Timeout.add (20, () => {
+        device.sink_name = "physical_output2";
+        return Source.REMOVE;
+    });
+    assert (yield pam.wait_for_update (device, "sink-name"));
+    print ("PASS subsequent device notification completes waiting\n");
+
+    device.sink_name = null;
+    Timeout.add (20, () => {
+        device.removed ();
+        return Source.REMOVE;
+    });
+    assert (!(yield pam.wait_for_update (device, "sink-name")));
+    print ("PASS removed device cancels waiting\n");
+}
+
 // Smoke test the real InputPanel's switch, including programmatic state updates.
 int main () {
     assert (Environment.get_variable ("PULSE_SERVER").has_prefix ("unix:/tmp/vale-sound-"));
@@ -127,6 +151,7 @@ int main () {
         }
     });
     uint phase = 0;
+    bool updates_checked = false;
     int64 clicked_at = 0;
     bool external_sink = false;
     bool external_source = false;
@@ -156,7 +181,14 @@ int main () {
             return Source.CONTINUE;
         }
 
-        if (phase == 0) {
+        if (phase == 0 && !updates_checked) {
+            phase = 90;
+            check_device_updates.begin (pam, (obj, result) => {
+                check_device_updates.end (result);
+                updates_checked = true;
+                phase = 0;
+            });
+        } else if (phase == 0) {
             assert (!toggle.active && toggle.sensitive);
             toggle.activate ();
             clicked_at = get_monotonic_time ();

@@ -137,7 +137,15 @@ public class Sound.PulseAudioManager : GLib.Object {
                 if (!(yield set_card_profile_by_index (device.card_index, profile_name))) {
                     return;
                 }
-                // wait for new card sink to appear
+                // Discard names from the old profile, then query the server's
+                // current endpoints. A subscription update may already be cached.
+                string endpoint_property = device.input ? "card-source-name" : "card-sink-name";
+                device.set (endpoint_property, null);
+                var endpoints = device.input ? context.get_source_info_list (source_info_callback) :
+                    context.get_sink_info_list (sink_info_callback);
+                if (!(yield wait_operation (endpoints))) {
+                    return;
+                }
                 debug ("wait for card sink / source");
                 if (!(yield wait_for_update (device, device.input? "card-source-name" : "card-sink-name"))) {
                     return;
@@ -240,7 +248,13 @@ public class Sound.PulseAudioManager : GLib.Object {
         return true;
     }
 
-    private async bool wait_for_update (Device device, string prop_name) {
+    internal async bool wait_for_update (Device device, string prop_name) {
+        string current_value;
+        device.get (prop_name, out current_value);
+        if (current_value != null) {
+            return true;
+        }
+
         bool success = false;
         bool finished = false;
         var deadline = new TimeoutSource (5000);
