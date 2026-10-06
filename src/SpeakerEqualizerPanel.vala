@@ -46,8 +46,8 @@ public class Sound.SpeakerEqualizerPanel : Gtk.Box {
         feedback = new Gtk.Label ("") { wrap = true, xalign = 0 };
         feedback.add_css_class ("dim-label");
         append (header);
-        append (reset);
         append (bands);
+        append (reset);
         append (feedback);
         enabled.notify["active"].connect (() => { if (!updating) equalizer.enable (enabled.active); });
         reset.clicked.connect (equalizer.reset);

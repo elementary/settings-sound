@@ -5,7 +5,7 @@
  * Authored by: Corentin Noël <corentin@elementary.io>
  */
 
-public class Sound.InputPanel : Gtk.Box {
+public class Sound.InputPanel : Switchboard.SettingsPage {
     private Device? default_device = null;
     private Gtk.LevelBar level_bar;
     private Gtk.ListBox devices_listbox;
@@ -19,8 +19,15 @@ public class Sound.InputPanel : Gtk.Box {
     private bool monitor_visible;
     private unowned PulseAudioManager pam;
 
+    public InputPanel () {
+        Object (
+            title: _("Input"),
+            icon: new ThemedIcon ("audio-input-microphone")
+        );
+    }
+
     construct {
-        margin_bottom = 12;
+        show_end_title_buttons = true;
 
         var no_device_grid = new Granite.Placeholder (
             _("No Connected Audio Devices Detected")
@@ -30,8 +37,7 @@ public class Sound.InputPanel : Gtk.Box {
         };
 
         devices_listbox = new Gtk.ListBox () {
-            activate_on_single_click = true,
-            vexpand = true
+            activate_on_single_click = true
         };
         devices_listbox.set_placeholder (no_device_grid);
         devices_listbox.add_css_class (Granite.STYLE_CLASS_RICH_LIST);
@@ -40,12 +46,8 @@ public class Sound.InputPanel : Gtk.Box {
             pam.set_default_device.begin (((Sound.DeviceRow) row).device);
         });
 
-        var scrolled = new Gtk.ScrolledWindow () {
-            child = devices_listbox
-        };
-
         var devices_frame = new Gtk.Frame (null) {
-            child = scrolled
+            child = devices_listbox
         };
 
         var volume_label = new Granite.HeaderLabel (_("Input Volume"));
@@ -110,11 +112,11 @@ public class Sound.InputPanel : Gtk.Box {
         echo_grid.attach (echo_status, 0, 2);
         echo_grid.attach (echo_switch, 1, 0, 1, 2);
 
-        orientation = VERTICAL;
-        spacing = 18;
-        append (devices_frame);
-        append (volume_grid);
-        append (echo_grid);
+        var content_box = new Gtk.Box (VERTICAL, 18);
+        content_box.append (devices_frame);
+        content_box.append (volume_grid);
+        content_box.append (echo_grid);
+        child = content_box;
 
         device_monitor = new InputDeviceMonitor ();
         device_monitor.update_fraction.connect ((fraction) => {

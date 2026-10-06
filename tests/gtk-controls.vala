@@ -32,10 +32,10 @@ int main () {
     var window = new Gtk.Window () { child = panel, default_width = 600, default_height = 450 };
     var header = (Gtk.Box) panel.get_first_child ();
     var toggle = (Gtk.Switch) header.get_last_child ();
-    var reset = (Gtk.Button) header.get_next_sibling ();
-    var bands = (Gtk.Grid) reset.get_next_sibling ();
+    var bands = (Gtk.Grid) header.get_next_sibling ();
+    var reset = (Gtk.Button) bands.get_next_sibling ();
     var slider = (Gtk.Scale) bands.get_child_at (1, 0);
-    var feedback = (Gtk.Label) bands.get_next_sibling ();
+    var feedback = (Gtk.Label) reset.get_next_sibling ();
     uint phase = 0;
     window.present ();
     Timeout.add (50, () => {

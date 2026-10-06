@@ -5,8 +5,16 @@
 * Authored by: Leonhard Kargl <leo.kargl@proton.me>
 */
 
-public class Sound.ApplicationsPanel : Gtk.Box {
+public class Sound.ApplicationsPanel : Switchboard.SettingsPage {
+    public ApplicationsPanel () {
+        Object (
+            title: _("Applications"),
+            icon: new ThemedIcon ("preferences-desktop-apps")
+        );
+    }
+
     construct {
+        show_end_title_buttons = true;
         var pulse_audio_manager = PulseAudioManager.get_default ();
 
         var placeholder = new Granite.Placeholder (_("No applications currently emitting sounds")) {
@@ -20,23 +28,18 @@ public class Sound.ApplicationsPanel : Gtk.Box {
         list_box.set_placeholder (placeholder);
         list_box.add_css_class (Granite.STYLE_CLASS_RICH_LIST);
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            child = list_box,
-            vexpand = true
-        };
-
         var frame = new Gtk.Frame (null) {
-            child = scrolled_window
+            child = list_box
         };
 
         var reset_button = new Gtk.Button.with_label (_("Reset all apps to default")) {
             halign = END
         };
 
-        orientation = VERTICAL;
-        spacing = 12;
-        append (frame);
-        append (reset_button);
+        var content_box = new Gtk.Box (VERTICAL, 12);
+        content_box.append (frame);
+        content_box.append (reset_button);
+        child = content_box;
 
         // TODO: Reset also non active applications
         reset_button.clicked.connect (() => {

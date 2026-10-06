@@ -52,8 +52,8 @@ int main () {
     var window = new Gtk.Window () { child = panel, default_width = 600, default_height = 450 };
     var header = (Gtk.Box) panel.get_first_child ();
     toggle = (Gtk.Switch) header.get_last_child ();
-    reset = (Gtk.Button) header.get_next_sibling ();
-    bands = (Gtk.Grid) reset.get_next_sibling ();
+    bands = (Gtk.Grid) header.get_next_sibling ();
+    reset = (Gtk.Button) bands.get_next_sibling ();
     window.present ();
     loop = new MainLoop ();
     model.changed.connect (snapshot);

@@ -6,7 +6,7 @@
  */
 
 public class Sound.Plug : Switchboard.Plug {
-    private Gtk.Box box;
+    private Gtk.Paned paned;
     private Gtk.Stack stack;
     private InputPanel input_panel;
 
@@ -28,55 +28,50 @@ public class Sound.Plug : Switchboard.Plug {
     }
 
     public override Gtk.Widget get_widget () {
-        if (box == null) {
+        if (paned == null) {
             var output_panel = new OutputPanel ();
             input_panel = new InputPanel ();
             var applications_panel = new ApplicationsPanel ();
 
             stack = new Gtk.Stack () {
-                hexpand = true,
-                vexpand = true,
-                margin_start = 12,
-                margin_end = 12,
-                margin_bottom = 12
+                vhomogeneous = false
             };
-            stack.add_titled (output_panel, "output", _("Output"));
-            stack.add_titled (input_panel, "input", _("Input"));
-            stack.add_titled (applications_panel, "applications", _("Applications"));
+            stack.add_named (output_panel, "output");
+            stack.add_named (input_panel, "input");
+            stack.add_named (applications_panel, "applications");
 
-            var stack_switcher = new Gtk.StackSwitcher () {
-                halign = Gtk.Align.CENTER,
-                stack = stack
-            };
-            ((Gtk.BoxLayout) stack_switcher.layout_manager).homogeneous = true;
-
-            var clamp = new Adw.Clamp () {
-                child = stack
+            var sidebar = new Switchboard.SettingsSidebar (stack) {
+                show_title_buttons = true
             };
 
-            var headerbar = new Adw.HeaderBar () {
-                title_widget = stack_switcher
+            paned = new Gtk.Paned (HORIZONTAL) {
+                start_child = sidebar,
+                resize_start_child = false,
+                shrink_start_child = false,
+                end_child = stack,
+                shrink_end_child = false
             };
-            headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-            box = new Gtk.Box (VERTICAL, 0);
-            box.append (headerbar);
-            box.append (clamp);
+            var schema = SettingsSchemaSource.get_default ().lookup ("io.elementary.settings", true);
+            if (schema != null && schema.has_key ("sidebar-position")) {
+                var settings = new Settings ("io.elementary.settings");
+                settings.bind ("sidebar-position", paned, "position", DEFAULT);
+            }
 
             var pam = PulseAudioManager.get_default ();
             pam.start ();
 
             stack.notify["visible-child"].connect (() => {
-                input_panel.set_visibility (stack.visible_child == input_panel);
+                input_panel.set_visibility (stack.visible_child_name == "input");
             });
         }
 
-        return box;
+        return paned;
     }
 
     public override void shown () {
-        box.show ();
-        if (stack.visible_child == input_panel) {
+        paned.show ();
+        if (stack.visible_child_name == "input") {
             input_panel.set_visibility (true);
         }
     }

@@ -105,7 +105,7 @@ int main () {
     Gtk.init ();
     var panel = new Sound.InputPanel ();
     var window = new Gtk.Window () { child = panel, default_width = 700, default_height = 550 };
-    var grid = (Gtk.Grid) panel.get_last_child ();
+    var grid = (Gtk.Grid) panel.child.get_last_child ();
     var toggle = (Gtk.Switch) grid.get_child_at (1, 0);
     var pam = Sound.PulseAudioManager.get_default ();
     var loop = new MainLoop ();
