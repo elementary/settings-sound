@@ -176,6 +176,11 @@ def run():
     FIXTURE.joinpath(KIND+'-audio-api.xml').write_text(api)
     assert '<method name="GetStatus">' in api and '<method name="Start">' not in api
 
+    if os.environ.get("AEC_WITH_EQ") == "1":
+        eq = subprocess.check_output(['gdbus','call','--session','--dest','io.elementary.settings-daemon',
+            '--object-path','/io/elementary/settings_daemon','--method','io.elementary.settings_daemon.Audio.GetEqualizerStatus'],env=ENV,text=True)
+        assert eq.startswith('((false,'), eq
+        ok('EQ unavailable without a root profile; existing AEC API remains present')
 
     if UI_ONLY:
         client.stop();ui_smoke();return

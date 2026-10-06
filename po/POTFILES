@@ -10,3 +10,5 @@ src/InputPanel.vala
 src/InputDeviceMonitor.vala
 src/DeviceRow.vala
 src/Device.vala
+src/SpeakerEqualizer.vala
+src/SpeakerEqualizerPanel.vala
