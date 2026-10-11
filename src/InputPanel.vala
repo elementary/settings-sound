@@ -12,6 +12,7 @@ public class Sound.InputPanel : Gtk.Box {
     private Gtk.Scale volume_scale;
     private Gtk.Switch volume_switch;
     private InputDeviceMonitor device_monitor;
+    private uint monitor_timeout_id = 0;
     private unowned PulseAudioManager pam;
 
     construct {
@@ -81,7 +82,16 @@ public class Sound.InputPanel : Gtk.Box {
 
         device_monitor = new InputDeviceMonitor ();
         device_monitor.update_fraction.connect ((fraction) => {
-            level_bar.value = fraction;
+            if (fraction >= level_bar.value) {
+                level_bar.value = fraction;
+                return;
+            }
+
+            monitor_timeout_id = Timeout.add (1, () => {
+                level_bar.value = level_bar.value * 0.95;
+                monitor_timeout_id = 0;
+                return Source.REMOVE;
+            });
         });
 
         pam = PulseAudioManager.get_default ();
