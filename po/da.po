@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: switchboard-plug-about\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-22 01:23+0000\n"
-"PO-Revision-Date: 2026-10-24 21:04+0000\n"
+"PO-Revision-Date: 2026-10-27 02:49+0000\n"
 "Last-Translator: CodeBeats <nicholai67@hotmail.com>\n"
 "Language-Team: Danish <https://l10n.elementaryos.org/projects/settings/sound/"
 "da/>\n"
@@ -76,10 +76,8 @@ msgid "Applications"
 msgstr "Applikationer"
 
 #: src/Plug.vala:96 src/OutputPanel.vala:89
-#, fuzzy
-#| msgid "Event alerts:"
 msgid "Event Alerts"
-msgstr "Begivenheds lyde:"
+msgstr "Hændelsesalarmer"
 
 #: src/Plug.vala:97 src/Plug.vala:104
 msgid "Port"
